@@ -1,165 +1,45 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>عطور الريف | ALREEF PERFUMES</title>
-
 <style>
-:root{--gold:#d9ae60;--bg:#12100e}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:#f9f1e4;font-family:Tahoma,Arial,sans-serif}
-header{display:flex;align-items:center;justify-content:space-between;padding:19px 7%;background:#15120f;position:sticky;top:0;z-index:2;border-bottom:1px solid #554128}
-.brand{color:var(--gold);font-size:24px;font-weight:bold}
-nav a{color:#f4e9d4;text-decoration:none;margin:0 12px}
-button{background:var(--gold);border:0;border-radius:6px;padding:12px 20px;cursor:pointer;font-weight:bold;color:#21180c}
-button:disabled{opacity:.5;cursor:not-allowed}
-.hero{min-height:520px;background:linear-gradient(90deg,rgba(15,11,8,.1),rgba(15,11,8,.82)),url('hero.png') center/cover;display:flex;align-items:center;padding:8%}
-.hero-content{max-width:470px;background:#100d09a8;padding:25px;border-radius:12px}
-.hero h1{font-size:clamp(32px,5vw,60px);color:var(--gold);margin:0}
-.hero p{line-height:2}
-.section{padding:65px 7%;text-align:center}
-h2{color:var(--gold)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px;margin-top:35px}
-.card{background:#211b16;border:1px solid #5b4528;border-radius:12px;padding:24px}
-.bottle{font-size:80px;padding:30px;background:radial-gradient(circle,#614323,#231b14);border-radius:10px}
-.price{color:var(--gold);font-weight:bold;font-size:22px}
-.cart{position:fixed;bottom:20px;left:20px;background:var(--gold);color:#21180c;padding:15px;border-radius:30px;box-shadow:0 5px 30px #0009}
-footer{text-align:center;padding:35px;border-top:1px solid #4c3922;color:#cdbb9e}
-@media(max-width:650px){nav{display:none}.hero{min-height:430px;background-position:65% center}.hero-content{padding:16px}}
+:root{--gold:#d9ae60;--bg:#12100e;--panel:#211b16;--line:#5b4528}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f9f1e4;font-family:Tahoma,Arial,sans-serif}header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:19px 7%;background:#15120f;position:sticky;top:0;z-index:2;border-bottom:1px solid #554128}.brand{color:var(--gold);font-size:24px;font-weight:bold}nav a{color:#f4e9d4;text-decoration:none;margin:0 12px}button{background:var(--gold);border:0;border-radius:6px;padding:12px 20px;cursor:pointer;font-weight:bold;color:#21180c}button:disabled{opacity:.5;cursor:not-allowed}.hero{min-height:520px;background:linear-gradient(90deg,rgba(15,11,8,.1),rgba(15,11,8,.82)),url('hero.png') center/cover;display:flex;align-items:center;padding:8%}.hero-content{max-width:470px;background:#100d09a8;padding:25px;border-radius:12px}.hero h1{font-size:clamp(32px,5vw,60px);color:var(--gold);margin:0}.hero p{line-height:2}.section{padding:65px 7%;text-align:center}h2{color:var(--gold)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px;margin-top:35px}.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:24px}.bottle{font-size:80px;padding:30px;background:radial-gradient(circle,#614323,#231b14);border-radius:10px}.product-image{width:100%;height:180px;object-fit:contain;border-radius:10px;background:#302319}.price{color:var(--gold);font-weight:bold;font-size:22px}.cart{position:fixed;bottom:20px;left:20px;background:var(--gold);color:#21180c;padding:15px;border-radius:30px;box-shadow:0 5px 30px #0009}footer{text-align:center;padding:35px;border-top:1px solid #4c3922;color:#cdbb9e}.overlay{position:fixed;inset:0;background:#000b;z-index:5;display:flex;align-items:center;justify-content:center;padding:15px}.hidden{display:none!important}.dialog{background:#1b1612;border:1px solid var(--line);border-radius:16px;padding:24px;width:min(580px,100%);max-height:90vh;overflow:auto}.dialog-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.dialog-head h2{margin:0}.secondary{background:transparent;color:var(--gold);border:1px solid var(--gold)}.cart-row{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid #554128;padding:16px 0;flex-wrap:wrap}.cart-actions{display:flex;align-items:center;gap:8px}.cart-actions button{padding:7px 11px}.summary{margin:20px 0;padding:15px;background:#30241a;border-radius:10px}.field{display:flex;flex-direction:column;gap:7px;margin:12px 0;text-align:right}.field input,.field select,.field textarea{width:100%;background:#120f0c;border:1px solid #72562f;color:#fff;padding:12px;border-radius:7px;font:inherit}.note{color:#e5c995;font-size:14px;line-height:1.9}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}.status{color:#f0cb87;min-height:22px}@media(max-width:650px){nav{display:none}.hero{min-height:430px;background-position:65% center}.hero-content{padding:16px}.brand{font-size:20px}header{padding:15px 4%}}
 </style>
 </head>
-
 <body>
-<header>
-<div class="brand">عطور الريف ✦</div>
-<nav>
-<a href="#home">الرئيسية</a>
-<a href="#products">العطور</a>
-<a href="#about">من نحن</a>
-</nav>
-<button onclick="showCart()">السلة (<span id="count">0</span>)</button>
-</header>
-
-<section class="hero" id="home">
-<div class="hero-content">
-<h1>عطور الريف</h1>
-<p>عبير أصيل من قلب الطبيعة<br>عطور فاخرة مستوحاة من جمال الطبيعة وعبق التراث العربي.</p>
-<a href="#products"><button>تسوق الآن ←</button></a>
-</div>
-</section>
-
-<section class="section" id="products">
-<h2>مجموعتنا المختارة</h2>
-<p>اكتشف عطور الريف الفاخرة</p>
-<div class="grid" id="items">جارٍ تحميل المنتجات...</div>
-</section>
-
-<section class="section" id="about">
-<h2>عن عطور الريف</h2>
-<p>هوية عطرية عربية تجمع الأصالة والفخامة.</p>
-</section>
-
+<header><div class="brand">عطور الريف ✦</div><nav><a href="#home">الرئيسية</a><a href="#products">العطور</a><a href="#about">من نحن</a></nav><button id="headerCart">السلة (<span id="count">0</span>)</button></header>
+<section class="hero" id="home"><div class="hero-content"><h1>عطور الريف</h1><p>عبير أصيل من قلب الطبيعة<br>عطور فاخرة مستوحاة من جمال الطبيعة وعبق التراث العربي.</p><a href="#products"><button>تسوق الآن ←</button></a></div></section>
+<section class="section" id="products"><h2>مجموعتنا المختارة</h2><p>اكتشف عطور الريف الفاخرة</p><div class="grid" id="items" aria-live="polite">جارٍ تحميل المنتجات...</div></section>
+<section class="section" id="about"><h2>عن عطور الريف</h2><p>هوية عطرية عربية تجمع الأصالة والفخامة.</p><p class="note">المتجر قيد التجهيز، والطلبات والدفع الإلكتروني غير مفعّلين حاليًا.</p></section>
 <footer>© 2026 عطور الريف — جميع الحقوق محفوظة</footer>
-
-<button class="cart" onclick="showCart()">🛒 السلة: <span id="total">0</span> ر.س</button>
-
+<button class="cart" id="floatingCart">🛒 السلة: <span id="total">0</span> ر.س</button>
+<div id="cartOverlay" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="cartTitle"><div class="dialog"><div class="dialog-head"><h2 id="cartTitle">سلة المشتريات</h2><button class="secondary" id="closeCart" aria-label="إغلاق">✕</button></div><div id="cartRows"></div><div class="summary"><strong>الإجمالي: <span id="cartTotal">0</span> ر.س</strong><p class="note">الأسعار والمخزون تُعرض لأغراض التجربة. الإجمالي لا يشمل الشحن أو الضرائب المحتملة.</p></div><div class="actions"><button id="checkoutBtn">متابعة إلى بيانات العميل</button><button class="secondary" id="clearCart">تفريغ السلة</button></div></div></div>
+<div id="checkoutOverlay" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle"><div class="dialog"><div class="dialog-head"><h2 id="checkoutTitle">بيانات التوصيل (تجربة)</h2><button class="secondary" id="closeCheckout" aria-label="إغلاق">✕</button></div><p class="note">هذه معاينة لنموذج إتمام الطلب فقط. لا يتم إرسال بياناتك أو حفظها على الخادم، ولا يوجد دفع أو طلب فعلي.</p><form id="checkoutForm"><label class="field">الاسم الكامل<input name="customer_name" autocomplete="name" required maxlength="100"></label><label class="field">رقم الجوال السعودي<input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="05xxxxxxxx" required pattern="(?:05[0-9]{8}|\+9665[0-9]{8})"></label><label class="field">المدينة<input name="city" required maxlength="80" autocomplete="address-level2"></label><label class="field">العنوان<textarea name="address" required maxlength="350" autocomplete="street-address"></textarea></label><div class="summary" id="checkoutSummary"></div><p class="status" id="checkoutStatus">إرسال الطلبات غير مفعل حتى تجهيز خدمة خلفية آمنة وبوابة دفع.</p><div class="actions"><button type="button" disabled title="سيُفعّل بعد إعداد الطلبات الآمنة">تأكيد الطلب والدفع (قريبًا)</button><button type="button" class="secondary" id="backToCart">العودة للسلة</button></div></form></div></div>
 <script>
-const SUPABASE_URL = "https://tymlbijnrjzeojnfbivb.supabase.co";
-const SUPABASE_KEY = "sb_publishable_oOMBvhSlla4O7d4QQ4jhAw_0gD0tQD0";
-
-let products = [];
-let cart = [];
-
-async function loadProducts() {
-  const container = document.getElementById("items");
-
-  try {
-    const response = await fetch(
-      `${SUPABASE_URL}/rest/v1/products?select=id,name,description,price,stock&is_active=eq.true&order=created_at.asc`,
-      {
-        headers: {
-          "apikey": SUPABASE_KEY
-        }
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("Failed to load products: " + response.status);
-    }
-
-    products = await response.json();
-    container.replaceChildren();
-
-    if (products.length === 0) {
-      container.textContent = "لا توجد منتجات متاحة حاليًا.";
-      return;
-    }
-
-    products.forEach((p, i) => {
-      const card = document.createElement("article");
-      card.className = "card";
-
-      const bottle = document.createElement("div");
-      bottle.className = "bottle";
-      bottle.textContent = "♜";
-
-      const name = document.createElement("h3");
-      name.textContent = p.name;
-
-      const desc = document.createElement("p");
-      desc.textContent = p.description || "";
-
-      const price = document.createElement("p");
-      price.className = "price";
-      price.textContent = `${p.price} ر.س`;
-
-      const button = document.createElement("button");
-      button.textContent = p.stock > 0 ? "أضف للسلة" : "نفدت الكمية";
-      button.disabled = p.stock <= 0;
-      button.addEventListener("click", () => add(i));
-
-      card.append(bottle, name, desc, price, button);
-      container.appendChild(card);
-    });
-
-  } catch (error) {
-    console.error(error);
-    container.textContent = "تعذر تحميل المنتجات. حاول تحديث الصفحة.";
-  }
-}
-
-function add(i) {
-  const product = products[i];
-  const inCart = cart.filter(p => p.id === product.id).length;
-
-  if (inCart >= product.stock) {
-    alert("لا توجد كمية إضافية متاحة.");
-    return;
-  }
-
-  cart.push(product);
-  document.getElementById("count").textContent = cart.length;
-  document.getElementById("total").textContent =
-    cart.reduce((sum, p) => sum + Number(p.price), 0);
-}
-
-function showCart() {
-  if (!cart.length) {
-    alert("السلة فارغة. أضف عطرًا أولاً.");
-    return;
-  }
-
-  const details = cart.map(p =>
-    `${p.name} — ${p.price} ر.س`
-  ).join("\n");
-
-  const total = cart.reduce((sum, p) => sum + Number(p.price), 0);
-
-  alert(`سلتك التجريبية:\n${details}\nالإجمالي: ${total} ر.س`);
-}
-
-loadProducts();
+'use strict';
+const SUPABASE_URL='https://tymlbijnrjzeojnfbivb.supabase.co';
+const SUPABASE_KEY='sb_publishable_oOMBvhSlla4O7d4QQ4jhAw_0gD0tQD0';
+const CART_KEY='alreef_cart_v1';
+let products=[];
+let cart={};
+const $=id=>document.getElementById(id);
+const money=n=>Number(n).toLocaleString('ar-SA',{maximumFractionDigits:2});
+function readCart(){try{const data=JSON.parse(localStorage.getItem(CART_KEY)||'{}');if(data&&typeof data==='object'&&!Array.isArray(data)){for(const [id,qty] of Object.entries(data)){if(typeof id==='string'&&Number.isSafeInteger(qty)&&qty>0&&qty<=999)cart[id]=qty;}}}catch(e){cart={};}}
+function saveCart(){try{localStorage.setItem(CART_KEY,JSON.stringify(cart));}catch(e){}renderTotals();}
+function reconcileCart(){const available=new Map(products.map(p=>[p.id,p]));for(const [id,qty] of Object.entries(cart)){const p=available.get(id);if(!p||p.stock<=0)delete cart[id];else cart[id]=Math.min(qty,p.stock);}saveCart();}
+function getLines(){return products.filter(p=>cart[p.id]>0).map(p=>({p,qty:cart[p.id]}));}
+function cartTotal(){return getLines().reduce((sum,{p,qty})=>sum+Number(p.price)*qty,0);}
+function renderTotals(){$('count').textContent=Object.values(cart).reduce((a,b)=>a+b,0);$('total').textContent=money(cartTotal());$('cartTotal').textContent=money(cartTotal());}
+async function loadProducts(){const container=$('items');try{const response=await fetch(`${SUPABASE_URL}/rest/v1/products?select=id,name,description,price,stock,image_url&is_active=eq.true&order=created_at.asc`,{headers:{apikey:SUPABASE_KEY}});if(!response.ok)throw new Error(`HTTP ${response.status}`);const rows=await response.json();if(!Array.isArray(rows))throw new Error('Invalid response');products=rows.map(p=>({...p,stock:Math.max(0,Math.floor(Number(p.stock)||0))}));reconcileCart();container.replaceChildren();if(!products.length){container.textContent='لا توجد منتجات متاحة حاليًا.';return;}for(const p of products){const card=document.createElement('article');card.className='card';if(p.image_url&&/^https:\/\//i.test(p.image_url)){const img=document.createElement('img');img.className='product-image';img.src=p.image_url;img.alt=p.name;img.loading='lazy';card.append(img);}else{const bottle=document.createElement('div');bottle.className='bottle';bottle.textContent='♜';card.append(bottle);}const name=document.createElement('h3');name.textContent=p.name;const desc=document.createElement('p');desc.textContent=p.description||'';const price=document.createElement('p');price.className='price';price.textContent=`${money(p.price)} ر.س`;const button=document.createElement('button');button.textContent=p.stock>0?'أضف للسلة':'نفدت الكمية';button.disabled=p.stock<=0;button.addEventListener('click',()=>add(p.id));card.append(name,desc,price,button);container.append(card);}}catch(error){console.error('Product loading error',error);container.textContent='تعذر تحميل المنتجات. حاول تحديث الصفحة.';}}
+function add(id){const p=products.find(p=>p.id===id);if(!p)return;if((cart[id]||0)>=p.stock){alert('لا توجد كمية إضافية متاحة.');return;}cart[id]=(cart[id]||0)+1;saveCart();}
+function changeQty(id,delta){const p=products.find(p=>p.id===id);if(!p)return;const next=(cart[id]||0)+delta;if(next<=0)delete cart[id];else if(next<=p.stock)cart[id]=next;else{alert('الكمية المطلوبة تتجاوز المخزون المتاح.');return;}saveCart();renderCart();}
+function renderCart(){const rows=$('cartRows');rows.replaceChildren();const lines=getLines();if(!lines.length){const p=document.createElement('p');p.textContent='السلة فارغة. أضف عطرًا أولًا.';rows.append(p);}for(const {p,qty} of lines){const row=document.createElement('div');row.className='cart-row';const label=document.createElement('div');const strong=document.createElement('strong');strong.textContent=p.name;const detail=document.createElement('div');detail.textContent=`${money(p.price)} ر.س × ${qty} = ${money(Number(p.price)*qty)} ر.س`;label.append(strong,detail);const actions=document.createElement('div');actions.className='cart-actions';const minus=document.createElement('button');minus.textContent='−';minus.setAttribute('aria-label',`تقليل كمية ${p.name}`);minus.onclick=()=>changeQty(p.id,-1);const number=document.createElement('span');number.textContent=qty;const plus=document.createElement('button');plus.textContent='+';plus.setAttribute('aria-label',`زيادة كمية ${p.name}`);plus.disabled=qty>=p.stock;plus.onclick=()=>changeQty(p.id,1);const remove=document.createElement('button');remove.className='secondary';remove.textContent='حذف';remove.onclick=()=>{delete cart[p.id];saveCart();renderCart();};actions.append(minus,number,plus,remove);row.append(label,actions);rows.append(row);}$('checkoutBtn').disabled=!lines.length;renderTotals();}
+function showCart(){$('checkoutOverlay').classList.add('hidden');renderCart();$('cartOverlay').classList.remove('hidden');}
+function showCheckout(){if(!getLines().length)return;$('cartOverlay').classList.add('hidden');$('checkoutSummary').textContent=`${Object.values(cart).reduce((a,b)=>a+b,0)} قطعة — إجمالي المنتجات: ${money(cartTotal())} ر.س (لا يشمل الشحن)`;$('checkoutOverlay').classList.remove('hidden');}
+readCart();renderTotals();loadProducts();
+$('headerCart').onclick=showCart;$('floatingCart').onclick=showCart;$('closeCart').onclick=()=>$('cartOverlay').classList.add('hidden');$('closeCheckout').onclick=()=>$('checkoutOverlay').classList.add('hidden');$('checkoutBtn').onclick=showCheckout;$('backToCart').onclick=showCart;$('clearCart').onclick=()=>{cart={};saveCart();renderCart();};$('checkoutForm').onsubmit=e=>e.preventDefault();
+for(const overlay of [$('cartOverlay'),$('checkoutOverlay')])overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.classList.add('hidden');});document.addEventListener('keydown',e=>{if(e.key==='Escape'){$('cartOverlay').classList.add('hidden');$('checkoutOverlay').classList.add('hidden');}});
 </script>
 </body>
 </html>
