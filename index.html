@@ -563,8 +563,19 @@ return getLines().reduce((sum,{p,qty})=>sum+Number(p.price)*qty,0);
 }
 
 function shippingFee(city,subtotal){
-if(subtotal>=300)return 0;
-return ['نجران','najran'].includes(String(city||'').trim().toLowerCase())?25:30;
+  if(subtotal>=300)return 0;
+
+  const c=String(city||'').trim().toLowerCase();
+
+  const najran=[
+    'نجران','najran',
+    'شرورة','sharurah',
+    'حبونا','خباش',
+    'بدر الجنوب','يدمة',
+    'ثار','الخرخير'
+  ];
+
+  return najran.includes(c)?25:30;
 }
 
 function renderTotals(){
