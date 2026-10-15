@@ -1964,8 +1964,10 @@ $('checkoutForm').onsubmit=async e=>{
 
     }
 
+    // رقم الطلب المختصر للعرض
+    // إذا لم يصل من الخادم، نعرض الرقم الداخلي احتياطيًا
     const orderId=String(
-      result.order_id||''
+      result.order_code || result.order_id || ''
     );
 
     const subtotal=
