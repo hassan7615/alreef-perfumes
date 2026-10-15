@@ -830,14 +830,20 @@ async function loadOrders(){
       save.type='button';
       save.disabled=true;
 
-      if(o.status==='cancelled'){
+      if(
+        o.status==='cancelled' ||
+        o.status==='shipped'
+      ){
         select.disabled=true;
         save.disabled=true;
       }
 
       select.addEventListener('change',()=>{
 
-        if(o.status==='cancelled'){
+        if(
+          o.status==='cancelled' ||
+          o.status==='shipped'
+        ){
           select.value=o.status;
           save.disabled=true;
           return;
@@ -882,22 +888,22 @@ async function loadOrders(){
 
         save.disabled=true;
 
-        const {data,error}=await supabase
-          .from('orders')
-          .update({
-            status:select.value
-          })
-          .eq('id',o.id)
-          .eq('status',o.status)
-          .select('id,status');
+        // التحديث الآن عبر دالة إدارية آمنة
+        const {data,error}=await supabase.rpc(
+          'admin_update_order_status',
+          {
+            p_order_id:o.id,
+            p_new_status:select.value
+          }
+        );
 
-        if(error||!data?.length){
+        if(error||!data?.success){
 
           msg(
             'لم يتم تحديث الحالة: '+
             (
               error?.message||
-              'قد تكون الحالة تغيرت من جهاز آخر'
+              'تعذر تأكيد تغيير الحالة'
             ),
             'error'
           );
@@ -906,7 +912,7 @@ async function loadOrders(){
           return;
         }
 
-        o.status=data[0].status;
+        o.status=data.status;
 
         msg(
           'تم تحديث حالة الطلب '+code+' بنجاح.',
