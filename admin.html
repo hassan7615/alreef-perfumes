@@ -207,7 +207,7 @@ button:disabled{
   min-height:25px;
 }
 
-/* صندوق البحث */
+/* البحث */
 
 .search-card{
   border:1px solid #d9c7aa;
@@ -282,6 +282,7 @@ a{
 <body>
 
 <header>
+
   <h1>🌿 عطور الريف | إدارة الطلبات</h1>
 
   <button
@@ -290,6 +291,7 @@ a{
   >
     تسجيل الخروج
   </button>
+
 </header>
 
 <main>
@@ -391,7 +393,7 @@ a{
       <input
         id="orderSearch"
         type="search"
-        placeholder="مثال: محمد أو 05 أو رقم الطلب"
+        placeholder="مثال: AR-100012 أو محمد أو 05"
         autocomplete="off"
         spellcheck="false"
       >
@@ -460,6 +462,29 @@ const money = n =>
   `${Number(n ?? 0).toLocaleString('ar-SA',{
     maximumFractionDigits:2
   })} ر.س`;
+
+/* =====================================
+   رقم الطلب المختصر
+===================================== */
+
+function orderCode(order){
+
+  const raw=order.order_number;
+
+  if(
+    raw!==null &&
+    raw!==undefined &&
+    raw!=='' &&
+    /^\d+$/.test(String(raw)) &&
+    Number(raw)>0
+  ){
+    return 'AR-'+String(raw);
+  }
+
+  // استخدام المعرف الداخلي عند غياب الرقم المختصر
+  return String(order.id||'—');
+
+}
 
 const msg = (text,kind='') => {
   $('message').textContent=text;
@@ -847,9 +872,12 @@ async function loadOrders(){
         'card order'
       );
 
-      // البيانات التي يشملها البحث
+      const code=orderCode(o);
 
+      // البحث بالرقم المختصر أو UUID أو بيانات العميل
       card.dataset.search=[
+        code,
+        o.order_number,
         o.id,
         o.customer_name,
         o.customer_phone
@@ -858,7 +886,7 @@ async function loadOrders(){
       card.append(
         el(
           'h3',
-          'طلب #'+o.id
+          '📦 طلب '+code
         ),
 
         el(
@@ -1017,7 +1045,7 @@ async function loadOrders(){
 
       select.setAttribute(
         'aria-label',
-        'حالة الطلب '+o.id
+        'حالة الطلب '+code
       );
 
       for(
@@ -1084,7 +1112,7 @@ async function loadOrders(){
 
           if(
             !confirm(
-              'تأكيد تغيير حالة الطلب؟'
+              'تأكيد تغيير حالة الطلب '+code+'؟'
             )
           ){
             return;
@@ -1126,7 +1154,7 @@ async function loadOrders(){
           o.status=data[0].status;
 
           msg(
-            'تم تحديث حالة الطلب بنجاح.',
+            'تم تحديث حالة الطلب '+code+' بنجاح.',
             'success'
           );
 
@@ -1145,9 +1173,7 @@ async function loadOrders(){
 
     }
 
-    // تطبيق البحث بعد تحميل الطلبات
-    // والاحتفاظ بالنص المكتوب عند التحديث
-
+    // تطبيق البحث بعد التحميل
     filterOrders();
 
   }catch(error){
