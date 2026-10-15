@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <title>لوحة التحكم | عطور الريف</title>
 
 <style>
@@ -210,17 +209,12 @@ a{color:#365b46}
 
 <main>
 
-<section id="login" class="card hidden">
+<section id="login" class="card">
   <h2>دخول المدير</h2>
 
   <form id="loginForm">
     <label for="email">البريد الإلكتروني</label>
-    <input
-      id="email"
-      type="email"
-      autocomplete="username"
-      required
-    >
+    <input id="email" type="email" autocomplete="username" required>
 
     <label for="password">كلمة المرور</label>
     <input
@@ -231,9 +225,7 @@ a{color:#365b46}
     >
 
     <p>
-      <button id="loginButton" type="submit">
-        دخول
-      </button>
+      <button id="loginButton" type="submit">دخول</button>
     </p>
   </form>
 
@@ -250,7 +242,6 @@ a{color:#365b46}
     <button id="ordersTab" class="tab active" type="button">
       📦 إدارة الطلبات
     </button>
-
     <button id="productsTab" class="tab" type="button">
       🛍️ إدارة المنتجات والمخزون
     </button>
@@ -260,7 +251,6 @@ a{color:#365b46}
 
     <div class="row">
       <h2>📦 الطلبات</h2>
-
       <button id="refresh" class="secondary" type="button">
         🔄 تحديث الطلبات
       </button>
@@ -283,12 +273,7 @@ a{color:#365b46}
           autocomplete="off"
           spellcheck="false"
         >
-
-        <button
-          id="clearSearch"
-          type="button"
-          class="secondary"
-        >
+        <button id="clearSearch" type="button" class="secondary">
           ✕ مسح البحث
         </button>
       </div>
@@ -303,19 +288,13 @@ a{color:#365b46}
     </section>
 
     <div id="orders" class="orders"></div>
-
   </section>
 
   <section id="productsSection" class="hidden">
 
     <div class="row">
       <h2>🛍️ إدارة المنتجات والمخزون</h2>
-
-      <button
-        id="refreshProducts"
-        class="secondary"
-        type="button"
-      >
+      <button id="refreshProducts" class="secondary" type="button">
         🔄 تحديث المنتجات
       </button>
     </div>
@@ -327,20 +306,32 @@ a{color:#365b46}
     </p>
 
     <div id="inventoryStats" class="stats"></div>
-
-    <p
-      id="inventoryMessage"
-      role="status"
-      aria-live="polite"
-    ></p>
-
+    <p id="inventoryMessage" role="status" aria-live="polite"></p>
     <div id="productGrid" class="product-grid"></div>
 
   </section>
-
 </section>
 
 </main>
+
+<script>
+window.addEventListener('error',function(event){
+  const message=document.getElementById('message');
+  if(message){
+    message.textContent=
+      'حدث خطأ أثناء تشغيل لوحة التحكم: '+event.message;
+    message.className='error';
+  }
+});
+window.addEventListener('unhandledrejection',function(event){
+  const message=document.getElementById('message');
+  if(message){
+    message.textContent=
+      'تعذر تشغيل إحدى وظائف لوحة التحكم. تحقق من الاتصال بالإنترنت.';
+    message.className='error';
+  }
+});
+</script>
 
 <script type="module">
 
@@ -485,11 +476,7 @@ function filterOrders(){
 
   if(query&&visible===0&&total>0){
     $('orders').append(
-      el(
-        'div',
-        'لا توجد طلبات مطابقة للبحث.',
-        'empty-search'
-      )
+      el('div','لا توجد طلبات مطابقة للبحث.','empty-search')
     );
   }
 }
@@ -503,40 +490,42 @@ function show(isAdmin){
 }
 
 async function checkAdmin(){
-  const {data:{user},error:e}=
-    await supabase.auth.getUser();
+  try{
+    const {data:{user},error:e}=
+      await supabase.auth.getUser();
 
-  if(e||!user){
+    if(e||!user){
+      show(false);
+      return;
+    }
+
+    const {data,error}=await supabase.rpc('is_admin');
+
+    if(error){
+      show(false);
+      msg(
+        'تعذر التحقق من صلاحية المدير: '+error.message,
+        'error'
+      );
+      return;
+    }
+
+    if(data!==true){
+      show(false);
+      msg('هذا الحساب لا يملك صلاحية الإدارة.','error');
+      return;
+    }
+
+    show(true);
+    await loadOrders();
+
+  }catch(error){
     show(false);
-    return;
-  }
-
-  const {data,error}=await supabase.rpc('is_admin');
-
-  if(error){
-    show(false);
-
     msg(
-      'تعذر التحقق من صلاحية المدير: '+error.message,
+      'تعذر الاتصال بخدمة تسجيل الدخول: '+error.message,
       'error'
     );
-
-    return;
   }
-
-  if(data!==true){
-    show(false);
-
-    msg(
-      'هذا الحساب لا يملك صلاحية الإدارة.',
-      'error'
-    );
-
-    return;
-  }
-
-  show(true);
-  await loadOrders();
 }
 
 /* ========== الطلبات ========== */
@@ -559,14 +548,8 @@ async function loadOrders(){
       .limit(100);
 
     if(error){
-      msg(
-        'تعذر عرض الطلبات: '+error.message,
-        'error'
-      );
-
-      $('searchResult').textContent=
-        'تعذر تحميل بيانات البحث.';
-
+      msg('تعذر عرض الطلبات: '+error.message,'error');
+      $('searchResult').textContent='تعذر تحميل بيانات البحث.';
       return;
     }
 
@@ -574,47 +557,22 @@ async function loadOrders(){
     loadedOrders=list;
 
     const statistics=[
-      [
-        'إجمالي الطلبات المعروضة',
-        list.length
-      ],
-      [
-        'قيد الانتظار',
-        list.filter(o=>o.status==='pending').length
-      ],
-      [
-        'قيد التجهيز',
-        list.filter(o=>o.status==='processing').length
-      ],
-      [
-        'تم الشحن',
-        list.filter(o=>o.status==='shipped').length
-      ],
-      [
-        'الطلبات الملغية',
-        list.filter(o=>o.status==='cancelled').length
-      ]
+      ['إجمالي الطلبات المعروضة',list.length],
+      ['قيد الانتظار',list.filter(o=>o.status==='pending').length],
+      ['قيد التجهيز',list.filter(o=>o.status==='processing').length],
+      ['تم الشحن',list.filter(o=>o.status==='shipped').length],
+      ['الطلبات الملغية',list.filter(o=>o.status==='cancelled').length]
     ];
 
     for(const [title,count] of statistics){
       const card=el('div',undefined,'card stat');
-
-      card.append(
-        el('span',title),
-        el('strong',count)
-      );
-
+      card.append(el('span',title),el('strong',count));
       $('stats').append(card);
     }
 
     if(!list.length){
-      $('orders').append(
-        el('p','لا توجد طلبات حاليًا.')
-      );
-
-      $('searchResult').textContent=
-        'لا توجد طلبات للبحث.';
-
+      $('orders').append(el('p','لا توجد طلبات حاليًا.'));
+      $('searchResult').textContent='لا توجد طلبات للبحث.';
       msg('');
       return;
     }
@@ -639,7 +597,6 @@ async function loadOrders(){
 
     for(const item of items||[]){
       const existing=byOrder.get(item.order_id)||[];
-
       existing.push(item);
       byOrder.set(item.order_id,existing);
     }
@@ -657,20 +614,12 @@ async function loadOrders(){
         'error'
       );
     }else{
-      msg(
-        'تم تحميل '+list.length+' طلب.',
-        'success'
-      );
+      msg('تم تحميل '+list.length+' طلب.','success');
     }
 
     for(const o of list){
 
-      const card=el(
-        'article',
-        undefined,
-        'card order'
-      );
-
+      const card=el('article',undefined,'card order');
       const code=orderCode(o);
 
       card.dataset.search=[
@@ -693,8 +642,7 @@ async function loadOrders(){
           'p',
           'التاريخ: '+(
             o.created_at
-              ?new Date(o.created_at)
-                .toLocaleString('ar-SA')
+              ?new Date(o.created_at).toLocaleString('ar-SA')
               :'—'
           )
         )
@@ -712,15 +660,8 @@ async function loadOrders(){
 
       card.append(statusBadge);
 
-      const productsBox=el(
-        'div',
-        undefined,
-        'products'
-      );
-
-      productsBox.append(
-        el('strong','🛍️ المنتجات:')
-      );
+      const productsBox=el('div',undefined,'products');
+      productsBox.append(el('strong','🛍️ المنتجات:'));
 
       const orderItems=byOrder.get(o.id)||[];
 
@@ -750,30 +691,13 @@ async function loadOrders(){
         const unitPrice=Number(item.unit_price)||0;
         const lineTotal=quantity*unitPrice;
 
-        const productLine=el(
-          'div',
-          undefined,
-          'product-line'
-        );
+        const productLine=el('div',undefined,'product-line');
 
         productLine.append(
-          el(
-            'div',
-            '🌿 '+productName,
-            'product-name'
-          ),
-          el(
-            'div',
-            'الكمية: '+quantity
-          ),
-          el(
-            'div',
-            'سعر الوحدة: '+money(unitPrice)
-          ),
-          el(
-            'div',
-            'إجمالي المنتج: '+money(lineTotal)
-          )
+          el('div','🌿 '+productName,'product-name'),
+          el('div','الكمية: '+quantity),
+          el('div','سعر الوحدة: '+money(unitPrice)),
+          el('div','إجمالي المنتج: '+money(lineTotal))
         );
 
         productsBox.append(productLine);
@@ -786,14 +710,9 @@ async function loadOrders(){
       const label=el('label','حالة الطلب');
       const select=el('select');
 
-      select.setAttribute(
-        'aria-label',
-        'حالة الطلب '+code
-      );
+      select.setAttribute('aria-label','حالة الطلب '+code);
 
-      // الإلغاء لا يتم من القائمة العادية
       for(const [value,title] of Object.entries(statuses)){
-
         if(
           value==='cancelled' &&
           o.status!=='cancelled'
@@ -803,16 +722,11 @@ async function loadOrders(){
 
         const option=el('option',title);
         option.value=value;
-
         select.append(option);
       }
 
       if(!(o.status in statuses)){
-        const option=el(
-          'option',
-          'الحالة الحالية: '+o.status
-        );
-
+        const option=el('option','الحالة الحالية: '+o.status);
         option.value=o.status;
         select.append(option);
       }
@@ -822,11 +736,7 @@ async function loadOrders(){
       label.append(select);
       card.append(label);
 
-      const save=el(
-        'button',
-        'حفظ الحالة'
-      );
-
+      const save=el('button','حفظ الحالة');
       save.type='button';
       save.disabled=true;
 
@@ -853,14 +763,12 @@ async function loadOrders(){
           alert(
             'لإلغاء الطلب وإرجاع المخزون، استخدم زر إلغاء الطلب.'
           );
-
           select.value=o.status;
           save.disabled=true;
           return;
         }
 
-        save.disabled=
-          select.value===o.status;
+        save.disabled=select.value===o.status;
       });
 
       save.addEventListener('click',async()=>{
@@ -880,46 +788,45 @@ async function loadOrders(){
           return;
         }
 
-        if(!confirm(
-          'تأكيد تغيير حالة الطلب '+code+'؟'
-        )){
+        if(!confirm('تأكيد تغيير حالة الطلب '+code+'؟')){
           return;
         }
 
         save.disabled=true;
 
-        // التحديث الآن عبر دالة إدارية آمنة
-        const {data,error}=await supabase.rpc(
-          'admin_update_order_status',
-          {
-            p_order_id:o.id,
-            p_new_status:select.value
-          }
-        );
-
-        if(error||!data?.success){
-
-          msg(
-            'لم يتم تحديث الحالة: '+
-            (
-              error?.message||
-              'تعذر تأكيد تغيير الحالة'
-            ),
-            'error'
+        try{
+          const {data,error}=await supabase.rpc(
+            'admin_update_order_status',
+            {
+              p_order_id:o.id,
+              p_new_status:select.value
+            }
           );
 
+          if(error){
+            throw error;
+          }
+
+          if(!data?.success){
+            throw new Error('تعذر تأكيد تغيير الحالة');
+          }
+
+          o.status=data.status;
+
+          msg(
+            'تم تحديث حالة الطلب '+code+' بنجاح.',
+            'success'
+          );
+
+          await loadOrders();
+
+        }catch(error){
+          msg(
+            'لم يتم تحديث الحالة: '+error.message,
+            'error'
+          );
           save.disabled=false;
-          return;
         }
-
-        o.status=data.status;
-
-        msg(
-          'تم تحديث حالة الطلب '+code+' بنجاح.',
-          'success'
-        );
-
-        await loadOrders();
       });
 
       card.append(save);
@@ -936,77 +843,67 @@ async function loadOrders(){
 
         cancelButton.type='button';
 
-        cancelButton.addEventListener(
-          'click',
-          async()=>{
+        cancelButton.addEventListener('click',async()=>{
 
-            const confirmed=confirm(
-              'هل أنت متأكد من إلغاء الطلب '+
-              code+
-              ' وإرجاع جميع منتجاته إلى المخزون؟'
+          const confirmed=confirm(
+            'هل أنت متأكد من إلغاء الطلب '+
+            code+
+            ' وإرجاع جميع منتجاته إلى المخزون؟'
+          );
+
+          if(!confirmed){
+            return;
+          }
+
+          cancelButton.disabled=true;
+          cancelButton.textContent='جارٍ إلغاء الطلب...';
+
+          try{
+
+            const {data,error}=await supabase.rpc(
+              'admin_cancel_order',
+              {
+                p_order_id:o.id
+              }
             );
 
-            if(!confirmed){
-              return;
+            if(error){
+              throw error;
             }
 
-            cancelButton.disabled=true;
+            if(!data?.success){
+              throw new Error('لم يتم تأكيد إلغاء الطلب.');
+            }
+
+            if(data.already_cancelled){
+              alert(
+                'هذا الطلب ملغي مسبقًا، ولم تتم إعادة المخزون مرة أخرى.'
+              );
+            }else{
+              alert(
+                '✅ تم إلغاء الطلب '+code+
+                '\nالكمية المعادة للمخزون: '+
+                data.restored_quantity
+              );
+            }
+
+            productsLoaded=false;
+            await loadOrders();
+
+          }catch(error){
+
+            console.error('Order cancellation error:',error);
+
+            msg(
+              'تعذر إلغاء الطلب: '+error.message,
+              'error'
+            );
+
+            cancelButton.disabled=false;
             cancelButton.textContent=
-              'جارٍ إلغاء الطلب...';
-
-            try{
-
-              const {data,error}=await supabase.rpc(
-                'admin_cancel_order',
-                {
-                  p_order_id:o.id
-                }
-              );
-
-              if(error){
-                throw error;
-              }
-
-              if(!data?.success){
-                throw new Error(
-                  'لم يتم تأكيد إلغاء الطلب.'
-                );
-              }
-
-              if(data.already_cancelled){
-                alert(
-                  'هذا الطلب ملغي مسبقًا، ولم تتم إعادة المخزون مرة أخرى.'
-                );
-              }else{
-                alert(
-                  '✅ تم إلغاء الطلب '+code+
-                  '\nالكمية المعادة للمخزون: '+
-                  data.restored_quantity
-                );
-              }
-
-              productsLoaded=false;
-
-              await loadOrders();
-
-            }catch(error){
-
-              console.error(
-                'Order cancellation error:',
-                error
-              );
-
-              msg(
-                'تعذر إلغاء الطلب: '+error.message,
-                'error'
-              );
-
-              cancelButton.disabled=false;
-              cancelButton.textContent=
-                '🚫 إلغاء الطلب وإرجاع المخزون';
-            }
+              '🚫 إلغاء الطلب وإرجاع المخزون';
           }
-        );
+        });
 
         card.append(cancelButton);
       }
@@ -1018,15 +915,8 @@ async function loadOrders(){
 
   }catch(error){
 
-    console.error(
-      'Orders loading error:',
-      error
-    );
-
-    msg(
-      'حدث خطأ أثناء تحميل الطلبات.',
-      'error'
-    );
+    console.error('Orders loading error:',error);
+    msg('حدث خطأ أثناء تحميل الطلبات.','error');
 
   }finally{
     $('refresh').disabled=false;
@@ -1056,9 +946,7 @@ function renderInventoryStats(){
   ).length;
 
   const low=loadedProducts.filter(
-    p=>
-      Number(p.stock)>0 &&
-      Number(p.stock)<=5
+    p=>Number(p.stock)>0 && Number(p.stock)<=5
   ).length;
 
   const hidden=loadedProducts.filter(
@@ -1074,11 +962,7 @@ function renderInventoryStats(){
     ['منتجات مخفية',hidden]
   ]){
 
-    const card=el(
-      'div',
-      undefined,
-      'card stat'
-    );
+    const card=el('div',undefined,'card stat');
 
     card.append(
       el('span',title),
@@ -1092,39 +976,27 @@ function renderInventoryStats(){
 function renderProducts(){
 
   $('productGrid').replaceChildren();
-
   renderInventoryStats();
 
   if(!loadedProducts.length){
-    $('productGrid').append(
-      el('p','لا توجد منتجات حاليًا.')
-    );
+    $('productGrid').append(el('p','لا توجد منتجات حاليًا.'));
     return;
   }
 
   for(const p of loadedProducts){
 
-    const card=el(
-      'article',
-      undefined,
-      'card inventory-card'
-    );
+    const card=el('article',undefined,'card inventory-card');
 
-    card.append(
-      el('h3',p.name)
-    );
+    card.append(el('h3',p.name));
 
     if(
       p.image_url &&
       /^https:\/\//i.test(p.image_url)
     ){
-
       const image=el('img');
-
       image.src=p.image_url;
       image.alt=p.name;
       image.loading='lazy';
-
       card.append(image);
     }
 
@@ -1133,9 +1005,7 @@ function renderProducts(){
     const stockText=el(
       'p',
       stockLabel(currentStock),
-      currentStock<=5
-        ?'stock-warning'
-        :'stock-ok'
+      currentStock<=5?'stock-warning':'stock-ok'
     );
 
     card.append(stockText);
@@ -1163,11 +1033,7 @@ function renderProducts(){
       return input;
     }
 
-    const name=field(
-      'اسم المنتج',
-      p.name
-    );
-
+    const name=field('اسم المنتج',p.name);
     name.required=true;
     name.maxLength=150;
 
@@ -1176,25 +1042,14 @@ function renderProducts(){
       p.description,
       'textarea'
     );
-
     description.maxLength=1000;
 
-    const price=field(
-      'السعر بالريال',
-      p.price,
-      'number'
-    );
-
+    const price=field('السعر بالريال',p.price,'number');
     price.required=true;
     price.min='0';
     price.step='0.01';
 
-    const stock=field(
-      'الكمية المتوفرة',
-      p.stock,
-      'number'
-    );
-
+    const stock=field('الكمية المتوفرة',p.stock,'number');
     stock.required=true;
     stock.min='0';
     stock.step='1';
@@ -1205,14 +1060,9 @@ function renderProducts(){
       'url'
     );
 
-    const activeLabel=el(
-      'label',
-      undefined,
-      'checkbox-row'
-    );
+    const activeLabel=el('label',undefined,'checkbox-row');
 
     const active=el('input');
-
     active.type='checkbox';
     active.checked=p.is_active===true;
 
@@ -1223,201 +1073,137 @@ function renderProducts(){
 
     form.append(activeLabel);
 
-    const actions=el(
-      'div',
-      undefined,
-      'inventory-actions'
-    );
+    const actions=el('div',undefined,'inventory-actions');
 
-    const save=el(
-      'button',
-      '💾 حفظ التعديلات'
-    );
-
+    const save=el('button','💾 حفظ التعديلات');
     save.type='submit';
 
     actions.append(save);
     form.append(actions);
 
-    const localStatus=el(
-      'p',
-      '',
-      'muted'
-    );
+    const localStatus=el('p','','muted');
+    localStatus.setAttribute('role','status');
 
-    localStatus.setAttribute(
-      'role',
-      'status'
-    );
+    form.addEventListener('submit',async e=>{
 
-    form.addEventListener(
-      'submit',
-      async e=>{
+      e.preventDefault();
 
-        e.preventDefault();
+      const newName=name.value.trim();
+      const newDescription=description.value.trim();
+      const newPrice=Number(price.value);
+      const newStock=Number(stock.value);
+      const newImage=imageUrl.value.trim();
 
-        const newName=name.value.trim();
+      if(!newName){
+        localStatus.textContent='اسم المنتج مطلوب.';
+        localStatus.className='error';
+        return;
+      }
 
-        const newDescription=
-          description.value.trim();
+      if(
+        !Number.isFinite(newPrice) ||
+        newPrice<0
+      ){
+        localStatus.textContent='السعر غير صحيح.';
+        localStatus.className='error';
+        return;
+      }
 
-        const newPrice=
-          Number(price.value);
+      if(
+        !Number.isSafeInteger(newStock) ||
+        newStock<0
+      ){
+        localStatus.textContent=
+          'الكمية يجب أن تكون عددًا صحيحًا غير سالب.';
+        localStatus.className='error';
+        return;
+      }
 
-        const newStock=
-          Number(stock.value);
+      if(
+        newImage &&
+        !/^https:\/\//i.test(newImage)
+      ){
+        localStatus.textContent=
+          'رابط الصورة يجب أن يبدأ بـ https://';
+        localStatus.className='error';
+        return;
+      }
 
-        const newImage=
-          imageUrl.value.trim();
+      if(!confirm('حفظ تعديلات المنتج: '+p.name+'؟')){
+        return;
+      }
 
-        if(!newName){
+      save.disabled=true;
+      save.textContent='جارٍ الحفظ...';
+      localStatus.textContent='';
 
-          localStatus.textContent=
-            'اسم المنتج مطلوب.';
+      const changes={
+        name:newName,
+        description:newDescription,
+        price:newPrice,
+        stock:newStock,
+        image_url:newImage||null,
+        is_active:active.checked
+      };
 
-          localStatus.className='error';
+      try{
 
-          return;
-        }
-
-        if(
-          !Number.isFinite(newPrice) ||
-          newPrice<0
-        ){
-
-          localStatus.textContent=
-            'السعر غير صحيح.';
-
-          localStatus.className='error';
-
-          return;
-        }
-
-        if(
-          !Number.isSafeInteger(newStock) ||
-          newStock<0
-        ){
-
-          localStatus.textContent=
-            'الكمية يجب أن تكون عددًا صحيحًا غير سالب.';
-
-          localStatus.className='error';
-
-          return;
-        }
-
-        if(
-          newImage &&
-          !/^https:\/\//i.test(newImage)
-        ){
-
-          localStatus.textContent=
-            'رابط الصورة يجب أن يبدأ بـ https://';
-
-          localStatus.className='error';
-
-          return;
-        }
-
-        if(!confirm(
-          'حفظ تعديلات المنتج: '+p.name+'؟'
-        )){
-          return;
-        }
-
-        save.disabled=true;
-
-        save.textContent=
-          'جارٍ الحفظ...';
-
-        localStatus.textContent='';
-
-        const changes={
-          name:newName,
-          description:newDescription,
-          price:newPrice,
-          stock:newStock,
-          image_url:newImage||null,
-          is_active:active.checked
-        };
-
-        try{
-
-          const {data,error}=await supabase
-            .from('products')
-            .update(changes)
-            .eq('id',p.id)
-            .select(
-              'id,name,description,price,stock,image_url,is_active'
-            );
-
-          if(error){
-            throw error;
-          }
-
-          if(!data?.length){
-            throw new Error(
-              'لم يتم تعديل المنتج. تحقق من صلاحيات المدير.'
-            );
-          }
-
-          Object.assign(p,data[0]);
-
-          localStatus.textContent=
-            '✅ تم حفظ التعديلات بنجاح.';
-
-          localStatus.className='success';
-
-          renderInventoryStats();
-
-          stockText.textContent=
-            stockLabel(Number(p.stock)||0);
-
-          stockText.className=
-            (Number(p.stock)||0)<=5
-              ?'stock-warning'
-              :'stock-ok';
-
-          card.querySelector('h3').textContent=
-            p.name;
-
-        }catch(error){
-
-          console.error(
-            'Product update error:',
-            error
+        const {data,error}=await supabase
+          .from('products')
+          .update(changes)
+          .eq('id',p.id)
+          .select(
+            'id,name,description,price,stock,image_url,is_active'
           );
 
-          localStatus.textContent=
-            'تعذر الحفظ: '+error.message;
-
-          localStatus.className='error';
-
-        }finally{
-
-          save.disabled=false;
-
-          save.textContent=
-            '💾 حفظ التعديلات';
+        if(error){
+          throw error;
         }
+
+        if(!data?.length){
+          throw new Error(
+            'لم يتم تعديل المنتج. تحقق من صلاحيات المدير.'
+          );
+        }
+
+        Object.assign(p,data[0]);
+
+        localStatus.textContent=
+          '✅ تم حفظ التعديلات بنجاح.';
+        localStatus.className='success';
+
+        renderInventoryStats();
+
+        stockText.textContent=stockLabel(Number(p.stock)||0);
+
+        stockText.className=
+          (Number(p.stock)||0)<=5
+            ?'stock-warning'
+            :'stock-ok';
+
+        card.querySelector('h3').textContent=p.name;
+
+      }catch(error){
+
+        console.error('Product update error:',error);
+
+        localStatus.textContent='تعذر الحفظ: '+error.message;
+        localStatus.className='error';
+
+      }finally{
+        save.disabled=false;
+        save.textContent='💾 حفظ التعديلات';
       }
-    );
+    });
 
-    card.append(
-      form,
-      localStatus
-    );
-
+    card.append(form,localStatus);
     $('productGrid').append(card);
   }
 }
 
 async function loadProducts(){
 
-  inventoryMsg(
-    'جارٍ تحميل المنتجات...'
-  );
-
+  inventoryMsg('جارٍ تحميل المنتجات...');
   $('refreshProducts').disabled=true;
 
   try{
@@ -1427,16 +1213,13 @@ async function loadProducts(){
       .select(
         'id,name,description,price,stock,image_url,is_active'
       )
-      .order('name',{
-        ascending:true
-      });
+      .order('name',{ascending:true});
 
     if(error){
       throw error;
     }
 
     loadedProducts=data||[];
-
     productsLoaded=true;
 
     renderProducts();
@@ -1448,11 +1231,7 @@ async function loadProducts(){
 
   }catch(error){
 
-    console.error(
-      'Products loading error:',
-      error
-    );
-
+    console.error('Products loading error:',error);
     productsLoaded=false;
 
     inventoryMsg(
@@ -1461,115 +1240,82 @@ async function loadProducts(){
     );
 
   }finally{
-
     $('refreshProducts').disabled=false;
   }
 }
 
 /* ========== الأحداث ========== */
 
-$('orderSearch').addEventListener(
-  'input',
-  filterOrders
-);
+$('orderSearch').addEventListener('input',filterOrders);
 
-$('clearSearch').addEventListener(
-  'click',
-  ()=>{
+$('clearSearch').addEventListener('click',()=>{
+  $('orderSearch').value='';
+  filterOrders();
+  $('orderSearch').focus();
+});
 
-    $('orderSearch').value='';
+$('refresh').addEventListener('click',loadOrders);
+$('refreshProducts').addEventListener('click',loadProducts);
 
-    filterOrders();
+$('loginForm').addEventListener('submit',async e=>{
 
-    $('orderSearch').focus();
-  }
-);
+  e.preventDefault();
 
-$('refresh').addEventListener(
-  'click',
-  loadOrders
-);
+  msg('جاري تسجيل الدخول...');
+  $('loginButton').disabled=true;
 
-$('refreshProducts').addEventListener(
-  'click',
-  loadProducts
-);
+  try{
 
-$('loginForm').addEventListener(
-  'submit',
-  async e=>{
-
-    e.preventDefault();
-
-    msg('جاري تسجيل الدخول...');
-
-    $('loginButton').disabled=true;
-
-    const {error}=
-      await supabase.auth.signInWithPassword({
-        email:$('email').value.trim(),
-        password:$('password').value
-      });
-
-    $('loginButton').disabled=false;
+    const {error}=await supabase.auth.signInWithPassword({
+      email:$('email').value.trim(),
+      password:$('password').value
+    });
 
     $('password').value='';
 
     if(error){
-
-      msg(
-        'فشل تسجيل الدخول: '+error.message,
-        'error'
-      );
-
-      return;
+      throw error;
     }
 
     await checkAdmin();
+
+  }catch(error){
+    msg('فشل تسجيل الدخول: '+error.message,'error');
+
+  }finally{
+    $('loginButton').disabled=false;
   }
-);
+});
 
-$('logout').addEventListener(
-  'click',
-  async()=>{
+$('logout').addEventListener('click',async()=>{
 
-    const {error}=
-      await supabase.auth.signOut();
+  const {error}=await supabase.auth.signOut();
 
-    if(error){
-
-      msg(
-        'تعذر تسجيل الخروج: '+error.message,
-        'error'
-      );
-
-      return;
-    }
-
-    show(false);
-
-    loadedOrders=[];
-    loadedProducts=[];
-    productsLoaded=false;
-
-    $('orders').replaceChildren();
-    $('stats').replaceChildren();
-    $('productGrid').replaceChildren();
-    $('inventoryStats').replaceChildren();
-
-    $('orderSearch').value='';
-
-    $('searchResult').textContent=
-      'ابدأ الكتابة للبحث في الطلبات.';
-
-    switchTab('orders');
-
-    msg(
-      'تم تسجيل الخروج.',
-      'success'
-    );
+  if(error){
+    msg('تعذر تسجيل الخروج: '+error.message,'error');
+    return;
   }
-);
+
+  show(false);
+
+  loadedOrders=[];
+  loadedProducts=[];
+  productsLoaded=false;
+
+  $('orders').replaceChildren();
+  $('stats').replaceChildren();
+  $('productGrid').replaceChildren();
+  $('inventoryStats').replaceChildren();
+
+  $('orderSearch').value='';
+
+  $('searchResult').textContent=
+    'ابدأ الكتابة للبحث في الطلبات.';
+
+  switchTab('orders');
+
+  msg('تم تسجيل الخروج.','success');
+});
 
 /* ========== بدء التشغيل ========== */
 
