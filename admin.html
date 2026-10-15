@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>إدارة الطلبات | عطور الريف</title>
 
 <style>
@@ -11,8 +12,15 @@
   color:#30251e;
   background:#faf7f1;
 }
-*{box-sizing:border-box}
-body{margin:0}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+}
+
 header{
   background:#253d30;
   color:white;
@@ -22,8 +30,18 @@ header{
   justify-content:space-between;
   gap:12px;
 }
-header h1{font-size:1.3rem;margin:0}
-main{max-width:1100px;margin:28px auto;padding:0 16px}
+
+header h1{
+  font-size:1.3rem;
+  margin:0;
+}
+
+main{
+  max-width:1100px;
+  margin:28px auto;
+  padding:0 16px;
+}
+
 .card{
   background:#fff;
   border:1px solid #e9e0d3;
@@ -32,16 +50,38 @@ main{max-width:1100px;margin:28px auto;padding:0 16px}
   box-shadow:0 4px 15px #00000008;
   margin-bottom:16px;
 }
-h2{margin-top:0;font-size:1.15rem}
-label{display:block;margin:12px 0 5px}
-input,select,button{font:inherit}
-input,select{
+
+h2{
+  margin-top:0;
+  font-size:1.15rem;
+}
+
+label{
+  display:block;
+  margin:12px 0 5px;
+}
+
+input,
+select,
+button{
+  font:inherit;
+}
+
+input,
+select{
   width:100%;
   border:1px solid #cfc6b9;
   border-radius:9px;
   padding:12px;
   background:white;
 }
+
+input:focus,
+select:focus{
+  outline:2px solid #8a6238;
+  outline-offset:2px;
+}
+
 button{
   background:#8a6238;
   color:#fff;
@@ -50,13 +90,37 @@ button{
   padding:11px 16px;
   cursor:pointer;
 }
-button:disabled{opacity:.55;cursor:wait}
-.secondary{background:#52685a}
-.danger{background:#92483e}
-.muted{color:#6e675f;font-size:.9rem}
-.error{color:#a12727}
-.success{color:#276a3b}
-.hidden{display:none!important}
+
+button:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+}
+
+.secondary{
+  background:#52685a;
+}
+
+.danger{
+  background:#92483e;
+}
+
+.muted{
+  color:#6e675f;
+  font-size:.9rem;
+}
+
+.error{
+  color:#a12727;
+}
+
+.success{
+  color:#276a3b;
+}
+
+.hidden{
+  display:none!important;
+}
+
 .row{
   display:flex;
   justify-content:space-between;
@@ -64,50 +128,153 @@ button:disabled{opacity:.55;cursor:wait}
   align-items:center;
   flex-wrap:wrap;
 }
-.stats{display:flex;gap:12px;flex-wrap:wrap}
-.stat{flex:1;min-width:140px}
+
+.stats{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.stat{
+  flex:1;
+  min-width:140px;
+}
+
 .stat strong{
   display:block;
   font-size:1.5rem;
   color:#253d30;
 }
+
 .orders{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
   gap:15px;
 }
-.order{margin:0;overflow-wrap:anywhere}
-.order h3{font-size:1rem;margin:0}
-.order p{margin:9px 0}
-.order select{margin:8px 0}
+
+.order{
+  margin:0;
+  overflow-wrap:anywhere;
+}
+
+.order h3{
+  font-size:1rem;
+  margin:0;
+}
+
+.order p{
+  margin:9px 0;
+}
+
+.order select{
+  margin:8px 0;
+}
+
 .products{
   padding:12px;
   background:#faf7f1;
   border-radius:8px;
   margin-top:14px;
 }
+
 .product-line{
   padding:10px 0;
   border-bottom:1px solid #e9e0d3;
   line-height:1.9;
 }
-.product-line:last-child{border-bottom:0}
+
+.product-line:last-child{
+  border-bottom:0;
+}
+
 .product-name{
   color:#253d30;
   font-weight:700;
 }
+
 .badge{
   background:#f0e6d5;
   padding:4px 9px;
   border-radius:8px;
 }
-#login{max-width:440px;margin:50px auto}
-#message{min-height:25px}
-a{color:#365b46}
+
+#login{
+  max-width:440px;
+  margin:50px auto;
+}
+
+#message{
+  min-height:25px;
+}
+
+/* صندوق البحث */
+
+.search-card{
+  border:1px solid #d9c7aa;
+  background:#fffdf9;
+}
+
+.search-controls{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.search-controls input{
+  flex:1;
+  min-width:0;
+}
+
+.search-controls button{
+  flex-shrink:0;
+}
+
+.search-hint{
+  margin-bottom:0;
+  line-height:1.8;
+}
+
+#searchResult{
+  margin:12px 0 0;
+}
+
+.empty-search{
+  grid-column:1/-1;
+  text-align:center;
+  padding:30px;
+  background:#fff;
+  border:1px dashed #d9c7aa;
+  border-radius:12px;
+  color:#6e675f;
+}
+
+a{
+  color:#365b46;
+}
 
 @media(max-width:500px){
-  header{padding:16px}
-  header h1{font-size:1.1rem}
+
+  header{
+    padding:16px;
+  }
+
+  header h1{
+    font-size:1.1rem;
+  }
+
+  .search-controls{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .search-controls button{
+    width:100%;
+  }
+
+  .orders{
+    grid-template-columns:1fr;
+  }
+
 }
 </style>
 </head>
@@ -116,18 +283,29 @@ a{color:#365b46}
 
 <header>
   <h1>🌿 عطور الريف | إدارة الطلبات</h1>
-  <button id="logout" class="secondary hidden">
+
+  <button
+    id="logout"
+    class="secondary hidden"
+  >
     تسجيل الخروج
   </button>
 </header>
 
 <main>
 
+<!-- تسجيل الدخول -->
+
 <section id="login" class="card hidden">
+
   <h2>دخول المدير</h2>
 
   <form id="loginForm">
-    <label for="email">البريد الإلكتروني</label>
+
+    <label for="email">
+      البريد الإلكتروني
+    </label>
+
     <input
       id="email"
       type="email"
@@ -135,7 +313,10 @@ a{color:#365b46}
       required
     >
 
-    <label for="password">كلمة المرور</label>
+    <label for="password">
+      كلمة المرور
+    </label>
+
     <input
       id="password"
       type="password"
@@ -144,32 +325,107 @@ a{color:#365b46}
     >
 
     <p>
-      <button id="loginButton" type="submit">
+      <button
+        id="loginButton"
+        type="submit"
+      >
         دخول
       </button>
     </p>
+
   </form>
 
   <p class="muted">
     الدخول مخصص للحساب المعتمد في جدول المديرين.
   </p>
+
 </section>
 
-<p id="message" role="status" aria-live="polite"></p>
+<p
+  id="message"
+  role="status"
+  aria-live="polite"
+></p>
+
+<!-- لوحة الإدارة -->
 
 <section id="dashboard" class="hidden">
 
   <div class="row">
-    <h2>الطلبات</h2>
 
-    <button id="refresh" class="secondary">
-      تحديث الطلبات
+    <h2>📦 الطلبات</h2>
+
+    <button
+      id="refresh"
+      class="secondary"
+    >
+      🔄 تحديث الطلبات
     </button>
+
   </div>
 
-  <div id="stats" class="stats"></div>
+  <!-- الإحصائيات -->
 
-  <div id="orders" class="orders"></div>
+  <div
+    id="stats"
+    class="stats"
+  ></div>
+
+  <!-- البحث -->
+
+  <section
+    class="card search-card"
+    aria-labelledby="searchTitle"
+  >
+
+    <h2 id="searchTitle">
+      🔎 البحث عن طلب
+    </h2>
+
+    <label for="orderSearch">
+      ابحث باسم العميل أو رقم الجوال أو رقم الطلب
+    </label>
+
+    <div class="search-controls">
+
+      <input
+        id="orderSearch"
+        type="search"
+        placeholder="مثال: محمد أو 05 أو رقم الطلب"
+        autocomplete="off"
+        spellcheck="false"
+      >
+
+      <button
+        id="clearSearch"
+        type="button"
+        class="secondary"
+      >
+        ✕ مسح البحث
+      </button>
+
+    </div>
+
+    <p
+      id="searchResult"
+      class="muted"
+      aria-live="polite"
+    >
+      جارٍ تجهيز البحث...
+    </p>
+
+    <p class="muted search-hint">
+      البحث يشمل آخر 100 طلب تم تحميلها.
+    </p>
+
+  </section>
+
+  <!-- الطلبات -->
+
+  <div
+    id="orders"
+    class="orders"
+  ></div>
 
 </section>
 
@@ -201,7 +457,7 @@ const statuses = {
 };
 
 const money = n =>
-  `${Number(n ?? 0).toLocaleString('ar-SA', {
+  `${Number(n ?? 0).toLocaleString('ar-SA',{
     maximumFractionDigits:2
   })} ر.س`;
 
@@ -211,6 +467,7 @@ const msg = (text,kind='') => {
 };
 
 function el(tag,text,cls){
+
   const node=document.createElement(tag);
 
   if(text!==undefined){
@@ -224,11 +481,123 @@ function el(tag,text,cls){
   return node;
 }
 
-function show(isAdmin){
-  $('login').classList.toggle('hidden',isAdmin);
-  $('dashboard').classList.toggle('hidden',!isAdmin);
-  $('logout').classList.toggle('hidden',!isAdmin);
+/* =====================================
+   متغيرات البحث
+===================================== */
+
+let loadedOrders=[];
+
+function normalizeSearch(value){
+
+  return String(value??'')
+    .normalize('NFKC')
+    .replace(
+      /[٠-٩]/g,
+      digit=>String(digit.charCodeAt(0)-0x660)
+    )
+    .replace(
+      /[۰-۹]/g,
+      digit=>String(digit.charCodeAt(0)-0x6F0)
+    )
+    .toLowerCase()
+    .trim();
+
 }
+
+function filterOrders(){
+
+  const query=normalizeSearch(
+    $('orderSearch').value
+  );
+
+  const cards=$('orders').querySelectorAll(
+    '.order'
+  );
+
+  let visible=0;
+
+  for(const card of cards){
+
+    const searchText=normalizeSearch(
+      card.dataset.search
+    );
+
+    const matches=
+      !query||searchText.includes(query);
+
+    card.classList.toggle(
+      'hidden',
+      !matches
+    );
+
+    if(matches){
+      visible++;
+    }
+
+  }
+
+  const total=loadedOrders.length;
+
+  if(query){
+
+    $('searchResult').textContent=
+      `نتائج البحث: ${visible} من ${total} طلب`;
+
+  }else{
+
+    $('searchResult').textContent=
+      `إجمالي الطلبات المعروضة: ${total}`;
+
+  }
+
+  const oldEmpty=$('orders').querySelector(
+    '.empty-search'
+  );
+
+  if(oldEmpty){
+    oldEmpty.remove();
+  }
+
+  if(query&&visible===0&&total>0){
+
+    $('orders').append(
+      el(
+        'div',
+        'لا توجد طلبات مطابقة للبحث.',
+        'empty-search'
+      )
+    );
+
+  }
+
+}
+
+/* =====================================
+   إظهار وإخفاء لوحة الإدارة
+===================================== */
+
+function show(isAdmin){
+
+  $('login').classList.toggle(
+    'hidden',
+    isAdmin
+  );
+
+  $('dashboard').classList.toggle(
+    'hidden',
+    !isAdmin
+  );
+
+  $('logout').classList.toggle(
+    'hidden',
+    !isAdmin
+  );
+
+}
+
+/* =====================================
+   التحقق من المدير
+===================================== */
 
 async function checkAdmin(){
 
@@ -238,346 +607,697 @@ async function checkAdmin(){
   }=await supabase.auth.getUser();
 
   if(e||!user){
+
     show(false);
     return;
+
   }
 
-  const {data,error}=await supabase.rpc('is_admin');
+  const {
+    data,
+    error
+  }=await supabase.rpc('is_admin');
 
   if(error){
+
     show(false);
+
     msg(
-      'تعذر التحقق من صلاحية المدير: '+error.message,
+      'تعذر التحقق من صلاحية المدير: '+
+      error.message,
       'error'
     );
+
     return;
+
   }
 
   if(data!==true){
+
     show(false);
-    msg('هذا الحساب لا يملك صلاحية الإدارة.','error');
+
+    msg(
+      'هذا الحساب لا يملك صلاحية الإدارة.',
+      'error'
+    );
+
     return;
+
   }
 
   show(true);
+
   await loadOrders();
+
 }
+
+/* =====================================
+   تحميل الطلبات
+===================================== */
 
 async function loadOrders(){
 
   msg('جاري تحميل الطلبات...');
 
+  $('refresh').disabled=true;
+
   $('orders').replaceChildren();
   $('stats').replaceChildren();
 
-  // تحميل الطلبات
-  const {data:orders,error}=await supabase
-    .from('orders')
-    .select('*')
-    .order('created_at',{ascending:false})
-    .limit(100);
+  loadedOrders=[];
 
-  if(error){
-    msg('تعذر عرض الطلبات: '+error.message,'error');
-    return;
-  }
+  try{
 
-  const list=orders||[];
+    // جلب آخر 100 طلب
 
-  // الإحصائيات
-  const statistics=[
-    ['إجمالي الطلبات المعروضة',list.length],
-    ['قيد الانتظار',list.filter(o=>o.status==='pending').length],
-    ['قيد التجهيز',list.filter(o=>o.status==='processing').length],
-    ['تم الشحن',list.filter(o=>o.status==='shipped').length]
-  ];
+    const {
+      data:orders,
+      error
+    }=await supabase
+      .from('orders')
+      .select('*')
+      .order('created_at',{
+        ascending:false
+      })
+      .limit(100);
 
-  for(const [title,count] of statistics){
-
-    const card=el('div',undefined,'card stat');
-
-    card.append(
-      el('span',title),
-      el('strong',count)
-    );
-
-    $('stats').append(card);
-  }
-
-  if(!list.length){
-    $('orders').append(
-      el('p','لا توجد طلبات حاليًا.')
-    );
-    msg('');
-    return;
-  }
-
-  // تحميل تفاصيل المنتجات داخل الطلبات
-  const {data:items,error:itemError}=await supabase
-    .from('order_items')
-    .select('*')
-    .in('order_id',list.map(o=>o.id));
-
-  // جلب أسماء المنتجات عبر دالة المدير الآمنة
-  const {
-    data:productRows,
-    error:productError
-  }=await supabase.rpc('admin_product_names');
-
-  const productNames=new Map(
-    (productRows||[]).map(p=>[
-      String(p.id).toLowerCase(),
-      p.name
-    ])
-  );
-
-  // ربط المنتجات بطلباتها
-  const byOrder=new Map();
-
-  for(const item of items||[]){
-
-    const orderId=item.order_id;
-
-    const existing=byOrder.get(orderId)||[];
-
-    existing.push(item);
-
-    byOrder.set(orderId,existing);
-  }
-
-  if(itemError){
-    msg(
-      'تم تحميل الطلبات، لكن تعذر تحميل تفاصيل المنتجات: '+
-      itemError.message,
-      'error'
-    );
-  }else if(productError){
-    msg(
-      'تم تحميل الطلبات، لكن تعذر جلب أسماء المنتجات: '+
-      productError.message,
-      'error'
-    );
-  }else{
-    msg('تم تحميل '+list.length+' طلب.','success');
-  }
-
-  // عرض كل طلب
-  for(const o of list){
-
-    const card=el('article',undefined,'card order');
-
-    card.append(
-      el('h3','طلب #'+o.id),
-      el('p','العميل: '+(o.customer_name||'—')),
-      el('p','الجوال: '+(o.customer_phone||'—')),
-      el('p','المدينة: '+(o.city||'—')),
-      el('p','العنوان: '+(o.address||'—')),
-      el('p','الإجمالي: '+money(o.total_amount)),
-      el('p','الشحن: '+money(o.shipping_fee)),
-      el(
-        'p',
-        'التاريخ: '+
-        (
-          o.created_at
-          ? new Date(o.created_at).toLocaleString('ar-SA')
-          : '—'
-        )
-      )
-    );
-
-    // صندوق المنتجات
-    const productsBox=el('div',undefined,'products');
-
-    productsBox.append(
-      el('strong','🛍️ المنتجات:')
-    );
-
-    const orderItems=byOrder.get(o.id)||[];
-
-    if(!orderItems.length){
-
-      productsBox.append(
-        el(
-          'p',
-          itemError
-          ? 'تعذر تحميل المنتجات'
-          : 'لا توجد تفاصيل منتجات'
-        )
-      );
-    }
-
-    for(const item of orderItems){
-
-      const productId=String(
-        item.product_id||''
-      ).toLowerCase();
-
-      const productName=
-        productNames.get(productId)||
-        item.product_id||
-        'منتج غير معروف';
-
-      const quantity=Number(item.quantity)||0;
-
-      // سعر الوحدة المحفوظ وقت إنشاء الطلب
-      const unitPrice=Number(item.unit_price)||0;
-
-      const lineTotal=quantity*unitPrice;
-
-      const productLine=el(
-        'div',
-        undefined,
-        'product-line'
-      );
-
-      productLine.append(
-        el('div','🌿 '+productName,'product-name'),
-        el('div','الكمية: '+quantity),
-        el('div','سعر الوحدة: '+money(unitPrice)),
-        el('div','إجمالي المنتج: '+money(lineTotal))
-      );
-
-      productsBox.append(productLine);
-    }
-
-    card.append(productsBox);
-
-    // تغيير حالة الطلب
-    const label=el('label','حالة الطلب');
-
-    const select=el('select');
-
-    select.setAttribute(
-      'aria-label',
-      'حالة الطلب '+o.id
-    );
-
-    for(const [value,title] of Object.entries(statuses)){
-
-      const option=el('option',title);
-
-      option.value=value;
-
-      select.append(option);
-    }
-
-    if(!(o.status in statuses)){
-
-      const option=el(
-        'option',
-        'الحالة الحالية: '+o.status
-      );
-
-      option.value=o.status;
-
-      select.append(option);
-    }
-
-    select.value=o.status;
-
-    label.append(select);
-
-    card.append(label);
-
-    const save=el('button','حفظ الحالة');
-
-    save.disabled=true;
-
-    select.addEventListener('change',()=>{
-      save.disabled=select.value===o.status;
-    });
-
-    save.addEventListener('click',async()=>{
-
-      if(!confirm('تأكيد تغيير حالة الطلب؟')){
-        return;
-      }
-
-      save.disabled=true;
-
-      const {data,error}=await supabase
-        .from('orders')
-        .update({status:select.value})
-        .eq('id',o.id)
-        .eq('status',o.status)
-        .select('id,status');
-
-      if(error||!data?.length){
-
-        msg(
-          'لم يتم تحديث الحالة: '+
-          (
-            error?.message||
-            'قد تكون الحالة تغيرت من جهاز آخر'
-          ),
-          'error'
-        );
-
-        save.disabled=false;
-        return;
-      }
-
-      o.status=data[0].status;
+    if(error){
 
       msg(
-        'تم تحديث حالة الطلب بنجاح.',
+        'تعذر عرض الطلبات: '+
+        error.message,
+        'error'
+      );
+
+      $('searchResult').textContent=
+        'تعذر تحميل بيانات البحث.';
+
+      return;
+
+    }
+
+    const list=orders||[];
+
+    loadedOrders=list;
+
+    /* الإحصائيات */
+
+    const statistics=[
+      [
+        'إجمالي الطلبات المعروضة',
+        list.length
+      ],
+      [
+        'قيد الانتظار',
+        list.filter(
+          o=>o.status==='pending'
+        ).length
+      ],
+      [
+        'قيد التجهيز',
+        list.filter(
+          o=>o.status==='processing'
+        ).length
+      ],
+      [
+        'تم الشحن',
+        list.filter(
+          o=>o.status==='shipped'
+        ).length
+      ]
+    ];
+
+    for(const [title,count] of statistics){
+
+      const card=el(
+        'div',
+        undefined,
+        'card stat'
+      );
+
+      card.append(
+        el('span',title),
+        el('strong',count)
+      );
+
+      $('stats').append(card);
+
+    }
+
+    if(!list.length){
+
+      $('orders').append(
+        el(
+          'p',
+          'لا توجد طلبات حاليًا.'
+        )
+      );
+
+      $('searchResult').textContent=
+        'لا توجد طلبات للبحث.';
+
+      msg('');
+      return;
+
+    }
+
+    /* تحميل تفاصيل المنتجات */
+
+    const {
+      data:items,
+      error:itemError
+    }=await supabase
+      .from('order_items')
+      .select('*')
+      .in(
+        'order_id',
+        list.map(o=>o.id)
+      );
+
+    /* أسماء المنتجات */
+
+    const {
+      data:productRows,
+      error:productError
+    }=await supabase.rpc(
+      'admin_product_names'
+    );
+
+    const productNames=new Map(
+      (productRows||[]).map(p=>[
+        String(p.id).toLowerCase(),
+        p.name
+      ])
+    );
+
+    /* ربط المنتجات بالطلبات */
+
+    const byOrder=new Map();
+
+    for(const item of items||[]){
+
+      const orderId=item.order_id;
+
+      const existing=
+        byOrder.get(orderId)||[];
+
+      existing.push(item);
+
+      byOrder.set(
+        orderId,
+        existing
+      );
+
+    }
+
+    if(itemError){
+
+      msg(
+        'تم تحميل الطلبات، لكن تعذر تحميل تفاصيل المنتجات: '+
+        itemError.message,
+        'error'
+      );
+
+    }else if(productError){
+
+      msg(
+        'تم تحميل الطلبات، لكن تعذر جلب أسماء المنتجات: '+
+        productError.message,
+        'error'
+      );
+
+    }else{
+
+      msg(
+        'تم تحميل '+list.length+' طلب.',
         'success'
       );
 
-      await loadOrders();
-    });
+    }
 
-    card.append(save);
+    /* =====================================
+       عرض الطلبات
+    ===================================== */
 
-    $('orders').append(card);
-  }
-}
+    for(const o of list){
 
-// تسجيل الدخول
-$('loginForm').addEventListener('submit',async e=>{
+      const card=el(
+        'article',
+        undefined,
+        'card order'
+      );
 
-  e.preventDefault();
+      // البيانات التي يشملها البحث
 
-  msg('جاري تسجيل الدخول...');
+      card.dataset.search=[
+        o.id,
+        o.customer_name,
+        o.customer_phone
+      ].join(' ');
 
-  $('loginButton').disabled=true;
+      card.append(
+        el(
+          'h3',
+          'طلب #'+o.id
+        ),
 
-  const {error}=await supabase.auth.signInWithPassword({
-    email:$('email').value.trim(),
-    password:$('password').value
-  });
+        el(
+          'p',
+          'العميل: '+
+          (o.customer_name||'—')
+        ),
 
-  $('loginButton').disabled=false;
+        el(
+          'p',
+          'الجوال: '+
+          (o.customer_phone||'—')
+        ),
 
-  $('password').value='';
+        el(
+          'p',
+          'المدينة: '+
+          (o.city||'—')
+        ),
 
-  if(error){
+        el(
+          'p',
+          'العنوان: '+
+          (o.address||'—')
+        ),
+
+        el(
+          'p',
+          'الإجمالي: '+
+          money(o.total_amount)
+        ),
+
+        el(
+          'p',
+          'الشحن: '+
+          money(o.shipping_fee)
+        ),
+
+        el(
+          'p',
+          'التاريخ: '+
+          (
+            o.created_at
+            ? new Date(
+                o.created_at
+              ).toLocaleString('ar-SA')
+            : '—'
+          )
+        )
+      );
+
+      /* صندوق المنتجات */
+
+      const productsBox=el(
+        'div',
+        undefined,
+        'products'
+      );
+
+      productsBox.append(
+        el(
+          'strong',
+          '🛍️ المنتجات:'
+        )
+      );
+
+      const orderItems=
+        byOrder.get(o.id)||[];
+
+      if(!orderItems.length){
+
+        productsBox.append(
+          el(
+            'p',
+            itemError
+              ? 'تعذر تحميل المنتجات'
+              : 'لا توجد تفاصيل منتجات'
+          )
+        );
+
+      }
+
+      for(const item of orderItems){
+
+        const productId=String(
+          item.product_id||''
+        ).toLowerCase();
+
+        const productName=
+          productNames.get(productId)||
+          item.product_id||
+          'منتج غير معروف';
+
+        const quantity=
+          Number(item.quantity)||0;
+
+        const unitPrice=
+          Number(item.unit_price)||0;
+
+        const lineTotal=
+          quantity*unitPrice;
+
+        const productLine=el(
+          'div',
+          undefined,
+          'product-line'
+        );
+
+        productLine.append(
+
+          el(
+            'div',
+            '🌿 '+productName,
+            'product-name'
+          ),
+
+          el(
+            'div',
+            'الكمية: '+quantity
+          ),
+
+          el(
+            'div',
+            'سعر الوحدة: '+
+            money(unitPrice)
+          ),
+
+          el(
+            'div',
+            'إجمالي المنتج: '+
+            money(lineTotal)
+          )
+
+        );
+
+        productsBox.append(
+          productLine
+        );
+
+      }
+
+      card.append(
+        productsBox
+      );
+
+      /* تغيير حالة الطلب */
+
+      const label=el(
+        'label',
+        'حالة الطلب'
+      );
+
+      const select=el(
+        'select'
+      );
+
+      select.setAttribute(
+        'aria-label',
+        'حالة الطلب '+o.id
+      );
+
+      for(
+        const [value,title]
+        of Object.entries(statuses)
+      ){
+
+        const option=el(
+          'option',
+          title
+        );
+
+        option.value=value;
+
+        select.append(
+          option
+        );
+
+      }
+
+      if(!(o.status in statuses)){
+
+        const option=el(
+          'option',
+          'الحالة الحالية: '+o.status
+        );
+
+        option.value=o.status;
+
+        select.append(
+          option
+        );
+
+      }
+
+      select.value=o.status;
+
+      label.append(
+        select
+      );
+
+      card.append(
+        label
+      );
+
+      const save=el(
+        'button',
+        'حفظ الحالة'
+      );
+
+      save.disabled=true;
+
+      select.addEventListener(
+        'change',
+        ()=>{
+          save.disabled=
+            select.value===o.status;
+        }
+      );
+
+      save.addEventListener(
+        'click',
+        async()=>{
+
+          if(
+            !confirm(
+              'تأكيد تغيير حالة الطلب؟'
+            )
+          ){
+            return;
+          }
+
+          save.disabled=true;
+
+          const {
+            data,
+            error
+          }=await supabase
+            .from('orders')
+            .update({
+              status:select.value
+            })
+            .eq('id',o.id)
+            .eq('status',o.status)
+            .select('id,status');
+
+          if(
+            error||
+            !data?.length
+          ){
+
+            msg(
+              'لم يتم تحديث الحالة: '+
+              (
+                error?.message||
+                'قد تكون الحالة تغيرت من جهاز آخر'
+              ),
+              'error'
+            );
+
+            save.disabled=false;
+            return;
+
+          }
+
+          o.status=data[0].status;
+
+          msg(
+            'تم تحديث حالة الطلب بنجاح.',
+            'success'
+          );
+
+          await loadOrders();
+
+        }
+      );
+
+      card.append(
+        save
+      );
+
+      $('orders').append(
+        card
+      );
+
+    }
+
+    // تطبيق البحث بعد تحميل الطلبات
+    // والاحتفاظ بالنص المكتوب عند التحديث
+
+    filterOrders();
+
+  }catch(error){
+
+    console.error(
+      'Orders loading error:',
+      error
+    );
+
     msg(
-      'فشل تسجيل الدخول: '+error.message,
+      'حدث خطأ أثناء تحميل الطلبات.',
       'error'
     );
-    return;
+
+  }finally{
+
+    $('refresh').disabled=false;
+
   }
 
-  await checkAdmin();
-});
+}
 
-// تسجيل الخروج
-$('logout').addEventListener('click',async()=>{
+/* =====================================
+   أحداث البحث
+===================================== */
 
-  await supabase.auth.signOut();
+$('orderSearch').addEventListener(
+  'input',
+  filterOrders
+);
 
-  show(false);
+$('clearSearch').addEventListener(
+  'click',
+  ()=>{
 
-  $('orders').replaceChildren();
+    $('orderSearch').value='';
 
-  msg('تم تسجيل الخروج.','success');
-});
+    filterOrders();
 
-// تحديث الطلبات
-$('refresh').addEventListener('click',loadOrders);
+    $('orderSearch').focus();
 
-// بدء التشغيل
+  }
+);
+
+/* =====================================
+   تسجيل الدخول
+===================================== */
+
+$('loginForm').addEventListener(
+  'submit',
+  async e=>{
+
+    e.preventDefault();
+
+    msg(
+      'جاري تسجيل الدخول...'
+    );
+
+    $('loginButton').disabled=true;
+
+    const {
+      error
+    }=await supabase.auth
+      .signInWithPassword({
+
+        email:$('email').value.trim(),
+
+        password:$('password').value
+
+      });
+
+    $('loginButton').disabled=false;
+
+    $('password').value='';
+
+    if(error){
+
+      msg(
+        'فشل تسجيل الدخول: '+
+        error.message,
+        'error'
+      );
+
+      return;
+
+    }
+
+    await checkAdmin();
+
+  }
+);
+
+/* =====================================
+   تسجيل الخروج
+===================================== */
+
+$('logout').addEventListener(
+  'click',
+  async()=>{
+
+    const {
+      error
+    }=await supabase.auth.signOut();
+
+    if(error){
+
+      msg(
+        'تعذر تسجيل الخروج: '+
+        error.message,
+        'error'
+      );
+
+      return;
+
+    }
+
+    show(false);
+
+    loadedOrders=[];
+
+    $('orders').replaceChildren();
+
+    $('stats').replaceChildren();
+
+    $('orderSearch').value='';
+
+    $('searchResult').textContent=
+      'ابدأ الكتابة للبحث في الطلبات.';
+
+    msg(
+      'تم تسجيل الخروج.',
+      'success'
+    );
+
+  }
+);
+
+/* =====================================
+   تحديث الطلبات
+===================================== */
+
+$('refresh').addEventListener(
+  'click',
+  loadOrders
+);
+
+/* =====================================
+   بدء التشغيل
+===================================== */
+
 await checkAdmin();
 
 </script>
