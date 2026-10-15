@@ -832,8 +832,9 @@ async function loadOrders(){
       card.append(save);
 
       /* ===== إلغاء الطلب وإرجاع المخزون ===== */
+      /* التعديل: السماح بالإلغاء في حالتي الانتظار والتجهيز */
 
-      if(o.status==='pending'){
+      if(['pending','processing'].includes(o.status)){
 
         const cancelButton=el(
           'button',
