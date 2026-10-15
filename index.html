@@ -3,169 +3,593 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>عطور الريف | ALREEF PERFUMES</title>
+
 <style>
-:root{--gold:#d9ae60;--bg:#12100e;--panel:#211b16;--line:#5b4528}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:#f9f1e4;font-family:Tahoma,Arial,sans-serif}
-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:19px 7%;background:#15120f;position:sticky;top:0;z-index:2;border-bottom:1px solid #554128}
-.brand{color:var(--gold);font-size:24px;font-weight:bold}
-nav a{color:#f4e9d4;text-decoration:none;margin:0 12px}
-button{background:var(--gold);border:0;border-radius:6px;padding:12px 20px;cursor:pointer;font-weight:bold;color:#21180c}
-button:disabled{opacity:.5;cursor:not-allowed}
-.hero{min-height:520px;background:linear-gradient(90deg,rgba(15,11,8,.1),rgba(15,11,8,.82)),url('hero.png') center/cover;display:flex;align-items:center;padding:8%}
-.hero-content{max-width:470px;background:#100d09a8;padding:25px;border-radius:12px}
-.hero h1{font-size:clamp(32px,5vw,60px);color:var(--gold);margin:0}
-.hero p{line-height:2}
-.section{padding:65px 7%;text-align:center}
-h2{color:var(--gold)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px;margin-top:35px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:24px}
-.bottle{font-size:80px;padding:30px;background:radial-gradient(circle,#614323,#231b14);border-radius:10px}
-.product-image{width:100%;height:180px;object-fit:contain;border-radius:10px;background:#302319}
-.price{color:var(--gold);font-weight:bold;font-size:22px}
-.cart{position:fixed;bottom:20px;left:20px;background:var(--gold);color:#21180c;padding:15px;border-radius:30px;box-shadow:0 5px 30px #0009}
-footer{text-align:center;padding:35px;border-top:1px solid #4c3922;color:#cdbb9e}
-.overlay{position:fixed;inset:0;background:#000b;z-index:5;display:flex;align-items:center;justify-content:center;padding:15px}
-.hidden{display:none!important}
-.dialog{background:#1b1612;border:1px solid var(--line);border-radius:16px;padding:24px;width:min(580px,100%);max-height:90vh;overflow:auto}
-.dialog-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.dialog-head h2{margin:0}
-.secondary{background:transparent;color:var(--gold);border:1px solid var(--gold)}
-.cart-row{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid #554128;padding:16px 0;flex-wrap:wrap}
-.cart-actions{display:flex;align-items:center;gap:8px}
-.cart-actions button{padding:7px 11px}
-.summary{margin:20px 0;padding:15px;background:#30241a;border-radius:10px;line-height:2}
-.field{display:flex;flex-direction:column;gap:7px;margin:12px 0;text-align:right}
-.field input,.field textarea{width:100%;background:#120f0c;border:1px solid #72562f;color:#fff;padding:12px;border-radius:7px;font:inherit}
-.note{color:#e5c995;font-size:14px;line-height:1.9}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}
-.status{color:#f0cb87;min-height:22px;overflow-wrap:anywhere;line-height:1.9}
-.success-box{border:1px solid #668e61;background:#18301e;border-radius:10px;padding:15px;margin-top:15px;line-height:2}
-.categories{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:25px 0}
-.categories a{display:inline-block;padding:13px 20px;border:1px solid var(--gold);border-radius:25px;color:var(--gold);text-decoration:none;background:#241b13}
-.categories a:hover{background:var(--gold);color:#21180c}
-.category-block{padding:30px 0 45px;scroll-margin-top:100px}
-.category-block+.category-block{border-top:1px solid var(--line)}
-.category-block h3{font-size:27px;color:var(--gold);margin:0}
-.category-block .grid{margin-top:22px}
+:root{
+  --gold:#d9ae60;
+  --bg:#12100e;
+  --panel:#211b16;
+  --line:#5b4528;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:#f9f1e4;
+  font-family:Tahoma,Arial,sans-serif;
+}
+
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:19px 7%;
+  background:#15120f;
+  position:sticky;
+  top:0;
+  z-index:2;
+  border-bottom:1px solid #554128;
+}
+
+.brand{
+  color:var(--gold);
+  font-size:24px;
+  font-weight:bold;
+}
+
+nav a{
+  color:#f4e9d4;
+  text-decoration:none;
+  margin:0 12px;
+}
+
+button{
+  background:var(--gold);
+  border:0;
+  border-radius:6px;
+  padding:12px 20px;
+  cursor:pointer;
+  font-weight:bold;
+  color:#21180c;
+}
+
+button:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
+
+.hero{
+  min-height:520px;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(15,11,8,.1),
+      rgba(15,11,8,.82)
+    ),
+    url('hero.png') center/cover;
+
+  display:flex;
+  align-items:center;
+  padding:8%;
+}
+
+.hero-content{
+  max-width:470px;
+  background:#100d09a8;
+  padding:25px;
+  border-radius:12px;
+}
+
+.hero h1{
+  font-size:clamp(32px,5vw,60px);
+  color:var(--gold);
+  margin:0;
+}
+
+.hero p{
+  line-height:2;
+}
+
+.section{
+  padding:65px 7%;
+  text-align:center;
+}
+
+h2{
+  color:var(--gold);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:22px;
+  margin-top:35px;
+}
+
+.card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:24px;
+}
+
+.bottle{
+  font-size:80px;
+  padding:30px;
+  background:radial-gradient(circle,#614323,#231b14);
+  border-radius:10px;
+}
+
+.product-image{
+  width:100%;
+  height:180px;
+  object-fit:contain;
+  border-radius:10px;
+  background:#302319;
+}
+
+.price{
+  color:var(--gold);
+  font-weight:bold;
+  font-size:22px;
+}
+
+.cart{
+  position:fixed;
+  bottom:20px;
+  left:20px;
+  background:var(--gold);
+  color:#21180c;
+  padding:15px;
+  border-radius:30px;
+  box-shadow:0 5px 30px #0009;
+  z-index:3;
+}
+
+footer{
+  text-align:center;
+  padding:35px;
+  border-top:1px solid #4c3922;
+  color:#cdbb9e;
+}
+
+.overlay{
+  position:fixed;
+  inset:0;
+  background:#000b;
+  z-index:5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
+}
+
+.hidden{
+  display:none!important;
+}
+
+.dialog{
+  background:#1b1612;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:24px;
+  width:min(580px,100%);
+  max-height:90vh;
+  overflow:auto;
+}
+
+.dialog-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.dialog-head h2{
+  margin:0;
+}
+
+.secondary{
+  background:transparent;
+  color:var(--gold);
+  border:1px solid var(--gold);
+}
+
+.cart-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  border-bottom:1px solid #554128;
+  padding:16px 0;
+  flex-wrap:wrap;
+}
+
+.cart-actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.cart-actions button{
+  padding:7px 11px;
+}
+
+.summary{
+  margin:20px 0;
+  padding:15px;
+  background:#30241a;
+  border-radius:10px;
+  line-height:2;
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+  margin:12px 0;
+  text-align:right;
+}
+
+.field input,
+.field textarea{
+  width:100%;
+  background:#120f0c;
+  border:1px solid #72562f;
+  color:#fff;
+  padding:12px;
+  border-radius:7px;
+  font:inherit;
+}
+
+.note{
+  color:#e5c995;
+  font-size:14px;
+  line-height:1.9;
+}
+
+.actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:15px;
+}
+
+.status{
+  color:#f0cb87;
+  min-height:22px;
+  overflow-wrap:anywhere;
+  line-height:1.9;
+}
+
+.success-box{
+  border:1px solid #668e61;
+  background:#18301e;
+  border-radius:10px;
+  padding:15px;
+  margin-top:15px;
+  line-height:2;
+}
+
+.categories{
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin:25px 0;
+}
+
+.categories a{
+  display:inline-block;
+  padding:13px 20px;
+  border:1px solid var(--gold);
+  border-radius:25px;
+  color:var(--gold);
+  text-decoration:none;
+  background:#241b13;
+}
+
+.categories a:hover{
+  background:var(--gold);
+  color:#21180c;
+}
+
+.category-block{
+  padding:30px 0 45px;
+  scroll-margin-top:100px;
+}
+
+.category-block+.category-block{
+  border-top:1px solid var(--line);
+}
+
+.category-block h3{
+  font-size:27px;
+  color:var(--gold);
+  margin:0;
+}
+
+.category-block .grid{
+  margin-top:22px;
+}
+
+/* سياسات المتجر */
+
+.store-policies{
+  padding:50px 7%;
+  background:#15120f;
+  color:#f9f1e4;
+  direction:rtl;
+  text-align:right;
+}
+
+.store-policies h2{
+  text-align:center;
+  color:#d9ae60;
+  margin-bottom:30px;
+}
+
+.policy-box{
+  background:#211b16;
+  border:1px solid #5b4528;
+  border-radius:12px;
+  padding:25px;
+  margin-bottom:20px;
+  line-height:2;
+}
+
+.policy-box h3{
+  color:#d9ae60;
+  margin-top:0;
+}
+
+.policy-box a{
+  color:#d9ae60;
+}
+
+.store-footer{
+  text-align:center;
+  padding:30px 15px;
+  background:#12100e;
+  border-top:1px solid #5b4528;
+  color:#cdbb9e;
+  line-height:2;
+}
+
+.store-footer a{
+  color:#d9ae60;
+  text-decoration:none;
+  margin:0 8px;
+}
+
+/* حسابات التواصل الاجتماعي */
+
+.alreef-social{
+  padding:45px 15px;
+  background:#15120f;
+  border-top:1px solid #5b4528;
+  text-align:center;
+  direction:rtl;
+}
+
+.alreef-social h2{
+  color:#d9ae60;
+  margin-bottom:12px;
+}
+
+.alreef-social p{
+  color:#cdbb9e;
+  font-size:14px;
+  line-height:1.8;
+}
+
+.alreef-social-icons{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:16px;
+  margin:25px auto;
+}
+
+.alreef-social-item{
+  width:110px;
+  min-height:115px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:12px;
+  background:#211b16;
+  border:1px solid #5b4528;
+  border-radius:15px;
+  color:#d9ae60;
+  cursor:default;
+  user-select:none;
+}
+
+.alreef-social-item svg{
+  width:36px;
+  height:36px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.alreef-social-item span{
+  font-size:13px;
+  font-weight:bold;
+}
+
+.alreef-social-soon{
+  display:inline-block;
+  padding:8px 18px;
+  border:1px solid #5b4528;
+  border-radius:20px;
+  color:#d9ae60;
+  background:#211b16;
+}
+
 @media(max-width:650px){
-header{flex-wrap:wrap;padding:15px 4%}
-nav{order:3;width:100%;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-nav a{margin:0;font-size:12px}
-.hero{min-height:430px;background-position:65% center}
-.hero-content{padding:16px}
-.brand{font-size:20px}
-.section{padding:40px 5%}
+
+  header{
+    flex-wrap:wrap;
+    padding:15px 4%;
+  }
+
+  nav{
+    order:3;
+    width:100%;
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+
+  nav a{
+    margin:0;
+    font-size:12px;
+  }
+
+  .hero{
+    min-height:430px;
+    background-position:65% center;
+  }
+
+  .hero-content{
+    padding:16px;
+  }
+
+  .brand{
+    font-size:20px;
+  }
+
+  .section{
+    padding:40px 5%;
+  }
+
+  .store-policies{
+    padding:35px 5%;
+  }
+
+  .policy-box{
+    padding:18px;
+  }
 }
 </style>
 </head>
+
 <body>
 
+<!-- رأس الموقع -->
+
 <header>
-<div class="brand">عطور الريف ✦</div>
-<nav>
-<a href="#home">الرئيسية</a>
-<a href="#perfumes">العطور</a>
-<a href="#oud">العود</a>
-<a href="#accessories">الإكسسوارات</a>
-</nav>
-<button id="headerCart">السلة (<span id="count">0</span>)</button>
+
+  <div class="brand">
+    عطور الريف ✦
+  </div>
+
+  <nav>
+    <a href="#home">الرئيسية</a>
+    <a href="#perfumes">العطور</a>
+    <a href="#oud">العود</a>
+    <a href="#accessories">الإكسسوارات</a>
+  </nav>
+
+  <button id="headerCart">
+    السلة (<span id="count">0</span>)
+  </button>
+
 </header>
 
+<!-- الواجهة الرئيسية -->
+
 <section class="hero" id="home">
-<div class="hero-content">
-<h1>عطور الريف</h1>
-<p>عبير أصيل من قلب الطبيعة<br>عطور فاخرة مستوحاة من جمال الطبيعة وعبق التراث العربي.</p>
-<a href="#products"><button>تسوق الآن ←</button></a>
-</div>
+
+  <div class="hero-content">
+
+    <h1>عطور الريف</h1>
+
+    <p>
+      عبير أصيل من قلب الطبيعة
+      <br>
+      عطور فاخرة مستوحاة من جمال الطبيعة وعبق التراث العربي.
+    </p>
+
+    <a href="#products">
+      <button>تسوق الآن ←</button>
+    </a>
+
+  </div>
+
 </section>
+
+<!-- المنتجات -->
 
 <section class="section" id="products">
-<h2>تسوق حسب القسم</h2>
-<p>اختر القسم الذي يناسبك</p>
-<div class="categories">
-<a href="#perfumes">🌸 العطور</a>
-<a href="#oud">🪵 العود</a>
-<a href="#accessories">🎁 الإكسسوارات</a>
-</div>
-<div id="items" aria-live="polite">جارٍ تحميل المنتجات...</div>
+
+  <h2>تسوق حسب القسم</h2>
+
+  <p>اختر القسم الذي يناسبك</p>
+
+  <div class="categories">
+
+    <a href="#perfumes">🌸 العطور</a>
+
+    <a href="#oud">🪵 العود</a>
+
+    <a href="#accessories">🎁 الإكسسوارات</a>
+
+  </div>
+
+  <div id="items" aria-live="polite">
+    جارٍ تحميل المنتجات...
+  </div>
+
 </section>
+
+<!-- من نحن -->
 
 <section class="section" id="about">
-<h2>عن عطور الريف</h2>
-<p>هوية عطرية عربية تجمع الأصالة والفخامة.</p>
-<p class="note">الشحن من نجران إلى جميع مدن المملكة. مجاني للطلبات بقيمة 300 ريال فأكثر.</p>
-<p class="note">المتجر قيد التجهيز. الدفع الإلكتروني غير مفعل حاليًا.</p>
+
+  <h2>عن عطور الريف</h2>
+
+  <p>
+    هوية عطرية عربية تجمع الأصالة والفخامة.
+  </p>
+
+  <p class="note">
+    الشحن من نجران إلى جميع مدن المملكة.
+    مجاني للطلبات بقيمة 300 ريال فأكثر.
+  </p>
+
+  <p class="note">
+    المتجر قيد التجهيز.
+    الدفع الإلكتروني غير مفعل حاليًا.
+  </p>
+
 </section>
 
-<!-- بداية سياسات متجر عطور الريف -->
-
-<style>
-.store-policies {
-  padding: 50px 7%;
-  background: #15120f;
-  color: #f9f1e4;
-  direction: rtl;
-  text-align: right;
-}
-
-.store-policies h2 {
-  text-align: center;
-  color: #d9ae60;
-  margin-bottom: 30px;
-}
-
-.policy-box {
-  background: #211b16;
-  border: 1px solid #5b4528;
-  border-radius: 12px;
-  padding: 25px;
-  margin-bottom: 20px;
-  line-height: 2;
-}
-
-.policy-box h3 {
-  color: #d9ae60;
-  margin-top: 0;
-}
-
-.policy-box a {
-  color: #d9ae60;
-}
-
-.store-footer {
-  text-align: center;
-  padding: 30px 15px;
-  background: #12100e;
-  border-top: 1px solid #5b4528;
-  color: #cdbb9e;
-  line-height: 2;
-}
-
-.store-footer a {
-  color: #d9ae60;
-  text-decoration: none;
-  margin: 0 8px;
-}
-
-@media (max-width: 650px) {
-  .store-policies {
-    padding: 35px 5%;
-  }
-
-  .policy-box {
-    padding: 18px;
-  }
-}
-</style>
+<!-- بداية سياسات المتجر -->
 
 <section class="store-policies" id="policies">
 
   <h2>سياسات متجر عطور الريف</h2>
 
   <!-- سياسة الشحن -->
+
   <div class="policy-box" id="shipping-policy">
 
     <h3>🚚 سياسة الشحن والتوصيل</h3>
@@ -212,7 +636,8 @@ nav a{margin:0;font-size:12px}
 
   </div>
 
-  <!-- سياسة الاستبدال والاسترجاع -->
+  <!-- الاستبدال والاسترجاع -->
+
   <div class="policy-box" id="return-policy">
 
     <h3>↩️ سياسة الاستبدال والاسترجاع</h3>
@@ -229,9 +654,8 @@ nav a{margin:0;font-size:12px}
     </p>
 
     <ul>
-      <li>
-        أن يكون المنتج بحالته الأصلية.
-      </li>
+
+      <li>أن يكون المنتج بحالته الأصلية.</li>
 
       <li>
         ألا يكون المنتج مستخدمًا أو متضررًا
@@ -247,6 +671,7 @@ nav a{margin:0;font-size:12px}
         التواصل مع خدمة العملاء
         لتقديم طلب الاستبدال أو الاسترجاع.
       </li>
+
     </ul>
 
     <h4>المنتجات المستثناة</h4>
@@ -277,7 +702,8 @@ nav a{margin:0;font-size:12px}
 
   </div>
 
-  <!-- سياسة الخصوصية -->
+  <!-- الخصوصية -->
+
   <div class="policy-box" id="privacy-policy">
 
     <h3>🔒 سياسة الخصوصية</h3>
@@ -344,6 +770,7 @@ nav a{margin:0;font-size:12px}
   </div>
 
   <!-- الشروط والأحكام -->
+
   <div class="policy-box" id="terms-policy">
 
     <h3>📋 الشروط والأحكام</h3>
@@ -396,6 +823,7 @@ nav a{margin:0;font-size:12px}
   </div>
 
   <!-- التواصل -->
+
   <div class="policy-box" id="contact">
 
     <h3>📱 تواصل معنا</h3>
@@ -409,6 +837,7 @@ nav a{margin:0;font-size:12px}
     </p>
 
     <p>
+
       <a
         href="https://wa.me/966535317713"
         target="_blank"
@@ -416,6 +845,7 @@ nav a{margin:0;font-size:12px}
       >
         💬 التواصل عبر واتساب
       </a>
+
     </p>
 
     <p>
@@ -427,6 +857,92 @@ nav a{margin:0;font-size:12px}
     </p>
 
   </div>
+
+</section>
+
+<!-- حسابات التواصل الاجتماعي -->
+
+<section class="alreef-social" aria-labelledby="socialTitle">
+
+  <h2 id="socialTitle">
+    🌿 تابعونا على منصات التواصل
+  </h2>
+
+  <p>
+    قريبًا تجدون عطور الريف على منصات التواصل الاجتماعي
+  </p>
+
+  <div class="alreef-social-icons">
+
+    <!-- Snapchat -->
+
+    <div class="alreef-social-item">
+
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+
+        <path d="M12 3c-3 0-5 2.2-5 5.2v3.1c-.6.5-1.3.8-2.2.9-.5.1-.7.6-.3 1 1 .9 2.1 1.3 3.1 1.5-.2.8-.7 1.5-1.5 2.1.8.3 1.6.3 2.3.2.7 1.3 1.9 2 3.6 2s2.9-.7 3.6-2c.7.1 1.5.1 2.3-.2-.8-.6-1.3-1.3-1.5-2.1 1-.2 2.1-.6 3.1-1.5.4-.4.2-.9-.3-1-.9-.1-1.6-.4-2.2-.9V8.2C17 5.2 15 3 12 3z"/>
+
+      </svg>
+
+      <span>Snapchat</span>
+
+    </div>
+
+    <!-- Instagram -->
+
+    <div class="alreef-social-item">
+
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+
+        <rect
+          x="3"
+          y="3"
+          width="18"
+          height="18"
+          rx="5"
+        />
+
+        <circle
+          cx="12"
+          cy="12"
+          r="4"
+        />
+
+        <circle
+          cx="17.5"
+          cy="6.5"
+          r="1"
+          fill="currentColor"
+          stroke="none"
+        />
+
+      </svg>
+
+      <span>Instagram</span>
+
+    </div>
+
+    <!-- X -->
+
+    <div class="alreef-social-item">
+
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+
+        <path d="M4 3l16 18M20 3L4 21"/>
+
+        <path d="M4 3h4l12 18h-4z"/>
+
+      </svg>
+
+      <span>X</span>
+
+    </div>
+
+  </div>
+
+  <p class="alreef-social-soon">
+    الحسابات الرسمية قريبًا
+  </p>
 
 </section>
 
@@ -443,6 +959,7 @@ nav a{margin:0;font-size:12px}
   </p>
 
   <p>
+
     <a href="#shipping-policy">الشحن</a>
     |
     <a href="#return-policy">الاسترجاع</a>
@@ -452,6 +969,7 @@ nav a{margin:0;font-size:12px}
     <a href="#terms-policy">الشروط والأحكام</a>
     |
     <a href="#contact">تواصل معنا</a>
+
   </p>
 
   <p>
@@ -460,65 +978,212 @@ nav a{margin:0;font-size:12px}
 
 </footer>
 
-<!-- نهاية سياسات متجر عطور الريف -->
+<!-- زر السلة -->
 
-<button class="cart" id="floatingCart">🛒 السلة: <span id="total">0</span> ر.س</button>
+<button class="cart" id="floatingCart">
+  🛒 السلة: <span id="total">0</span> ر.س
+</button>
 
-<div id="cartOverlay" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
-<div class="dialog">
-<div class="dialog-head">
-<h2 id="cartTitle">سلة المشتريات</h2>
-<button class="secondary" id="closeCart">✕</button>
-</div>
-<div id="cartRows"></div>
-<div class="summary">
-<strong>قيمة المنتجات: <span id="cartTotal">0</span> ر.س</strong>
-<p class="note">الشحن يُحسب حسب المدينة، ومجاني من 300 ريال.</p>
-</div>
-<div class="actions">
-<button id="checkoutBtn">متابعة إلى بيانات العميل</button>
-<button class="secondary" id="clearCart">تفريغ السلة</button>
-</div>
-</div>
+<!-- نافذة السلة -->
+
+<div
+  id="cartOverlay"
+  class="overlay hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="cartTitle"
+>
+
+  <div class="dialog">
+
+    <div class="dialog-head">
+
+      <h2 id="cartTitle">
+        سلة المشتريات
+      </h2>
+
+      <button class="secondary" id="closeCart">
+        ✕
+      </button>
+
+    </div>
+
+    <div id="cartRows"></div>
+
+    <div class="summary">
+
+      <strong>
+        قيمة المنتجات:
+        <span id="cartTotal">0</span>
+        ر.س
+      </strong>
+
+      <p class="note">
+        الشحن يُحسب حسب المدينة، ومجاني من 300 ريال.
+      </p>
+
+    </div>
+
+    <div class="actions">
+
+      <button id="checkoutBtn">
+        متابعة إلى بيانات العميل
+      </button>
+
+      <button class="secondary" id="clearCart">
+        تفريغ السلة
+      </button>
+
+    </div>
+
+  </div>
+
 </div>
 
-<div id="checkoutOverlay" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
-<div class="dialog">
-<div class="dialog-head">
-<h2 id="checkoutTitle">بيانات التوصيل (تجربة)</h2>
-<button class="secondary" id="closeCheckout">✕</button>
+<!-- نافذة الطلب التجريبي -->
+
+<div
+  id="checkoutOverlay"
+  class="overlay hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="checkoutTitle"
+>
+
+  <div class="dialog">
+
+    <div class="dialog-head">
+
+      <h2 id="checkoutTitle">
+        بيانات التوصيل (تجربة)
+      </h2>
+
+      <button class="secondary" id="closeCheckout">
+        ✕
+      </button>
+
+    </div>
+
+    <p class="note">
+      نسخة تجريبية: سيُحفظ الطلب في قاعدة البيانات
+      دون تحصيل أي مبلغ. استخدم بيانات وهمية فقط.
+    </p>
+
+    <form id="checkoutForm">
+
+      <label class="field">
+
+        الاسم الكامل
+
+        <input
+          name="customer_name"
+          autocomplete="name"
+          required
+          minlength="2"
+          maxlength="100"
+        >
+
+      </label>
+
+      <label class="field">
+
+        رقم الجوال السعودي
+
+        <input
+          name="phone"
+          type="tel"
+          inputmode="tel"
+          autocomplete="tel"
+          placeholder="05xxxxxxxx"
+          required
+          pattern="(?:05[0-9]{8}|\+9665[0-9]{8})"
+        >
+
+      </label>
+
+      <label class="field">
+
+        المدينة
+
+        <input
+          name="city"
+          id="cityInput"
+          required
+          minlength="2"
+          maxlength="80"
+          autocomplete="address-level2"
+          placeholder="مثال: نجران"
+        >
+
+      </label>
+
+      <label class="field">
+
+        العنوان
+
+        <textarea
+          name="address"
+          required
+          minlength="5"
+          maxlength="350"
+          autocomplete="street-address"
+        ></textarea>
+
+      </label>
+
+      <div
+        class="summary"
+        id="checkoutSummary"
+        aria-live="polite"
+      ></div>
+
+      <p
+        class="status"
+        id="checkoutStatus"
+        role="status"
+        aria-live="polite"
+      >
+        الطلبات التجريبية فقط — الدفع غير مفعل.
+      </p>
+
+      <div
+        id="orderSuccess"
+        class="success-box hidden"
+      ></div>
+
+      <div class="actions">
+
+        <button type="submit" id="placeOrderBtn">
+          إرسال طلب تجريبي
+        </button>
+
+        <button
+          type="button"
+          class="secondary"
+          id="backToCart"
+        >
+          العودة للسلة
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
 </div>
-<p class="note">نسخة تجريبية: سيُحفظ الطلب في قاعدة البيانات دون تحصيل أي مبلغ. استخدم بيانات وهمية فقط.</p>
-<form id="checkoutForm">
-<label class="field">الاسم الكامل
-<input name="customer_name" autocomplete="name" required minlength="2" maxlength="100">
-</label>
-<label class="field">رقم الجوال السعودي
-<input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="05xxxxxxxx" required pattern="(?:05[0-9]{8}|\+9665[0-9]{8})">
-</label>
-<label class="field">المدينة
-<input name="city" id="cityInput" required minlength="2" maxlength="80" autocomplete="address-level2" placeholder="مثال: نجران">
-</label>
-<label class="field">العنوان
-<textarea name="address" required minlength="5" maxlength="350" autocomplete="street-address"></textarea>
-</label>
-<div class="summary" id="checkoutSummary" aria-live="polite"></div>
-<p class="status" id="checkoutStatus" role="status" aria-live="polite">الطلبات التجريبية فقط — الدفع غير مفعل.</p>
-<div id="orderSuccess" class="success-box hidden"></div>
-<div class="actions">
-<button type="submit" id="placeOrderBtn">إرسال طلب تجريبي</button>
-<button type="button" class="secondary" id="backToCart">العودة للسلة</button>
-</div>
-</form>
-</div>
-</div>
+
+<!-- وظائف المتجر -->
 
 <script>
 'use strict';
 
 const SUPABASE_URL='https://tymlbijnrjzeojnfbivb.supabase.co';
+
 const SUPABASE_KEY='sb_publishable_oOMBvhSlla4O7d4QQ4jhAw_0gD0tQD0';
+
 const CART_KEY='alreef_cart_v1';
+
 const REQUEST_KEY='alreef_pending_request_v1';
 
 let products=[];
@@ -526,420 +1191,950 @@ let cart={};
 let submittingOrder=false;
 
 const $=id=>document.getElementById(id);
-const money=n=>Number(n).toLocaleString('ar-SA',{maximumFractionDigits:2});
+
+const money=n=>Number(n).toLocaleString(
+  'ar-SA',
+  {maximumFractionDigits:2}
+);
 
 function readCart(){
-try{
-const data=JSON.parse(localStorage.getItem(CART_KEY)||'{}');
-if(data&&typeof data==='object'&&!Array.isArray(data)){
-for(const [id,qty] of Object.entries(data)){
-if(typeof id==='string'&&Number.isSafeInteger(qty)&&qty>0&&qty<=999)cart[id]=qty;
-}
-}
-}catch(e){cart={};}
+
+  try{
+
+    const data=JSON.parse(
+      localStorage.getItem(CART_KEY)||'{}'
+    );
+
+    if(
+      data &&
+      typeof data==='object' &&
+      !Array.isArray(data)
+    ){
+
+      for(const [id,qty] of Object.entries(data)){
+
+        if(
+          typeof id==='string' &&
+          Number.isSafeInteger(qty) &&
+          qty>0 &&
+          qty<=999
+        ){
+          cart[id]=qty;
+        }
+
+      }
+
+    }
+
+  }catch(e){
+    cart={};
+  }
+
 }
 
 function saveCart(){
-try{localStorage.setItem(CART_KEY,JSON.stringify(cart));}catch(e){}
-renderTotals();
+
+  try{
+    localStorage.setItem(
+      CART_KEY,
+      JSON.stringify(cart)
+    );
+  }catch(e){}
+
+  renderTotals();
+
 }
 
 function reconcileCart(){
-const available=new Map(products.map(p=>[p.id,p]));
-for(const [id,qty] of Object.entries(cart)){
-const p=available.get(id);
-if(!p||p.stock<=0)delete cart[id];
-else cart[id]=Math.min(qty,p.stock,20);
-}
-saveCart();
+
+  const available=new Map(
+    products.map(p=>[p.id,p])
+  );
+
+  for(const [id,qty] of Object.entries(cart)){
+
+    const p=available.get(id);
+
+    if(!p || p.stock<=0){
+      delete cart[id];
+    }else{
+      cart[id]=Math.min(qty,p.stock,20);
+    }
+
+  }
+
+  saveCart();
+
 }
 
 function getLines(){
-return products.filter(p=>cart[p.id]>0).map(p=>({p,qty:cart[p.id]}));
+
+  return products
+    .filter(p=>cart[p.id]>0)
+    .map(p=>({
+      p,
+      qty:cart[p.id]
+    }));
+
 }
 
 function cartTotal(){
-return getLines().reduce((sum,{p,qty})=>sum+Number(p.price)*qty,0);
+
+  return getLines().reduce(
+    (sum,{p,qty})=>
+      sum+Number(p.price)*qty,
+    0
+  );
+
 }
 
 function shippingFee(city,subtotal){
-  if(subtotal>=300)return 0;
 
-  const c=String(city||'').trim().toLowerCase();
+  if(subtotal>=300){
+    return 0;
+  }
+
+  const c=String(city||'')
+    .trim()
+    .toLowerCase();
 
   const najran=[
-    'نجران','najran',
-    'شرورة','sharurah',
-    'حبونا','خباش',
-    'بدر الجنوب','يدمة',
-    'ثار','الخرخير'
+    'نجران',
+    'najran',
+    'شرورة',
+    'sharurah',
+    'حبونا',
+    'خباش',
+    'بدر الجنوب',
+    'يدمة',
+    'ثار',
+    'الخرخير'
   ];
 
   return najran.includes(c)?25:30;
+
 }
 
 function renderTotals(){
-$('count').textContent=Object.values(cart).reduce((a,b)=>a+b,0);
-$('total').textContent=money(cartTotal());
-$('cartTotal').textContent=money(cartTotal());
+
+  $('count').textContent=
+    Object.values(cart).reduce(
+      (a,b)=>a+b,
+      0
+    );
+
+  $('total').textContent=money(cartTotal());
+
+  $('cartTotal').textContent=money(cartTotal());
+
 }
 
 function updateCheckoutSummary(){
-const subtotal=cartTotal();
-const city=$('cityInput').value.trim();
-const fee=city?shippingFee(city,subtotal):null;
-$('checkoutSummary').replaceChildren();
-const lines=[
-`قيمة المنتجات: ${money(subtotal)} ر.س`,
-fee===null?'الشحن: أدخل المدينة لحساب الرسوم':`الشحن: ${fee===0?'مجاني':money(fee)+' ر.س'}`,
-fee===null?'الإجمالي النهائي: يُحسب بعد إدخال المدينة':`الإجمالي النهائي: ${money(subtotal+fee)} ر.س`
-];
-for(const line of lines){
-const p=document.createElement('div');
-p.textContent=line;
-$('checkoutSummary').append(p);
-}
+
+  const subtotal=cartTotal();
+
+  const city=$('cityInput').value.trim();
+
+  const fee=city
+    ?shippingFee(city,subtotal)
+    :null;
+
+  $('checkoutSummary').replaceChildren();
+
+  const lines=[
+
+    `قيمة المنتجات: ${money(subtotal)} ر.س`,
+
+    fee===null
+      ?'الشحن: أدخل المدينة لحساب الرسوم'
+      :`الشحن: ${
+          fee===0
+            ?'مجاني'
+            :money(fee)+' ر.س'
+        }`,
+
+    fee===null
+      ?'الإجمالي النهائي: يُحسب بعد إدخال المدينة'
+      :`الإجمالي النهائي: ${money(subtotal+fee)} ر.س`
+
+  ];
+
+  for(const line of lines){
+
+    const p=document.createElement('div');
+
+    p.textContent=line;
+
+    $('checkoutSummary').append(p);
+
+  }
+
 }
 
 function productCategory(name){
-const n=String(name||'').trim();
-if(['عود طبيعي','عود كمبودي','عود تايقر'].includes(n))return 'oud';
-if(['أقلام فاخرة','ميداليات','ساعات','كبك رجالي'].includes(n))return 'accessories';
-return 'perfumes';
+
+  const n=String(name||'').trim();
+
+  if(
+    [
+      'عود طبيعي',
+      'عود كمبودي',
+      'عود تايقر'
+    ].includes(n)
+  ){
+    return 'oud';
+  }
+
+  if(
+    [
+      'أقلام فاخرة',
+      'ميداليات',
+      'ساعات',
+      'كبك رجالي'
+    ].includes(n)
+  ){
+    return 'accessories';
+  }
+
+  return 'perfumes';
+
 }
 
 async function loadProducts(){
-const container=$('items');
-try{
-const response=await fetch(
-`${SUPABASE_URL}/rest/v1/products?select=id,name,description,price,stock,image_url&is_active=eq.true&order=created_at.asc`,
-{headers:{apikey:SUPABASE_KEY}}
-);
-if(!response.ok)throw new Error(`HTTP ${response.status}`);
-const rows=await response.json();
-if(!Array.isArray(rows))throw new Error('Invalid response');
 
-products=rows.map(p=>({...p,stock:Math.max(0,Math.floor(Number(p.stock)||0))}));
-reconcileCart();
-container.replaceChildren();
+  const container=$('items');
 
-if(!products.length){
-container.textContent='لا توجد منتجات متاحة حاليًا.';
-return;
-}
+  try{
 
-const sections=[
-{id:'perfumes',title:'🌸 العطور',hint:'تشكيلة عطور الريف'},
-{id:'oud',title:'🪵 العود',hint:'السعر للوقية الواحدة'},
-{id:'accessories',title:'🎁 الإكسسوارات',hint:'هدايا وإكسسوارات فاخرة'}
-];
+    const response=await fetch(
 
-const grids={};
+      `${SUPABASE_URL}/rest/v1/products?select=id,name,description,price,stock,image_url&is_active=eq.true&order=created_at.asc`,
 
-for(const section of sections){
-const block=document.createElement('section');
-block.className='category-block';
-block.id=section.id;
+      {
+        headers:{
+          apikey:SUPABASE_KEY
+        }
+      }
 
-const heading=document.createElement('h3');
-heading.textContent=section.title;
+    );
 
-const hint=document.createElement('p');
-hint.className='note';
-hint.textContent=section.hint;
+    if(!response.ok){
+      throw new Error(`HTTP ${response.status}`);
+    }
 
-const grid=document.createElement('div');
-grid.className='grid';
+    const rows=await response.json();
 
-block.append(heading,hint,grid);
-container.append(block);
-grids[section.id]=grid;
-}
+    if(!Array.isArray(rows)){
+      throw new Error('Invalid response');
+    }
 
-for(const p of products){
-const card=document.createElement('article');
-card.className='card';
+    products=rows.map(p=>({
 
-if(p.image_url&&/^https:\/\//i.test(p.image_url)){
-const img=document.createElement('img');
-img.className='product-image';
-img.src=p.image_url;
-img.alt=p.name;
-img.loading='lazy';
-card.append(img);
-}else{
-const bottle=document.createElement('div');
-bottle.className='bottle';
-bottle.textContent='♜';
-card.append(bottle);
-}
+      ...p,
 
-const name=document.createElement('h3');
-name.textContent=p.name;
+      stock:Math.max(
+        0,
+        Math.floor(Number(p.stock)||0)
+      )
 
-const desc=document.createElement('p');
-desc.textContent=p.description||'';
+    }));
 
-const price=document.createElement('p');
-price.className='price';
-price.textContent=`${money(p.price)} ر.س`;
+    reconcileCart();
 
-const button=document.createElement('button');
-button.textContent=p.stock>0?'أضف للسلة':'نفدت الكمية';
-button.disabled=p.stock<=0;
-button.addEventListener('click',()=>add(p.id));
+    container.replaceChildren();
 
-card.append(name,desc,price,button);
-grids[productCategory(p.name)].append(card);
-}
-}catch(error){
-console.error('Product loading error',error);
-container.textContent='تعذر تحميل المنتجات. حاول تحديث الصفحة.';
-}
+    if(!products.length){
+
+      container.textContent=
+        'لا توجد منتجات متاحة حاليًا.';
+
+      return;
+
+    }
+
+    const sections=[
+
+      {
+        id:'perfumes',
+        title:'🌸 العطور',
+        hint:'تشكيلة عطور الريف'
+      },
+
+      {
+        id:'oud',
+        title:'🪵 العود',
+        hint:'السعر للوقية الواحدة'
+      },
+
+      {
+        id:'accessories',
+        title:'🎁 الإكسسوارات',
+        hint:'هدايا وإكسسوارات فاخرة'
+      }
+
+    ];
+
+    const grids={};
+
+    for(const section of sections){
+
+      const block=document.createElement('section');
+
+      block.className='category-block';
+
+      block.id=section.id;
+
+      const heading=document.createElement('h3');
+
+      heading.textContent=section.title;
+
+      const hint=document.createElement('p');
+
+      hint.className='note';
+
+      hint.textContent=section.hint;
+
+      const grid=document.createElement('div');
+
+      grid.className='grid';
+
+      block.append(
+        heading,
+        hint,
+        grid
+      );
+
+      container.append(block);
+
+      grids[section.id]=grid;
+
+    }
+
+    for(const p of products){
+
+      const card=document.createElement('article');
+
+      card.className='card';
+
+      if(
+        p.image_url &&
+        /^https:\/\//i.test(p.image_url)
+      ){
+
+        const img=document.createElement('img');
+
+        img.className='product-image';
+
+        img.src=p.image_url;
+
+        img.alt=p.name;
+
+        img.loading='lazy';
+
+        card.append(img);
+
+      }else{
+
+        const bottle=document.createElement('div');
+
+        bottle.className='bottle';
+
+        bottle.textContent='♜';
+
+        card.append(bottle);
+
+      }
+
+      const name=document.createElement('h3');
+
+      name.textContent=p.name;
+
+      const desc=document.createElement('p');
+
+      desc.textContent=p.description||'';
+
+      const price=document.createElement('p');
+
+      price.className='price';
+
+      price.textContent=`${money(p.price)} ر.س`;
+
+      const button=document.createElement('button');
+
+      button.textContent=
+        p.stock>0
+          ?'أضف للسلة'
+          :'نفدت الكمية';
+
+      button.disabled=p.stock<=0;
+
+      button.addEventListener(
+        'click',
+        ()=>add(p.id)
+      );
+
+      card.append(
+        name,
+        desc,
+        price,
+        button
+      );
+
+      grids[productCategory(p.name)].append(card);
+
+    }
+
+  }catch(error){
+
+    console.error(
+      'Product loading error',
+      error
+    );
+
+    container.textContent=
+      'تعذر تحميل المنتجات. حاول تحديث الصفحة.';
+
+  }
+
 }
 
 function add(id){
-const p=products.find(p=>p.id===id);
-if(!p)return;
-if((cart[id]||0)>=Math.min(p.stock,20)){
-alert('لا توجد كمية إضافية متاحة.');
-return;
-}
-cart[id]=(cart[id]||0)+1;
-saveCart();
+
+  const p=products.find(p=>p.id===id);
+
+  if(!p){
+    return;
+  }
+
+  if(
+    (cart[id]||0)>=Math.min(p.stock,20)
+  ){
+
+    alert('لا توجد كمية إضافية متاحة.');
+
+    return;
+
+  }
+
+  cart[id]=(cart[id]||0)+1;
+
+  saveCart();
+
 }
 
 function changeQty(id,delta){
-const p=products.find(p=>p.id===id);
-if(!p)return;
-const next=(cart[id]||0)+delta;
-if(next<=0)delete cart[id];
-else if(next<=Math.min(p.stock,20))cart[id]=next;
-else{
-alert('الكمية المطلوبة تتجاوز الحد المتاح.');
-return;
-}
-saveCart();
-renderCart();
+
+  const p=products.find(p=>p.id===id);
+
+  if(!p){
+    return;
+  }
+
+  const next=(cart[id]||0)+delta;
+
+  if(next<=0){
+
+    delete cart[id];
+
+  }else if(
+    next<=Math.min(p.stock,20)
+  ){
+
+    cart[id]=next;
+
+  }else{
+
+    alert('الكمية المطلوبة تتجاوز الحد المتاح.');
+
+    return;
+
+  }
+
+  saveCart();
+
+  renderCart();
+
 }
 
 function renderCart(){
-const rows=$('cartRows');
-rows.replaceChildren();
-const lines=getLines();
 
-if(!lines.length){
-const p=document.createElement('p');
-p.textContent='السلة فارغة. أضف منتجًا أولًا.';
-rows.append(p);
-}
+  const rows=$('cartRows');
 
-for(const {p,qty} of lines){
-const row=document.createElement('div');
-row.className='cart-row';
+  rows.replaceChildren();
 
-const label=document.createElement('div');
-const strong=document.createElement('strong');
-strong.textContent=p.name;
+  const lines=getLines();
 
-const detail=document.createElement('div');
-detail.textContent=`${money(p.price)} ر.س × ${qty} = ${money(Number(p.price)*qty)} ر.س`;
-label.append(strong,detail);
+  if(!lines.length){
 
-const actions=document.createElement('div');
-actions.className='cart-actions';
+    const p=document.createElement('p');
 
-const minus=document.createElement('button');
-minus.textContent='−';
-minus.onclick=()=>changeQty(p.id,-1);
+    p.textContent='السلة فارغة. أضف منتجًا أولًا.';
 
-const number=document.createElement('span');
-number.textContent=qty;
+    rows.append(p);
 
-const plus=document.createElement('button');
-plus.textContent='+';
-plus.disabled=qty>=Math.min(p.stock,20);
-plus.onclick=()=>changeQty(p.id,1);
+  }
 
-const remove=document.createElement('button');
-remove.className='secondary';
-remove.textContent='حذف';
-remove.onclick=()=>{
-delete cart[p.id];
-saveCart();
-renderCart();
-};
+  for(const {p,qty} of lines){
 
-actions.append(minus,number,plus,remove);
-row.append(label,actions);
-rows.append(row);
-}
+    const row=document.createElement('div');
 
-$('checkoutBtn').disabled=!lines.length;
-renderTotals();
+    row.className='cart-row';
+
+    const label=document.createElement('div');
+
+    const strong=document.createElement('strong');
+
+    strong.textContent=p.name;
+
+    const detail=document.createElement('div');
+
+    detail.textContent=
+      `${money(p.price)} ر.س × ${qty} = ${money(Number(p.price)*qty)} ر.س`;
+
+    label.append(
+      strong,
+      detail
+    );
+
+    const actions=document.createElement('div');
+
+    actions.className='cart-actions';
+
+    const minus=document.createElement('button');
+
+    minus.textContent='−';
+
+    minus.onclick=()=>changeQty(p.id,-1);
+
+    const number=document.createElement('span');
+
+    number.textContent=qty;
+
+    const plus=document.createElement('button');
+
+    plus.textContent='+';
+
+    plus.disabled=
+      qty>=Math.min(p.stock,20);
+
+    plus.onclick=()=>changeQty(p.id,1);
+
+    const remove=document.createElement('button');
+
+    remove.className='secondary';
+
+    remove.textContent='حذف';
+
+    remove.onclick=()=>{
+
+      delete cart[p.id];
+
+      saveCart();
+
+      renderCart();
+
+    };
+
+    actions.append(
+      minus,
+      number,
+      plus,
+      remove
+    );
+
+    row.append(
+      label,
+      actions
+    );
+
+    rows.append(row);
+
+  }
+
+  $('checkoutBtn').disabled=!lines.length;
+
+  renderTotals();
+
 }
 
 function showCart(){
-$('checkoutOverlay').classList.add('hidden');
-renderCart();
-$('cartOverlay').classList.remove('hidden');
+
+  $('checkoutOverlay').classList.add('hidden');
+
+  renderCart();
+
+  $('cartOverlay').classList.remove('hidden');
+
 }
 
 function showCheckout(){
-if(!getLines().length)return;
-$('cartOverlay').classList.add('hidden');
-updateCheckoutSummary();
-$('checkoutOverlay').classList.remove('hidden');
+
+  if(!getLines().length){
+    return;
+  }
+
+  $('cartOverlay').classList.add('hidden');
+
+  updateCheckoutSummary();
+
+  $('checkoutOverlay').classList.remove('hidden');
+
 }
 
 function requestFingerprint(order){
-return JSON.stringify({
-customer_name:order.customer_name,
-customer_phone:order.customer_phone,
-city:order.city,
-address:order.address,
-items:[...order.items].sort((a,b)=>a.product_id.localeCompare(b.product_id))
-});
+
+  return JSON.stringify({
+
+    customer_name:order.customer_name,
+
+    customer_phone:order.customer_phone,
+
+    city:order.city,
+
+    address:order.address,
+
+    items:[...order.items].sort(
+      (a,b)=>a.product_id.localeCompare(b.product_id)
+    )
+
+  });
+
 }
 
 function getRequestId(order){
-const fingerprint=requestFingerprint(order);
-try{
-const previous=JSON.parse(sessionStorage.getItem(REQUEST_KEY)||'null');
-if(previous&&previous.fingerprint===fingerprint&&/^[0-9a-f-]{36}$/i.test(previous.id))return previous.id;
-}catch(e){}
-const id=crypto.randomUUID();
-try{sessionStorage.setItem(REQUEST_KEY,JSON.stringify({id,fingerprint}));}catch(e){}
-return id;
+
+  const fingerprint=requestFingerprint(order);
+
+  try{
+
+    const previous=JSON.parse(
+      sessionStorage.getItem(REQUEST_KEY)||'null'
+    );
+
+    if(
+      previous &&
+      previous.fingerprint===fingerprint &&
+      /^[0-9a-f-]{36}$/i.test(previous.id)
+    ){
+
+      return previous.id;
+
+    }
+
+  }catch(e){}
+
+  const id=crypto.randomUUID();
+
+  try{
+
+    sessionStorage.setItem(
+      REQUEST_KEY,
+      JSON.stringify({
+        id,
+        fingerprint
+      })
+    );
+
+  }catch(e){}
+
+  return id;
+
 }
 
 $('checkoutForm').onsubmit=async e=>{
-e.preventDefault();
-if(submittingOrder)return;
 
-const lines=getLines();
-if(!lines.length){
-$('checkoutStatus').textContent='السلة فارغة. أضف منتجًا أولًا.';
-return;
-}
+  e.preventDefault();
 
-const form=e.currentTarget;
-if(!form.reportValidity())return;
+  if(submittingOrder){
+    return;
+  }
 
-const formData=new FormData(form);
-const phone=String(formData.get('phone')||'').trim().replace(/^\+966/,'0');
+  const lines=getLines();
 
-const order={
-customer_name:String(formData.get('customer_name')||'').trim(),
-customer_phone:phone,
-city:String(formData.get('city')||'').trim(),
-address:String(formData.get('address')||'').trim(),
-items:lines.map(({p,qty})=>({product_id:p.id,quantity:qty}))
-};
+  if(!lines.length){
 
-order.request_id=getRequestId(order);
+    $('checkoutStatus').textContent=
+      'السلة فارغة. أضف منتجًا أولًا.';
 
-const button=$('placeOrderBtn');
-submittingOrder=true;
-button.disabled=true;
-button.textContent='جارٍ إرسال الطلب...';
-$('checkoutStatus').textContent='جارٍ حفظ الطلب التجريبي...';
-$('orderSuccess').classList.add('hidden');
+    return;
 
-try{
-const response=await fetch(`${SUPABASE_URL}/functions/v1/create-order`,{
-method:'POST',
-headers:{
-'Content-Type':'application/json',
-apikey:SUPABASE_KEY,
-Authorization:`Bearer ${SUPABASE_KEY}`
-},
-body:JSON.stringify(order)
-});
+  }
 
-let result;
-try{
-result=await response.json();
-}catch(e){
-throw new Error(`استجابة غير صالحة من الخادم (HTTP ${response.status})`);
-}
+  const form=e.currentTarget;
 
-if(!response.ok||!result.success){
-throw new Error(result.error||result.message||`تعذر حفظ الطلب (HTTP ${response.status})`);
-}
+  if(!form.reportValidity()){
+    return;
+  }
 
-const orderId=String(result.order_id||'');
-const subtotal=result.subtotal==null?NaN:Number(result.subtotal);
-const shipping=result.shipping_fee==null?NaN:Number(result.shipping_fee);
-const total=Number(result.total_amount);
+  const formData=new FormData(form);
 
-$('checkoutStatus').textContent='تم حفظ الطلب التجريبي بنجاح.';
-$('orderSuccess').replaceChildren();
+  const phone=String(
+    formData.get('phone')||''
+  )
+  .trim()
+  .replace(/^\+966/,'0');
 
-const linesText=[
-'✅ تم تسجيل الطلب التجريبي',
-`رقم الطلب: ${orderId}`,
-Number.isFinite(subtotal)?`قيمة المنتجات: ${money(subtotal)} ر.س`:'',
-Number.isFinite(shipping)?`الشحن: ${shipping===0?'مجاني':money(shipping)+' ر.س'}`:'',
-`الإجمالي شامل الشحن: ${money(total)} ر.س`,
-'الطلب قيد الانتظار، ولم يتم تحصيل أي مبلغ.'
-];
+  const order={
 
-for(const text of linesText.filter(Boolean)){
-const p=document.createElement('p');
-p.textContent=text;
-$('orderSuccess').append(p);
-}
+    customer_name:String(
+      formData.get('customer_name')||''
+    ).trim(),
 
-$('orderSuccess').classList.remove('hidden');
-try{sessionStorage.removeItem(REQUEST_KEY);}catch(e){}
+    customer_phone:phone,
 
-cart={};
-saveCart();
-form.reset();
-button.textContent='تم تسجيل الطلب';
-button.disabled=true;
+    city:String(
+      formData.get('city')||''
+    ).trim(),
 
-}catch(error){
-console.error('Order error:',error);
-$('checkoutStatus').textContent='خطأ الطلب: '+error.message;
-button.disabled=false;
-button.textContent='إعادة المحاولة';
-}finally{
-submittingOrder=false;
-}
+    address:String(
+      formData.get('address')||''
+    ).trim(),
+
+    items:lines.map(
+      ({p,qty})=>({
+        product_id:p.id,
+        quantity:qty
+      })
+    )
+
+  };
+
+  order.request_id=getRequestId(order);
+
+  const button=$('placeOrderBtn');
+
+  submittingOrder=true;
+
+  button.disabled=true;
+
+  button.textContent='جارٍ إرسال الطلب...';
+
+  $('checkoutStatus').textContent=
+    'جارٍ حفظ الطلب التجريبي...';
+
+  $('orderSuccess').classList.add('hidden');
+
+  try{
+
+    const response=await fetch(
+      `${SUPABASE_URL}/functions/v1/create-order`,
+      {
+
+        method:'POST',
+
+        headers:{
+
+          'Content-Type':'application/json',
+
+          apikey:SUPABASE_KEY,
+
+          Authorization:`Bearer ${SUPABASE_KEY}`
+
+        },
+
+        body:JSON.stringify(order)
+
+      }
+    );
+
+    let result;
+
+    try{
+
+      result=await response.json();
+
+    }catch(e){
+
+      throw new Error(
+        `استجابة غير صالحة من الخادم (HTTP ${response.status})`
+      );
+
+    }
+
+    if(
+      !response.ok ||
+      !result.success
+    ){
+
+      throw new Error(
+        result.error ||
+        result.message ||
+        `تعذر حفظ الطلب (HTTP ${response.status})`
+      );
+
+    }
+
+    const orderId=String(
+      result.order_id||''
+    );
+
+    const subtotal=
+      result.subtotal==null
+        ?NaN
+        :Number(result.subtotal);
+
+    const shipping=
+      result.shipping_fee==null
+        ?NaN
+        :Number(result.shipping_fee);
+
+    const total=Number(
+      result.total_amount
+    );
+
+    $('checkoutStatus').textContent=
+      'تم حفظ الطلب التجريبي بنجاح.';
+
+    $('orderSuccess').replaceChildren();
+
+    const linesText=[
+
+      '✅ تم تسجيل الطلب التجريبي',
+
+      `رقم الطلب: ${orderId}`,
+
+      Number.isFinite(subtotal)
+        ?`قيمة المنتجات: ${money(subtotal)} ر.س`
+        :'',
+
+      Number.isFinite(shipping)
+        ?`الشحن: ${
+            shipping===0
+              ?'مجاني'
+              :money(shipping)+' ر.س'
+          }`
+        :'',
+
+      `الإجمالي شامل الشحن: ${money(total)} ر.س`,
+
+      'الطلب قيد الانتظار، ولم يتم تحصيل أي مبلغ.'
+
+    ];
+
+    for(
+      const text of linesText.filter(Boolean)
+    ){
+
+      const p=document.createElement('p');
+
+      p.textContent=text;
+
+      $('orderSuccess').append(p);
+
+    }
+
+    $('orderSuccess').classList.remove('hidden');
+
+    try{
+
+      sessionStorage.removeItem(REQUEST_KEY);
+
+    }catch(e){}
+
+    cart={};
+
+    saveCart();
+
+    form.reset();
+
+    button.textContent='تم تسجيل الطلب';
+
+    button.disabled=true;
+
+  }catch(error){
+
+    console.error(
+      'Order error:',
+      error
+    );
+
+    $('checkoutStatus').textContent=
+      'خطأ الطلب: '+error.message;
+
+    button.disabled=false;
+
+    button.textContent='إعادة المحاولة';
+
+  }finally{
+
+    submittingOrder=false;
+
+  }
+
 };
 
 readCart();
+
 renderTotals();
+
 loadProducts();
 
 $('headerCart').onclick=showCart;
-$('floatingCart').onclick=showCart;
-$('closeCart').onclick=()=>$('cartOverlay').classList.add('hidden');
-$('closeCheckout').onclick=()=>$('checkoutOverlay').classList.add('hidden');
-$('checkoutBtn').onclick=showCheckout;
-$('backToCart').onclick=showCart;
-$('cityInput').addEventListener('input',updateCheckoutSummary);
 
-$('clearCart').onclick=()=>{
-cart={};
-saveCart();
-renderCart();
+$('floatingCart').onclick=showCart;
+
+$('closeCart').onclick=()=>{
+
+  $('cartOverlay').classList.add('hidden');
+
 };
 
-for(const overlay of [$('cartOverlay'),$('checkoutOverlay')]){
-overlay.addEventListener('click',e=>{
-if(e.target===overlay)overlay.classList.add('hidden');
-});
+$('closeCheckout').onclick=()=>{
+
+  $('checkoutOverlay').classList.add('hidden');
+
+};
+
+$('checkoutBtn').onclick=showCheckout;
+
+$('backToCart').onclick=showCart;
+
+$('cityInput').addEventListener(
+  'input',
+  updateCheckoutSummary
+);
+
+$('clearCart').onclick=()=>{
+
+  cart={};
+
+  saveCart();
+
+  renderCart();
+
+};
+
+for(
+  const overlay of [
+    $('cartOverlay'),
+    $('checkoutOverlay')
+  ]
+){
+
+  overlay.addEventListener('click',e=>{
+
+    if(e.target===overlay){
+
+      overlay.classList.add('hidden');
+
+    }
+
+  });
+
 }
 
 document.addEventListener('keydown',e=>{
-if(e.key==='Escape'){
-$('cartOverlay').classList.add('hidden');
-$('checkoutOverlay').classList.add('hidden');
-}
+
+  if(e.key==='Escape'){
+
+    $('cartOverlay').classList.add('hidden');
+
+    $('checkoutOverlay').classList.add('hidden');
+
+  }
+
 });
 </script>
+
 </body>
 </html>
