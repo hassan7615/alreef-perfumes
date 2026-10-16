@@ -240,6 +240,46 @@ body.dark .stock-ok{color:#9be4aa}
 }
 .coupon-form-grid .full{grid-column:1/-1}
 .coupon-card .form-actions button{min-width:110px}
+
+/* ميزة تصفية الطلبات بالضغط على الإحصائيات */
+.order-filter{
+  text-align:right;
+  cursor:pointer;
+  background:var(--surface);
+  color:var(--text);
+  border:1px solid var(--line);
+  transition:border-color .2s,background .2s,transform .2s;
+}
+.order-filter strong{color:#8a6238}
+.order-filter:hover{
+  border-color:#b89156;
+  transform:translateY(-2px)
+}
+.order-filter.selected{
+  border:2px solid #b89156;
+  background:#f8eddb;
+  box-shadow:0 0 0 2px #b8915630
+}
+.order-filter.selected strong{color:#75491e}
+.order-filter:focus-visible{
+  outline:3px solid #b89156;
+  outline-offset:3px
+}
+body.dark .order-filter{
+  background:var(--surface);
+  color:var(--text)
+}
+body.dark .order-filter.selected{
+  background:#35402c;
+  border-color:#d8b979
+}
+body.dark .order-filter strong{color:#d8b979}
+body.dark .order-filter.selected strong{color:#f1d18b}
+.filter-bar{
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:10px;margin:12px 0
+}
+.filter-bar .pill{font-weight:700}
 @media(max-width:600px){
   header{align-items:flex-start}
   header .header-actions{justify-content:flex-end}
@@ -315,6 +355,15 @@ body.dark .stock-ok{color:#9be4aa}
     </div>
 
     <div id="stats" class="stats"></div>
+
+    <div class="filter-bar">
+      <span id="activeOrderFilter" class="pill">
+        📋 عرض جميع الطلبات
+      </span>
+      <button id="showAllOrders" class="secondary" type="button">
+        عرض جميع الطلبات
+      </button>
+    </div>
 
     <section class="card search-card">
       <h2>🔎 البحث عن طلب</h2>
@@ -707,6 +756,9 @@ let loadedCoupons=[];
 let productsLoaded=false;
 let couponsLoaded=false;
 
+/* فلتر الطلبات الحالي */
+let currentOrderFilter='all';
+
 /* جلسة المدير */
 
 const DURATION=3600000;
@@ -747,6 +799,7 @@ function clearData(){
   loadedCoupons=[];
   productsLoaded=false;
   couponsLoaded=false;
+  currentOrderFilter='all';
 
   ['orders','stats','productGrid','inventoryStats','couponList']
     .forEach(id=>$(id).replaceChildren());
@@ -757,6 +810,7 @@ function clearData(){
   $('couponMessage').textContent='';
   $('couponSearch').value='';
   $('couponCount').textContent='0 كوبون';
+  $('activeOrderFilter').textContent='📋 عرض جميع الطلبات';
 
   $('newProductForm').reset();
   $('newCouponForm').reset();
@@ -908,6 +962,74 @@ function norm(s){
 
 /* ==================== الطلبات ==================== */
 
+/* اختيار فلتر الطلبات */
+function selectOrderFilter(status){
+  if(!active())return;
+
+  currentOrderFilter=status;
+
+  const titles={
+    all:'📋 عرض جميع الطلبات',
+    pending:'⏳ الطلبات قيد الانتظار',
+    processing:'📦 الطلبات قيد التجهيز',
+    shipped:'🚚 الطلبات المشحونة',
+    cancelled:'🚫 الطلبات الملغية'
+  };
+
+  $('activeOrderFilter').textContent=
+    titles[status]||titles.all;
+
+  for(const button of $('stats').querySelectorAll('.order-filter')){
+    const selected=button.dataset.filter===status;
+    button.classList.toggle('selected',selected);
+    button.setAttribute('aria-pressed',String(selected));
+  }
+
+  filterOrders();
+}
+
+/* عرض الإحصائيات كأزرار */
+function renderOrderStats(){
+  $('stats').replaceChildren();
+
+  const filters=[
+    ['all','إجمالي الطلبات',loadedOrders.length],
+    ['pending','قيد الانتظار',
+      loadedOrders.filter(o=>o.status==='pending').length],
+    ['processing','قيد التجهيز',
+      loadedOrders.filter(o=>o.status==='processing').length],
+    ['shipped','تم الشحن',
+      loadedOrders.filter(o=>o.status==='shipped').length],
+    ['cancelled','الملغية',
+      loadedOrders.filter(o=>o.status==='cancelled').length]
+  ];
+
+  for(const [status,title,count] of filters){
+    const button=el(
+      'button',undefined,'card stat order-filter'
+    );
+
+    button.type='button';
+    button.dataset.filter=status;
+    button.title='اضغط لعرض '+title;
+    button.setAttribute(
+      'aria-label','عرض '+title+'، العدد '+count
+    );
+
+    button.append(
+      el('span',title),
+      el('strong',count)
+    );
+
+    button.onclick=()=>selectOrderFilter(status);
+
+    $('stats').append(button);
+  }
+
+  selectOrderFilter(currentOrderFilter);
+}
+
+/* البحث والتصفية معًا */
 function filterOrders(){
   if(!active())return;
 
@@ -915,21 +1037,44 @@ function filterOrders(){
   let visible=0;
 
   for(const card of $('orders').querySelectorAll('.order')){
-    const ok=!q||norm(card.dataset.search).includes(q);
+    const matchesSearch=
+      !q||norm(card.dataset.search).includes(q);
+
+    const matchesStatus=
+      currentOrderFilter==='all'||
+      card.dataset.status===currentOrderFilter;
+
+    const ok=matchesSearch&&matchesStatus;
+
     card.classList.toggle('hidden',!ok);
+
     if(ok)visible++;
   }
 
   const old=$('orders').querySelector('.empty-search');
   if(old)old.remove();
 
-  $('searchResult').textContent=q
-    ?`نتائج البحث: ${visible} من ${loadedOrders.length} طلب`
-    :`إجمالي الطلبات المعروضة: ${loadedOrders.length}`;
+  const statusCount=
+    currentOrderFilter==='all'
+      ?loadedOrders.length
+      :loadedOrders.filter(
+        o=>o.status===currentOrderFilter
+      ).length;
 
-  if(q&&!visible&&loadedOrders.length){
+  $('searchResult').textContent=
+    'الطلبات المعروضة: '+visible+
+    ' من '+statusCount+
+    (q?' (حسب البحث)':'');
+
+  if(!visible&&loadedOrders.length){
     $('orders').append(
-      el('div','لا توجد طلبات مطابقة.','empty-search')
+      el(
+        'div',
+        q
+          ?'لا توجد طلبات مطابقة للبحث في هذه الحالة.'
+          :'لا توجد طلبات في هذه الحالة.',
+        'empty-search'
+      )
     );
   }
 }
@@ -956,19 +1101,7 @@ async function loadOrders(){
     const list=data||[];
     loadedOrders=list;
 
-    const counts=[
-      ['إجمالي الطلبات',list.length],
-      ['قيد الانتظار',list.filter(o=>o.status==='pending').length],
-      ['قيد التجهيز',list.filter(o=>o.status==='processing').length],
-      ['تم الشحن',list.filter(o=>o.status==='shipped').length],
-      ['الملغية',list.filter(o=>o.status==='cancelled').length]
-    ];
-
-    for(const [title,count] of counts){
-      const card=el('div',undefined,'card stat');
-      card.append(el('span',title),el('strong',count));
-      $('stats').append(card);
-    }
+    renderOrderStats();
 
     if(!list.length){
       $('orders').append(el('p','لا توجد طلبات حاليًا.'));
@@ -1012,6 +1145,9 @@ async function loadOrders(){
       card.dataset.search=[
         code,o.order_number,o.id,o.customer_name,o.customer_phone
       ].join(' ');
+
+      /* حالة الطلب محفوظة لاستخدامها في التصفية */
+      card.dataset.status=o.status||'';
 
       const info=[
         ['h3','📦 طلب '+code],
@@ -1217,7 +1353,8 @@ async function loadOrders(){
       $('orders').append(card);
     }
 
-    filterOrders();
+    /* تطبيق الفلتر بعد بناء بطاقات الطلبات */
+    selectOrderFilter(currentOrderFilter);
 
     if(itemError||nameError){
       msg(
@@ -2993,6 +3130,12 @@ $('clearSearch').onclick=()=>{
   if(!active())return;
   $('orderSearch').value='';
   filterOrders();
+};
+
+$('showAllOrders').onclick=()=>{
+  if(!active())return;
+  $('orderSearch').value='';
+  selectOrderFilter('all');
 };
 
 $('refresh').onclick=loadOrders;
