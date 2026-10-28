@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#15120f">
+<meta name="description" content="عطور الريف | عطور فاخرة وعود وإكسسوارات مستوحاة من الطبيعة والتراث العربي.">
 <title>عطور الريف | ALREEF PERFUMES</title>
 
 <style>
@@ -11,37 +13,30 @@
   --bg:#12100e;
   --panel:#211b16;
   --line:#5b4528;
+  --green:#213e2b;
 }
+
 *{box-sizing:border-box}
+
 html{scroll-behavior:smooth}
+
 body{
   margin:0;
   background:var(--bg);
   color:#f9f1e4;
   font-family:Tahoma,Arial,sans-serif;
 }
-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding:19px 7%;
-  background:#15120f;
-  position:sticky;
-  top:0;
-  z-index:2;
-  border-bottom:1px solid #554128;
+
+body.modal-open{
+  overflow:hidden;
 }
-.brand{
-  color:var(--gold);
-  font-size:24px;
-  font-weight:bold;
+
+button,
+input,
+textarea{
+  font-family:inherit;
 }
-nav a{
-  color:#f4e9d4;
-  text-decoration:none;
-  margin:0 12px;
-}
+
 button{
   background:var(--gold);
   border:0;
@@ -50,71 +45,469 @@ button{
   cursor:pointer;
   font-weight:bold;
   color:#21180c;
+  transition:filter .2s,transform .2s;
 }
+
+button:hover:not(:disabled){
+  filter:brightness(1.08);
+}
+
 button:disabled{
   opacity:.5;
   cursor:not-allowed;
 }
+
+a{
+  -webkit-tap-highlight-color:transparent;
+}
+
+:focus-visible{
+  outline:2px solid #f3d28b;
+  outline-offset:3px;
+}
+
+/* ========================================
+   HEADER
+======================================== */
+
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:19px 7%;
+  background:#15120ff2;
+  position:sticky;
+  top:0;
+  z-index:10;
+  border-bottom:1px solid #554128;
+  backdrop-filter:blur(12px);
+}
+
+.brand{
+  color:var(--gold);
+  font-size:24px;
+  font-weight:bold;
+  white-space:nowrap;
+}
+
+nav{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+nav a{
+  color:#f4e9d4;
+  text-decoration:none;
+  margin:0 12px;
+  transition:color .2s;
+}
+
+nav a:hover{
+  color:var(--gold);
+}
+
+/* ========================================
+   HERO + ANIMATED GARDEN
+======================================== */
+
 .hero{
-  min-height:520px;
+  min-height:570px;
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+
   background:
     linear-gradient(
       90deg,
-      rgba(15,11,8,.1),
+      rgba(15,11,8,.18),
       rgba(15,11,8,.82)
     ),
     url('hero.png') center/cover;
+
   display:flex;
   align-items:center;
   padding:8%;
 }
-.hero-content{
-  max-width:470px;
-  background:#100d09a8;
-  padding:25px;
-  border-radius:12px;
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:
+    radial-gradient(
+      ellipse at 75% 75%,
+      rgba(45,95,49,.18),
+      transparent 55%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(12,15,10,.3),
+      transparent 50%
+    );
 }
+
+.hero-content{
+  max-width:490px;
+  background:#100d09ba;
+  padding:30px;
+  border:1px solid #d9ae6038;
+  border-radius:16px;
+  position:relative;
+  z-index:3;
+  backdrop-filter:blur(5px);
+  animation:alreefHeroEnter 1.2s ease both;
+  box-shadow:0 15px 50px #0005;
+}
+
 .hero h1{
   font-size:clamp(32px,5vw,60px);
   color:var(--gold);
   margin:0;
 }
-.hero p{line-height:2}
+
+.hero p{
+  line-height:2;
+}
+
+.hero-subtitle{
+  display:inline-block;
+  color:#f1d69f;
+  font-size:13px;
+  letter-spacing:2px;
+  margin-bottom:14px;
+}
+
+.hero-button{
+  display:inline-block;
+  text-decoration:none;
+}
+
+.hero-button button{
+  padding:14px 25px;
+}
+
+@keyframes alreefHeroEnter{
+  from{
+    opacity:0;
+    transform:translateY(25px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* الحديقة المتحركة */
+
+.alreef-garden{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  z-index:2;
+}
+
+.alreef-garden::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(
+      ellipse at 72% 70%,
+      rgba(80,110,55,.2),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse at 30% 20%,
+      rgba(160,100,65,.12),
+      transparent 55%
+    );
+}
+
+.alreef-petal{
+  position:absolute;
+  top:-15%;
+  left:var(--x);
+  width:var(--size);
+  height:calc(var(--size) * 1.4);
+
+  background:
+    linear-gradient(
+      135deg,
+      #f1b5bd,
+      #ba5269 55%,
+      #702c47
+    );
+
+  border-radius:75% 5% 75% 35%;
+  opacity:0;
+
+  filter:drop-shadow(0 3px 4px #0004);
+
+  animation:
+    alreefPetalFall var(--duration)
+    linear var(--delay) infinite;
+
+  transform-origin:center;
+  will-change:transform,opacity;
+}
+
+.alreef-petal:nth-child(3n){
+  background:
+    linear-gradient(
+      135deg,
+      #f5d8b6,
+      #d59a79 55%,
+      #a86556
+    );
+}
+
+.alreef-petal:nth-child(5n){
+  background:
+    linear-gradient(
+      135deg,
+      #f5cad7,
+      #c96e91 55%,
+      #843e66
+    );
+}
+
+@keyframes alreefPetalFall{
+  0%{
+    transform:
+      translate3d(0,-30px,0)
+      rotate(0deg);
+    opacity:0;
+  }
+
+  10%{
+    opacity:.8;
+  }
+
+  50%{
+    transform:
+      translate3d(55px,300px,0)
+      rotate(190deg);
+  }
+
+  90%{
+    opacity:.7;
+  }
+
+  100%{
+    transform:
+      translate3d(-35px,700px,0)
+      rotate(400deg);
+    opacity:0;
+  }
+}
+
+/* توهج ناعم في الحديقة */
+
+.alreef-garden-glow{
+  position:absolute;
+  width:350px;
+  height:350px;
+  border-radius:50%;
+  background:radial-gradient(
+    circle,
+    rgba(197,142,86,.12),
+    transparent 70%
+  );
+  left:15%;
+  bottom:-150px;
+  animation:gardenGlow 8s ease-in-out infinite alternate;
+}
+
+@keyframes gardenGlow{
+  from{
+    transform:translate(-20px,0) scale(.9);
+    opacity:.5;
+  }
+  to{
+    transform:translate(30px,-30px) scale(1.2);
+    opacity:1;
+  }
+}
+
+/* ========================================
+   SECTIONS
+======================================== */
+
 .section{
   padding:65px 7%;
   text-align:center;
 }
-h2{color:var(--gold)}
+
+h2{
+  color:var(--gold);
+}
+
+.section-intro{
+  color:#cdbb9e;
+  line-height:1.9;
+}
+
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  grid-template-columns:repeat(
+    auto-fit,
+    minmax(220px,1fr)
+  );
   gap:22px;
   margin-top:35px;
 }
+
 .card{
   background:var(--panel);
   border:1px solid var(--line);
   border-radius:12px;
   padding:24px;
+  transition:
+    transform .3s,
+    border-color .3s,
+    box-shadow .3s;
+
+  display:flex;
+  flex-direction:column;
+  gap:10px;
 }
+
+.card:hover{
+  transform:translateY(-5px);
+  border-color:var(--gold);
+  box-shadow:0 12px 35px #0005;
+}
+
 .bottle{
   font-size:80px;
   padding:30px;
-  background:radial-gradient(circle,#614323,#231b14);
+  background:radial-gradient(
+    circle,
+    #614323,
+    #231b14
+  );
   border-radius:10px;
 }
+
 .product-image{
   width:100%;
-  height:180px;
+  height:220px;
   object-fit:contain;
   border-radius:10px;
   background:#302319;
+  transition:transform .45s ease;
 }
+
+.card .product-image,
+.card .bottle{
+  cursor:pointer;
+}
+
+.card .product-desc{
+  line-height:1.8;
+  color:#d6c7b3;
+  min-height:40px;
+}
+
+.card .card-bottom{
+  margin-top:auto;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:center;
+}
+
+.card .card-bottom button{
+  flex:1;
+  min-width:115px;
+}
+
+@media(hover:hover){
+  .card:hover .product-image{
+    transform:scale(1.06);
+  }
+}
+
 .price{
   color:var(--gold);
   font-weight:bold;
   font-size:22px;
 }
+
+/* ظهور المنتجات */
+
+.alreef-reveal{
+  opacity:0;
+  transform:translateY(25px);
+  transition:
+    opacity .7s ease,
+    transform .7s ease,
+    border-color .3s,
+    box-shadow .3s;
+}
+
+.alreef-reveal.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* الأقسام */
+
+.categories{
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin:25px 0;
+}
+
+.categories a{
+  display:inline-block;
+  padding:13px 20px;
+  border:1px solid var(--gold);
+  border-radius:25px;
+  color:var(--gold);
+  text-decoration:none;
+  background:#241b13;
+  transition:.25s;
+}
+
+.categories a:hover{
+  background:var(--gold);
+  color:#21180c;
+  transform:translateY(-3px);
+}
+
+.category-block{
+  padding:30px 0 45px;
+  scroll-margin-top:100px;
+}
+
+.category-block+.category-block{
+  border-top:1px solid var(--line);
+}
+
+.category-block h3{
+  font-size:27px;
+  color:var(--gold);
+  margin:0;
+}
+
+.category-block .grid{
+  margin-top:22px;
+}
+
+/* ========================================
+   CART
+======================================== */
+
 .cart{
   position:fixed;
   bottom:20px;
@@ -124,25 +517,28 @@ h2{color:var(--gold)}
   padding:15px;
   border-radius:30px;
   box-shadow:0 5px 30px #0009;
-  z-index:3;
+  z-index:15;
 }
-footer{
-  text-align:center;
-  padding:35px;
-  border-top:1px solid #4c3922;
-  color:#cdbb9e;
-}
+
+/* ========================================
+   MODALS
+======================================== */
+
 .overlay{
   position:fixed;
   inset:0;
   background:#000b;
-  z-index:5;
+  z-index:30;
   display:flex;
   align-items:center;
   justify-content:center;
   padding:15px;
 }
-.hidden{display:none!important}
+
+.hidden{
+  display:none!important;
+}
+
 .dialog{
   background:#1b1612;
   border:1px solid var(--line);
@@ -152,18 +548,24 @@ footer{
   max-height:90vh;
   overflow:auto;
 }
+
 .dialog-head{
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:12px;
 }
-.dialog-head h2{margin:0}
+
+.dialog-head h2{
+  margin:0;
+}
+
 .secondary{
   background:transparent;
   color:var(--gold);
   border:1px solid var(--gold);
 }
+
 .cart-row{
   display:flex;
   align-items:center;
@@ -173,12 +575,17 @@ footer{
   padding:16px 0;
   flex-wrap:wrap;
 }
+
 .cart-actions{
   display:flex;
   align-items:center;
   gap:8px;
 }
-.cart-actions button{padding:7px 11px}
+
+.cart-actions button{
+  padding:7px 11px;
+}
+
 .summary{
   margin:20px 0;
   padding:15px;
@@ -186,6 +593,7 @@ footer{
   border-radius:10px;
   line-height:2;
 }
+
 .field{
   display:flex;
   flex-direction:column;
@@ -193,6 +601,7 @@ footer{
   margin:12px 0;
   text-align:right;
 }
+
 .field input,
 .field textarea{
   width:100%;
@@ -203,23 +612,27 @@ footer{
   border-radius:7px;
   font:inherit;
 }
+
 .note{
   color:#e5c995;
   font-size:14px;
   line-height:1.9;
 }
+
 .actions{
   display:flex;
   gap:10px;
   flex-wrap:wrap;
   margin-top:15px;
 }
+
 .status{
   color:#f0cb87;
   min-height:22px;
   overflow-wrap:anywhere;
   line-height:1.9;
 }
+
 .success-box{
   border:1px solid #668e61;
   background:#18301e;
@@ -228,180 +641,25 @@ footer{
   margin-top:15px;
   line-height:2;
 }
-.categories{
-  display:flex;
-  gap:12px;
-  justify-content:center;
-  flex-wrap:wrap;
-  margin:25px 0;
-}
-.categories a{
-  display:inline-block;
-  padding:13px 20px;
-  border:1px solid var(--gold);
-  border-radius:25px;
-  color:var(--gold);
-  text-decoration:none;
-  background:#241b13;
-}
-.categories a:hover{
-  background:var(--gold);
-  color:#21180c;
-}
-.category-block{
-  padding:30px 0 45px;
-  scroll-margin-top:100px;
-}
-.category-block+.category-block{
-  border-top:1px solid var(--line);
-}
-.category-block h3{
-  font-size:27px;
-  color:var(--gold);
-  margin:0;
-}
-.category-block .grid{margin-top:22px}
 
-/* سياسات المتجر */
-.store-policies{
-  padding:50px 7%;
-  background:#15120f;
-  color:#f9f1e4;
-  direction:rtl;
-  text-align:right;
-}
-.store-policies h2{
-  text-align:center;
-  color:#d9ae60;
-  margin-bottom:30px;
-}
-.policy-box{
-  background:#211b16;
-  border:1px solid #5b4528;
-  border-radius:12px;
-  padding:25px;
-  margin-bottom:20px;
-  line-height:2;
-}
-.policy-box h3{
-  color:#d9ae60;
-  margin-top:0;
-}
-.policy-box a{color:#d9ae60}
-.store-footer{
-  text-align:center;
-  padding:30px 15px;
-  background:#12100e;
-  border-top:1px solid #5b4528;
-  color:#cdbb9e;
-  line-height:2;
-}
-.store-footer a{
-  color:#d9ae60;
-  text-decoration:none;
-  margin:0 8px;
+/* ========================================
+   PRODUCT DETAILS
+======================================== */
+
+.product-dialog{
+  width:min(850px,100%);
 }
 
-/* التواصل الاجتماعي */
-.alreef-social{
-  padding:45px 15px;
-  background:#15120f;
-  border-top:1px solid #5b4528;
-  text-align:center;
-  direction:rtl;
-}
-.alreef-social h2{
-  color:#d9ae60;
-  margin-bottom:12px;
-}
-.alreef-social p{
-  color:#cdbb9e;
-  font-size:14px;
-  line-height:1.8;
-}
-.alreef-social-icons{
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:16px;
-  margin:25px auto;
-}
-.alreef-social-item{
-  width:110px;
-  min-height:115px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  gap:12px;
-  background:#211b16;
-  border:1px solid #5b4528;
-  border-radius:15px;
-  color:#d9ae60;
-  cursor:default;
-  user-select:none;
-}
-.alreef-social-item svg{
-  width:36px;
-  height:36px;
-  fill:none;
-  stroke:currentColor;
-  stroke-width:1.8;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-}
-.alreef-social-item span{
-  font-size:13px;
-  font-weight:bold;
-}
-.alreef-social-soon{
-  display:inline-block;
-  padding:8px 18px;
-  border:1px solid #5b4528;
-  border-radius:20px;
-  color:#d9ae60;
-  background:#211b16;
-}
-
-/* تفاصيل المنتجات */
-.card{
-  transition:transform .2s,border-color .2s;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-.card:hover{
-  transform:translateY(-3px);
-  border-color:var(--gold);
-}
-.card .product-image,
-.card .bottle{cursor:pointer}
-.card .product-image{height:220px}
-.card .product-desc{
-  line-height:1.8;
-  color:#d6c7b3;
-  min-height:40px;
-}
-.card .card-bottom{
-  margin-top:auto;
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  align-items:center;
-  justify-content:center;
-}
-.card .card-bottom button{
-  flex:1;
-  min-width:115px;
-}
-.product-dialog{width:min(850px,100%)}
 .product-layout{
   display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  grid-template-columns:
+    minmax(0,1fr)
+    minmax(0,1fr);
   gap:24px;
   margin-top:20px;
   text-align:right;
 }
+
 .product-main-image{
   width:100%;
   height:310px;
@@ -409,6 +667,7 @@ footer{
   background:#302319;
   border-radius:12px;
 }
+
 .product-fallback{
   height:310px;
   display:grid;
@@ -417,51 +676,69 @@ footer{
   border-radius:12px;
   font-size:95px;
 }
+
 .product-gallery{
   display:flex;
   gap:8px;
   flex-wrap:wrap;
   margin-top:10px;
 }
+
 .product-gallery button{
   padding:3px;
   background:transparent;
   border:2px solid var(--line);
   border-radius:9px;
 }
+
 .product-gallery button.active{
   border-color:var(--gold);
 }
+
 .product-gallery img{
   width:62px;
   height:62px;
   object-fit:contain;
   border-radius:5px;
 }
+
 .product-meta{
   line-height:2;
   color:#e5d7c3;
 }
+
 .qty-picker{
   display:flex;
   align-items:center;
   gap:12px;
   margin:16px 0;
 }
-.qty-picker button{padding:7px 14px}
+
+.qty-picker button{
+  padding:7px 14px;
+}
+
 .product-share{
   display:flex;
   gap:8px;
   flex-wrap:wrap;
   margin-top:15px;
 }
-.product-share button{flex:1}
+
+.product-share button{
+  flex:1;
+}
+
 .related-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  grid-template-columns:repeat(
+    auto-fit,
+    minmax(130px,1fr)
+  );
   gap:10px;
   margin-top:10px;
 }
+
 .related-item{
   background:#30241a;
   border:1px solid var(--line);
@@ -471,17 +748,22 @@ footer{
   color:#f9f1e4;
   cursor:pointer;
 }
+
 .related-item img{
   height:90px;
   width:100%;
   object-fit:contain;
 }
+
 .related-item span{
   display:block;
   margin-top:6px;
 }
 
-/* الكوبونات */
+/* ========================================
+   COUPONS
+======================================== */
+
 .coupon-box{
   margin:18px 0;
   padding:18px;
@@ -489,17 +771,20 @@ footer{
   border-radius:12px;
   background:#261d16;
 }
+
 .coupon-box label{
   display:block;
   color:var(--gold);
   font-weight:bold;
   margin-bottom:12px;
 }
+
 .coupon-controls{
   display:flex;
   gap:8px;
   flex-wrap:wrap;
 }
+
 .coupon-controls input{
   flex:1;
   min-width:150px;
@@ -511,22 +796,29 @@ footer{
   font:inherit;
   text-transform:uppercase;
 }
-.coupon-controls button{padding:10px 14px}
+
+.coupon-controls button{
+  padding:10px 14px;
+}
+
 .coupon-message{
   color:#e5c995;
   font-size:13px;
   line-height:1.8;
   margin:10px 0 0;
 }
+
 .summary-line{
   display:flex;
   justify-content:space-between;
   gap:10px;
   flex-wrap:wrap;
 }
+
 .summary-line.discount{
   color:#b7e8b7;
 }
+
 .summary-line.final{
   color:var(--gold);
   font-weight:bold;
@@ -535,11 +827,338 @@ footer{
   padding-top:8px;
 }
 
+/* ========================================
+   POLICIES
+======================================== */
+
+.store-policies{
+  padding:50px 7%;
+  background:#15120f;
+  color:#f9f1e4;
+  direction:rtl;
+  text-align:right;
+}
+
+.store-policies h2{
+  text-align:center;
+  color:var(--gold);
+  margin-bottom:30px;
+}
+
+.policy-box{
+  background:#211b16;
+  border:1px solid #5b4528;
+  border-radius:12px;
+  padding:25px;
+  margin-bottom:20px;
+  line-height:2;
+}
+
+.policy-box h3{
+  color:var(--gold);
+  margin-top:0;
+}
+
+.policy-box a{
+  color:var(--gold);
+}
+
+/* ========================================
+   SOCIAL
+======================================== */
+
+.alreef-social{
+  padding:45px 15px;
+  background:#15120f;
+  border-top:1px solid #5b4528;
+  text-align:center;
+  direction:rtl;
+}
+
+.alreef-social h2{
+  color:var(--gold);
+  margin-bottom:12px;
+}
+
+.alreef-social p{
+  color:#cdbb9e;
+  font-size:14px;
+  line-height:1.8;
+}
+
+.alreef-social-icons{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:16px;
+  margin:25px auto;
+}
+
+.alreef-social-item{
+  width:110px;
+  min-height:115px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:12px;
+  background:#211b16;
+  border:1px solid #5b4528;
+  border-radius:15px;
+  color:var(--gold);
+  cursor:default;
+  user-select:none;
+}
+
+.alreef-social-item svg{
+  width:36px;
+  height:36px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.alreef-social-item span{
+  font-size:13px;
+  font-weight:bold;
+}
+
+.alreef-social-soon{
+  display:inline-block;
+  padding:8px 18px;
+  border:1px solid #5b4528;
+  border-radius:20px;
+  color:var(--gold);
+  background:#211b16;
+}
+
+.store-footer{
+  text-align:center;
+  padding:30px 15px;
+  background:#12100e;
+  border-top:1px solid #5b4528;
+  color:#cdbb9e;
+  line-height:2;
+}
+
+.store-footer a{
+  color:var(--gold);
+  text-decoration:none;
+  margin:0 8px;
+}
+
+/* ========================================
+   SMART SHOPPING ASSISTANT
+======================================== */
+
+.alreef-assistant-launcher{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  z-index:20;
+
+  width:65px;
+  height:65px;
+  padding:0;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:50%;
+  border:2px solid var(--gold);
+
+  background:
+    linear-gradient(
+      135deg,
+      #294c35,
+      #10271c
+    );
+
+  color:#f7d998;
+  font-size:30px;
+
+  box-shadow:
+    0 5px 25px #0008,
+    0 0 0 6px #d9ae601c;
+
+  animation:alreefAssistantPulse 3s infinite;
+}
+
+@keyframes alreefAssistantPulse{
+  0%,100%{
+    box-shadow:
+      0 5px 25px #0008,
+      0 0 0 5px #d9ae6015;
+  }
+
+  50%{
+    box-shadow:
+      0 5px 25px #0008,
+      0 0 0 12px #d9ae6008;
+  }
+}
+
+.alreef-assistant{
+  position:fixed;
+  right:20px;
+  bottom:98px;
+  z-index:21;
+
+  width:min(390px,calc(100vw - 30px));
+  height:min(540px,calc(100dvh - 125px));
+  min-height:300px;
+
+  display:flex;
+  flex-direction:column;
+
+  background:#191711;
+  color:#f9f1e4;
+
+  border:1px solid #8d6c3b;
+  border-radius:18px;
+  overflow:hidden;
+
+  box-shadow:0 15px 55px #000b;
+}
+
+.alreef-assistant.hidden{
+  display:none!important;
+}
+
+.alreef-assistant-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+
+  padding:16px;
+  background:
+    linear-gradient(
+      120deg,
+      #213e2b,
+      #14281c
+    );
+
+  border-bottom:1px solid #8d6c3b;
+}
+
+.alreef-assistant-header strong{
+  display:block;
+  color:#f0c981;
+  font-size:16px;
+}
+
+.alreef-assistant-header small{
+  display:block;
+  margin-top:5px;
+  color:#d4dfcf;
+}
+
+.alreef-assistant-close{
+  background:transparent;
+  color:white;
+  border:1px solid #b99b68;
+  padding:7px 12px;
+}
+
+.alreef-assistant-messages{
+  flex:1;
+  min-height:0;
+  overflow-y:auto;
+  padding:15px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  overscroll-behavior:contain;
+}
+
+.alreef-chat-message{
+  max-width:90%;
+  padding:12px 14px;
+  border-radius:14px;
+  line-height:1.9;
+  font-size:14px;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+}
+
+.alreef-chat-message.bot{
+  align-self:flex-start;
+  background:#2a3125;
+  border:1px solid #45533b;
+}
+
+.alreef-chat-message.user{
+  align-self:flex-end;
+  background:#6b4e28;
+  color:white;
+}
+
+.alreef-chat-quick{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  padding:10px;
+  border-top:1px solid #51422d;
+}
+
+.alreef-chat-quick button{
+  padding:8px 10px;
+  background:#2c3528;
+  color:#f0d19a;
+  border:1px solid #6c593a;
+  border-radius:20px;
+  font-size:12px;
+}
+
+.alreef-chat-form{
+  display:flex;
+  gap:8px;
+  padding:12px;
+  border-top:1px solid #51422d;
+}
+
+.alreef-chat-form input{
+  flex:1;
+  min-width:0;
+  padding:12px;
+  border-radius:9px;
+  background:#100e0b;
+  border:1px solid #72562f;
+  color:white;
+  font:inherit;
+  font-size:16px;
+}
+
+.alreef-chat-form button{
+  padding:10px 14px;
+}
+
+.alreef-assistant-note{
+  font-size:11px;
+  text-align:center;
+  color:#b8a98c;
+  padding:0 10px 8px;
+}
+
+.alreef-assistant a{
+  color:#f4d394;
+  text-decoration:underline;
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
 @media(max-width:650px){
   header{
     flex-wrap:wrap;
     padding:15px 4%;
   }
+
   nav{
     order:3;
     width:100%;
@@ -548,27 +1167,109 @@ footer{
     flex-wrap:wrap;
     justify-content:center;
   }
+
   nav a{
     margin:0;
     font-size:12px;
   }
+
   .hero{
-    min-height:430px;
+    min-height:460px;
     background-position:65% center;
   }
-  .hero-content{padding:16px}
-  .brand{font-size:20px}
-  .section{padding:40px 5%}
-  .store-policies{padding:35px 5%}
-  .policy-box{padding:18px}
-  .product-layout{grid-template-columns:1fr}
+
+  .hero-content{
+    padding:20px;
+  }
+
+  .brand{
+    font-size:20px;
+  }
+
+  .section{
+    padding:40px 5%;
+  }
+
+  .store-policies{
+    padding:35px 5%;
+  }
+
+  .policy-box{
+    padding:18px;
+  }
+
+  .product-layout{
+    grid-template-columns:1fr;
+  }
+
   .product-main-image,
-  .product-fallback{height:230px}
+  .product-fallback{
+    height:230px;
+  }
+
+  .alreef-assistant-launcher{
+    right:12px;
+    bottom:85px;
+    width:55px;
+    height:55px;
+    font-size:25px;
+  }
+
+  .alreef-assistant{
+    right:10px;
+    bottom:150px;
+    width:calc(100vw - 20px);
+    height:min(500px,calc(100dvh - 175px));
+  }
+
+  .cart{
+    bottom:18px;
+    left:12px;
+    font-size:13px;
+  }
+
+  .dialog{
+    padding:18px;
+  }
+}
+
+/* تقليل الحركة */
+
+@media(prefers-reduced-motion:reduce){
+  html{
+    scroll-behavior:auto;
+  }
+
+  .alreef-petal,
+  .alreef-garden-glow{
+    animation:none!important;
+    display:none;
+  }
+
+  .alreef-reveal{
+    opacity:1;
+    transform:none;
+    transition:none;
+  }
+
+  .alreef-assistant-launcher,
+  .hero-content{
+    animation:none;
+  }
+
+  .card,
+  .product-image{
+    transition:none;
+  }
 }
 </style>
 </head>
 
 <body>
+
+<!-- ========================================
+     HEADER
+======================================== -->
 
 <header>
   <div class="brand">عطور الريف ✦</div>
@@ -585,23 +1286,56 @@ footer{
   </button>
 </header>
 
+<!-- ========================================
+     HERO
+======================================== -->
+
 <section class="hero" id="home">
+
+  <div
+    id="alreefGarden"
+    class="alreef-garden"
+    aria-hidden="true"
+  >
+    <div class="alreef-garden-glow"></div>
+  </div>
+
   <div class="hero-content">
+
+    <span class="hero-subtitle">
+      ALREEF PERFUMES ✦
+    </span>
+
     <h1>عطور الريف</h1>
+
     <p>
       عبير أصيل من قلب الطبيعة
       <br>
-      عطور فاخرة مستوحاة من جمال الطبيعة وعبق التراث العربي.
+      عطور فاخرة مستوحاة من جمال الطبيعة
+      وعبق التراث العربي.
     </p>
-    <a href="#products">
-      <button>تسوق الآن ←</button>
+
+    <a href="#products" class="hero-button">
+      <button type="button">
+        اكتشف مجموعتنا ←
+      </button>
     </a>
+
   </div>
 </section>
 
+<!-- ========================================
+     PRODUCTS
+======================================== -->
+
 <section class="section" id="products">
-  <h2>تسوق حسب القسم</h2>
-  <p>اختر القسم الذي يناسبك</p>
+
+  <h2>اكتشف عالم عطور الريف</h2>
+
+  <p class="section-intro">
+    اختر من مجموعتنا المميزة من العطور
+    والعود والإكسسوارات.
+  </p>
 
   <div class="categories">
     <a href="#perfumes">🌸 العطور</a>
@@ -612,9 +1346,15 @@ footer{
   <div id="items" aria-live="polite">
     جارٍ تحميل المنتجات...
   </div>
+
 </section>
 
+<!-- ========================================
+     ABOUT
+======================================== -->
+
 <section class="section" id="about">
+
   <h2>عن عطور الريف</h2>
 
   <p>
@@ -630,12 +1370,19 @@ footer{
     المتجر قيد التجهيز.
     الدفع الإلكتروني غير مفعل حاليًا.
   </p>
+
 </section>
 
+<!-- ========================================
+     POLICIES
+======================================== -->
+
 <section class="store-policies" id="policies">
+
   <h2>سياسات متجر عطور الريف</h2>
 
   <div class="policy-box" id="shipping-policy">
+
     <h3>🚚 سياسة الشحن والتوصيل</h3>
 
     <p>
@@ -644,32 +1391,40 @@ footer{
     </p>
 
     <h4>مدينة نجران ومحافظاتها</h4>
+
     <p>
       يتم توصيل الطلبات عن طريق مندوب خاص
       خلال 24 ساعة من تأكيد الطلب.
     </p>
+
     <p>رسوم التوصيل: 25 ريال سعودي.</p>
 
     <h4>باقي مناطق المملكة</h4>
+
     <p>
       يتم شحن الطلبات عن طريق شركات الشحن،
       وتستغرق عملية التوصيل من 4 إلى 6 أيام.
     </p>
+
     <p>رسوم الشحن: 30 ريال سعودي.</p>
 
     <h4>الشحن المجاني</h4>
+
     <p>
       نوفر شحنًا مجانيًا للطلبات التي تبلغ
       قيمتها 300 ريال سعودي أو أكثر.
     </p>
+
     <p>
       ملاحظة: أوقات التوصيل تقديرية،
       وقد تتأثر بالإجازات الرسمية أو الظروف
       الخارجة عن إرادتنا.
     </p>
+
   </div>
 
   <div class="policy-box" id="return-policy">
+
     <h3>↩️ سياسة الاستبدال والاسترجاع</h3>
 
     <p>
@@ -685,21 +1440,13 @@ footer{
 
     <ul>
       <li>أن يكون المنتج بحالته الأصلية.</li>
-      <li>
-        ألا يكون المنتج مستخدمًا أو متضررًا
-        بسبب العميل.
-      </li>
-      <li>
-        الاحتفاظ بالتغليف الأصلي
-        وملحقات المنتج قدر الإمكان.
-      </li>
-      <li>
-        التواصل مع خدمة العملاء
-        لتقديم طلب الاستبدال أو الاسترجاع.
-      </li>
+      <li>ألا يكون المنتج مستخدمًا أو متضررًا بسبب العميل.</li>
+      <li>الاحتفاظ بالتغليف الأصلي وملحقات المنتج قدر الإمكان.</li>
+      <li>التواصل مع خدمة العملاء لتقديم طلب الاستبدال أو الاسترجاع.</li>
     </ul>
 
     <h4>المنتجات المستثناة</h4>
+
     <p>
       لا يُقبل استرجاع العطور أو العود
       المفتوحة أو المستخدمة لمجرد تغيير الرأي،
@@ -707,22 +1454,27 @@ footer{
     </p>
 
     <h4>المنتجات التالفة أو الخاطئة</h4>
+
     <p>
       في حال وصول منتج تالف أو مختلف
       عن الطلب، يرجى التواصل معنا
       وتقديم رقم الطلب وصورة توضح المشكلة.
     </p>
+
     <p>
       تتم معالجة هذه الحالات وفق الأنظمة
       المعمول بها في المملكة العربية السعودية.
     </p>
+
     <p>
       لا تحد هذه السياسة من أي حقوق
       إلزامية مقررة للمستهلك نظامًا.
     </p>
+
   </div>
 
   <div class="policy-box" id="privacy-policy">
+
     <h3>🔒 سياسة الخصوصية</h3>
 
     <p>
@@ -732,6 +1484,7 @@ footer{
     </p>
 
     <h4>البيانات التي قد نجمعها</h4>
+
     <ul>
       <li>اسم العميل.</li>
       <li>رقم الهاتف.</li>
@@ -740,6 +1493,7 @@ footer{
     </ul>
 
     <h4>استخدام البيانات</h4>
+
     <p>
       تُستخدم البيانات لأغراض معالجة الطلبات،
       والتوصيل، والتواصل مع العملاء،
@@ -747,6 +1501,7 @@ footer{
     </p>
 
     <h4>مشاركة البيانات</h4>
+
     <p>
       قد تتم مشاركة البيانات اللازمة للتوصيل
       مع المندوب أو شركة الشحن،
@@ -754,6 +1509,7 @@ footer{
     </p>
 
     <h4>حماية البيانات</h4>
+
     <p>
       نعمل على اتخاذ الإجراءات التقنية
       والتنظيمية المناسبة لحماية بيانات العملاء
@@ -761,6 +1517,7 @@ footer{
     </p>
 
     <h4>حقوق العملاء</h4>
+
     <p>
       يمكن التواصل معنا للاستفسار عن
       البيانات الشخصية أو طلب تصحيحها
@@ -778,9 +1535,11 @@ footer{
       الإطلاق الرسمي لتوضيح تفاصيل
       الاحتفاظ بالبيانات ومعالجتها.
     </p>
+
   </div>
 
   <div class="policy-box" id="terms-policy">
+
     <h3>📋 الشروط والأحكام</h3>
 
     <p>
@@ -793,32 +1552,36 @@ footer{
       <li>جميع الأسعار المعروضة بالريال السعودي.</li>
       <li>تخضع المنتجات للتوفر في المخزون.</li>
       <li>تُوضح رسوم الشحن قبل تأكيد الطلب.</li>
-      <li>
-        تُطبق سياسة الاستبدال والاسترجاع
-        المعلنة مع مراعاة حقوق المستهلك النظامية.
-      </li>
-      <li>
-        يُمنع إساءة استخدام الموقع
-        أو إرسال طلبات وهمية بقصد الإضرار.
-      </li>
+      <li>تُطبق سياسة الاستبدال والاسترجاع المعلنة مع مراعاة حقوق المستهلك النظامية.</li>
+      <li>يُمنع إساءة استخدام الموقع أو إرسال طلبات وهمية بقصد الإضرار.</li>
     </ul>
 
     <h4>حالة المتجر الحالية</h4>
+
     <p>
       المتجر قيد التجهيز والاختبار،
       والطلبات الحالية تجريبية فقط.
     </p>
+
     <p>
       لا يتم تحصيل أي مبالغ،
       ولا تُعد الطلبات التجريبية
       طلبات شراء فعلية.
     </p>
+
   </div>
 
   <div class="policy-box" id="contact">
+
     <h3>📱 تواصل معنا</h3>
-    <p>نسعد بخدمتكم والإجابة عن استفساراتكم.</p>
-    <p>خدمة العملاء والاستبدال والاسترجاع:</p>
+
+    <p>
+      نسعد بخدمتكم والإجابة عن استفساراتكم.
+    </p>
+
+    <p>
+      خدمة العملاء والاستبدال والاسترجاع:
+    </p>
 
     <p>
       <a
@@ -831,53 +1594,90 @@ footer{
     </p>
 
     <p>رقم التواصل: +966535317713</p>
-    <p>الموقع: نجران، المملكة العربية السعودية.</p>
+
+    <p>
+      الموقع: نجران، المملكة العربية السعودية.
+    </p>
+
   </div>
+
 </section>
 
-<section class="alreef-social" aria-labelledby="socialTitle">
+<!-- ========================================
+     SOCIAL
+======================================== -->
+
+<section
+  class="alreef-social"
+  aria-labelledby="socialTitle"
+>
+
   <h2 id="socialTitle">
     🌿 تابعونا على منصات التواصل
   </h2>
 
   <p>
-    قريبًا تجدون عطور الريف على منصات التواصل الاجتماعي
+    قريبًا تجدون عطور الريف
+    على منصات التواصل الاجتماعي.
   </p>
 
   <div class="alreef-social-icons">
+
     <div class="alreef-social-item">
+
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M12 3c-3 0-5 2.2-5 5.2v3.1c-.6.5-1.3.8-2.2.9-.5.1-.7.6-.3 1 1 .9 2.1 1.3 3.1 1.5-.2.8-.7 1.5-1.5 2.1.8.3 1.6.3 2.3.2.7 1.3 1.9 2 3.6 2s2.9-.7 3.6-2c.7.1 1.5.1 2.3-.2-.8-.6-1.3-1.3-1.5-2.1 1-.2 2.1-.6 3.1-1.5.4-.4.2-.9-.3-1-.9-.1-1.6-.4-2.2-.9V8.2C17 5.2 15 3 12 3z"/>
       </svg>
+
       <span>Snapchat</span>
+
     </div>
 
     <div class="alreef-social-item">
+
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <rect x="3" y="3" width="18" height="18" rx="5"/>
         <circle cx="12" cy="12" r="4"/>
-        <circle cx="17.5" cy="6.5" r="1"
-          fill="currentColor" stroke="none"/>
+        <circle
+          cx="17.5"
+          cy="6.5"
+          r="1"
+          fill="currentColor"
+          stroke="none"
+        />
       </svg>
+
       <span>Instagram</span>
+
     </div>
 
     <div class="alreef-social-item">
+
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M4 3l16 18M20 3L4 21"/>
         <path d="M4 3h4l12 18h-4z"/>
       </svg>
+
       <span>X</span>
+
     </div>
+
   </div>
 
   <p class="alreef-social-soon">
     الحسابات الرسمية قريبًا
   </p>
+
 </section>
 
+<!-- ========================================
+     FOOTER
+======================================== -->
+
 <footer class="store-footer">
+
   <p>© 2026 عطور الريف | ALREEF PERFUMES</p>
+
   <p>جميع الحقوق محفوظة.</p>
 
   <p>
@@ -888,14 +1688,24 @@ footer{
     <a href="#contact">تواصل معنا</a>
   </p>
 
-  <p>المتجر قيد التجهيز — الدفع الإلكتروني غير مفعل.</p>
+  <p>
+    المتجر قيد التجهيز — الدفع الإلكتروني غير مفعل.
+  </p>
+
 </footer>
+
+<!-- ========================================
+     FLOATING CART
+======================================== -->
 
 <button class="cart" id="floatingCart">
   🛒 السلة: <span id="total">0</span> ر.س
 </button>
 
-<!-- تفاصيل المنتج -->
+<!-- ========================================
+     PRODUCT DETAILS
+======================================== -->
+
 <div
   id="productOverlay"
   class="overlay hidden"
@@ -903,53 +1713,114 @@ footer{
   aria-modal="true"
   aria-labelledby="productTitle"
 >
+
   <div class="dialog product-dialog">
+
     <div class="dialog-head">
       <h2 id="productTitle">تفاصيل المنتج</h2>
-      <button class="secondary" id="closeProduct">✕</button>
+      <button class="secondary" id="closeProduct">
+        ✕
+      </button>
     </div>
 
     <div class="product-layout">
+
       <div>
         <div id="productVisual"></div>
-        <div id="productGallery" class="product-gallery"></div>
+        <div
+          id="productGallery"
+          class="product-gallery"
+        ></div>
       </div>
 
       <div>
+
         <p id="productCategory" class="note"></p>
+
         <h2 id="productName"></h2>
-        <p id="productDescription" class="product-meta"></p>
+
+        <p
+          id="productDescription"
+          class="product-meta"
+        ></p>
+
         <p id="productPrice" class="price"></p>
+
         <p id="productStock" class="note"></p>
 
         <div class="qty-picker">
+
           <span>الكمية:</span>
-          <button type="button" id="detailMinus" class="secondary">−</button>
+
+          <button
+            type="button"
+            id="detailMinus"
+            class="secondary"
+          >
+            −
+          </button>
+
           <strong id="detailQty">1</strong>
-          <button type="button" id="detailPlus" class="secondary">+</button>
+
+          <button
+            type="button"
+            id="detailPlus"
+            class="secondary"
+          >
+            +
+          </button>
+
         </div>
 
-        <button id="detailAdd">أضف للسلة</button>
+        <button id="detailAdd">
+          أضف للسلة
+        </button>
 
         <div class="product-share">
-          <button class="secondary" id="shareWhatsApp">
+
+          <button
+            class="secondary"
+            id="shareWhatsApp"
+          >
             مشاركة واتساب
           </button>
-          <button class="secondary" id="copyProductLink">
+
+          <button
+            class="secondary"
+            id="copyProductLink"
+          >
             نسخ رابط المنتج
           </button>
+
         </div>
 
-        <p id="detailMessage" class="status" role="status"></p>
+        <p
+          id="detailMessage"
+          class="status"
+          role="status"
+        ></p>
+
       </div>
+
     </div>
 
-    <h3 style="color:var(--gold)">منتجات مشابهة</h3>
-    <div id="relatedProducts" class="related-grid"></div>
+    <h3 style="color:var(--gold)">
+      منتجات مشابهة
+    </h3>
+
+    <div
+      id="relatedProducts"
+      class="related-grid"
+    ></div>
+
   </div>
+
 </div>
 
-<!-- السلة -->
+<!-- ========================================
+     CART MODAL
+======================================== -->
+
 <div
   id="cartOverlay"
   class="overlay hidden"
@@ -957,32 +1828,48 @@ footer{
   aria-modal="true"
   aria-labelledby="cartTitle"
 >
+
   <div class="dialog">
+
     <div class="dialog-head">
-      <h2 id="cartTitle">سلة المشتريات</h2>
-      <button class="secondary" id="closeCart">✕</button>
+
+      <h2 id="cartTitle">
+        سلة المشتريات
+      </h2>
+
+      <button
+        class="secondary"
+        id="closeCart"
+      >
+        ✕
+      </button>
+
     </div>
 
     <div id="cartRows"></div>
 
     <div class="summary">
+
       <strong>
         قيمة المنتجات:
         <span id="cartTotal">0</span> ر.س
       </strong>
 
       <p class="note">
-        الشحن يُحسب حسب المدينة، ومجاني من 300 ريال.
+        الشحن يُحسب حسب المدينة،
+        ومجاني من 300 ريال.
       </p>
+
     </div>
 
-    <!-- نظام الكوبونات -->
     <div class="coupon-box">
+
       <label for="couponInput">
         🎟️ هل لديك كوبون خصم؟
       </label>
 
       <div class="coupon-controls">
+
         <input
           id="couponInput"
           type="text"
@@ -1005,6 +1892,7 @@ footer{
         >
           إزالة
         </button>
+
       </div>
 
       <p
@@ -1013,23 +1901,35 @@ footer{
         role="status"
         aria-live="polite"
       >
-        يتم التحقق من صلاحية الكوبون عند إرسال الطلب.
+        يتم التحقق من صلاحية الكوبون
+        عند إرسال الطلب.
       </p>
+
     </div>
 
     <div class="actions">
+
       <button id="checkoutBtn">
         متابعة إلى بيانات العميل
       </button>
 
-      <button class="secondary" id="clearCart">
+      <button
+        class="secondary"
+        id="clearCart"
+      >
         تفريغ السلة
       </button>
+
     </div>
+
   </div>
+
 </div>
 
-<!-- الطلب التجريبي -->
+<!-- ========================================
+     CHECKOUT
+======================================== -->
+
 <div
   id="checkoutOverlay"
   class="overlay hidden"
@@ -1037,20 +1937,35 @@ footer{
   aria-modal="true"
   aria-labelledby="checkoutTitle"
 >
+
   <div class="dialog">
+
     <div class="dialog-head">
-      <h2 id="checkoutTitle">بيانات التوصيل (تجربة)</h2>
-      <button class="secondary" id="closeCheckout">✕</button>
+
+      <h2 id="checkoutTitle">
+        بيانات التوصيل (تجربة)
+      </h2>
+
+      <button
+        class="secondary"
+        id="closeCheckout"
+      >
+        ✕
+      </button>
+
     </div>
 
     <p class="note">
       نسخة تجريبية: سيُحفظ الطلب في قاعدة البيانات
-      دون تحصيل أي مبلغ. استخدم بيانات وهمية فقط.
+      دون تحصيل أي مبلغ.
+      استخدم بيانات وهمية فقط.
     </p>
 
     <form id="checkoutForm">
+
       <label class="field">
         الاسم الكامل
+
         <input
           name="customer_name"
           autocomplete="name"
@@ -1062,6 +1977,7 @@ footer{
 
       <label class="field">
         رقم الجوال السعودي
+
         <input
           name="phone"
           type="tel"
@@ -1075,6 +1991,7 @@ footer{
 
       <label class="field">
         المدينة
+
         <input
           name="city"
           id="cityInput"
@@ -1088,6 +2005,7 @@ footer{
 
       <label class="field">
         العنوان
+
         <textarea
           name="address"
           required
@@ -1109,7 +2027,8 @@ footer{
         role="status"
         aria-live="polite"
       >
-        الطلبات التجريبية فقط — الدفع غير مفعل.
+        الطلبات التجريبية فقط —
+        الدفع غير مفعل.
       </p>
 
       <div
@@ -1118,7 +2037,11 @@ footer{
       ></div>
 
       <div class="actions">
-        <button type="submit" id="placeOrderBtn">
+
+        <button
+          type="submit"
+          id="placeOrderBtn"
+        >
           إرسال طلب تجريبي
         </button>
 
@@ -1129,13 +2052,144 @@ footer{
         >
           العودة للسلة
         </button>
+
       </div>
+
     </form>
+
   </div>
+
 </div>
+
+<!-- ========================================
+     ASSISTANT LAUNCHER
+======================================== -->
+
+<button
+  id="alreefAssistantLauncher"
+  class="alreef-assistant-launcher"
+  type="button"
+  aria-label="فتح مساعد عطور الريف"
+  aria-expanded="false"
+  aria-controls="alreefAssistant"
+>
+  🌿
+</button>
+
+<!-- ========================================
+     SMART ASSISTANT
+======================================== -->
+
+<section
+  id="alreefAssistant"
+  class="alreef-assistant hidden"
+  role="dialog"
+  aria-label="مساعد عطور الريف"
+>
+
+  <div class="alreef-assistant-header">
+
+    <div>
+      <strong>🌿 مساعد عطور الريف</strong>
+      <small>
+        يساعدك في اختيار عطرك المناسب
+      </small>
+    </div>
+
+    <button
+      id="alreefAssistantClose"
+      class="alreef-assistant-close"
+      type="button"
+      aria-label="إغلاق المساعد"
+    >
+      ✕
+    </button>
+
+  </div>
+
+  <div
+    id="alreefAssistantMessages"
+    class="alreef-assistant-messages"
+    aria-live="polite"
+    aria-relevant="additions"
+  ></div>
+
+  <div class="alreef-chat-quick">
+
+    <button
+      type="button"
+      data-question="رشح لي عطر"
+    >
+      🌹 رشح لي عطر
+    </button>
+
+    <button
+      type="button"
+      data-question="أبغى عود"
+    >
+      🪵 العود
+    </button>
+
+    <button
+      type="button"
+      data-question="كم الشحن"
+    >
+      🚚 الشحن
+    </button>
+
+    <button
+      type="button"
+      data-question="الاسترجاع"
+    >
+      ↩️ الاسترجاع
+    </button>
+
+    <button
+      type="button"
+      data-question="تواصل مع خدمة العملاء"
+    >
+      📱 خدمة العملاء
+    </button>
+
+  </div>
+
+  <form
+    id="alreefAssistantForm"
+    class="alreef-chat-form"
+  >
+
+    <input
+      id="alreefAssistantInput"
+      type="text"
+      placeholder="اسأل عن العطور أو الشحن..."
+      maxlength="300"
+      autocomplete="off"
+      aria-label="اكتب سؤالك"
+      required
+    >
+
+    <button type="submit">
+      إرسال
+    </button>
+
+  </form>
+
+  <div class="alreef-assistant-note">
+    مساعد آلي تجريبي — لا تشارك بيانات شخصية.
+  </div>
+
+</section>
+
+<!-- ========================================
+     JAVASCRIPT
+======================================== -->
 
 <script>
 'use strict';
+
+/* ========================================
+   SUPABASE CONFIG
+======================================== */
 
 const SUPABASE_URL =
   'https://tymlbijnrjzeojnfbivb.supabase.co';
@@ -1149,23 +2203,23 @@ const REQUEST_KEY = 'alreef_pending_request_v1';
 let products = [];
 let cart = {};
 let submittingOrder = false;
+
 let activeProduct = null;
 let detailQuantity = 1;
 let activeGalleryIndex = 0;
 
-/* الكوبون المستخدم */
 let appliedCoupon = '';
 
 const $ = id => document.getElementById(id);
 
 const money = n => Number(n).toLocaleString(
   'ar-SA',
-  { maximumFractionDigits: 2 }
+  { maximumFractionDigits:2 }
 );
 
-/* ==========================
-   إدارة السلة
-========================== */
+/* ========================================
+   CART STORAGE
+======================================== */
 
 function readCart(){
   try{
@@ -1216,7 +2270,11 @@ function reconcileCart(){
     if(!p || p.stock <= 0){
       delete cart[id];
     }else{
-      cart[id] = Math.min(qty,p.stock,20);
+      cart[id] = Math.min(
+        qty,
+        p.stock,
+        20
+      );
     }
   }
 
@@ -1235,7 +2293,7 @@ function getLines(){
 function cartTotal(){
   return getLines().reduce(
     (sum,{p,qty}) =>
-      sum + Number(p.price) * qty,
+      sum + Number(p.price)*qty,
     0
   );
 }
@@ -1272,13 +2330,16 @@ function renderTotals(){
       0
     );
 
-  $('total').textContent = money(cartTotal());
-  $('cartTotal').textContent = money(cartTotal());
+  $('total').textContent =
+    money(cartTotal());
+
+  $('cartTotal').textContent =
+    money(cartTotal());
 }
 
-/* ==========================
-   الكوبونات
-========================== */
+/* ========================================
+   COUPONS
+======================================== */
 
 function setCouponMessage(message){
   $('couponMessage').textContent = message;
@@ -1299,18 +2360,22 @@ function applyCoupon(){
 
   if(!code){
     appliedCoupon = '';
+
     setCouponMessage(
       'يرجى إدخال كود الخصم.'
     );
+
     updateCheckoutSummary();
     return;
   }
 
   if(!/^[A-Z0-9_-]{3,30}$/.test(code)){
     appliedCoupon = '';
+
     setCouponMessage(
       'صيغة كود الخصم غير صحيحة.'
     );
+
     updateCheckoutSummary();
     return;
   }
@@ -1318,8 +2383,8 @@ function applyCoupon(){
   appliedCoupon = code;
 
   setCouponMessage(
-    '🎟️ تم تجهيز الكوبون ' +
-    code +
+    '🎟️ تم تجهيز الكوبون '+
+    code+
     '. سيتم التحقق من صلاحيته وحساب الخصم عند إرسال الطلب.'
   );
 
@@ -1337,9 +2402,9 @@ function removeCoupon(){
   updateCheckoutSummary();
 }
 
-/* ==========================
-   ملخص الطلب
-========================== */
+/* ========================================
+   CHECKOUT SUMMARY
+======================================== */
 
 function updateCheckoutSummary(){
   const subtotal = cartTotal();
@@ -1394,9 +2459,9 @@ function updateCheckoutSummary(){
   }
 }
 
-/* ==========================
-   تفاصيل المنتجات
-========================== */
+/* ========================================
+   PRODUCT CATEGORIES
+======================================== */
 
 function productCategory(p){
   const raw = String(p.category || '')
@@ -1466,26 +2531,37 @@ function productImages(p){
 
 function productLink(id){
   const url = new URL(window.location.href);
-  url.hash = 'product=' + encodeURIComponent(id);
+
+  url.hash =
+    'product='+encodeURIComponent(id);
+
   return url.toString();
 }
 
+/* ========================================
+   PRODUCT DETAILS
+======================================== */
+
 function renderProductDetail(){
   const p = activeProduct;
+
   if(!p) return;
 
-  $('productTitle').textContent = 'تفاصيل المنتج';
-  $('productName').textContent = p.name;
+  $('productTitle').textContent =
+    'تفاصيل المنتج';
+
+  $('productName').textContent =
+    p.name;
 
   $('productDescription').textContent =
     p.description || 'وصف المنتج قريبًا.';
 
   $('productPrice').textContent =
-    money(p.price) + ' ر.س';
+    money(p.price)+' ر.س';
 
   $('productStock').textContent =
     p.stock > 0
-      ? 'متوفر: ' + money(p.stock) + ' قطعة'
+      ? 'متوفر: '+money(p.stock)+' قطعة'
       : 'نفدت الكمية';
 
   const categories = {
@@ -1509,6 +2585,7 @@ function renderProductDetail(){
     );
 
     const img = document.createElement('img');
+
     img.className = 'product-main-image';
     img.src = images[activeGalleryIndex];
     img.alt = p.name;
@@ -1517,6 +2594,7 @@ function renderProductDetail(){
 
     images.forEach((url,index) => {
       const button = document.createElement('button');
+
       button.type = 'button';
 
       if(index === activeGalleryIndex){
@@ -1524,8 +2602,9 @@ function renderProductDetail(){
       }
 
       const thumb = document.createElement('img');
+
       thumb.src = url;
-      thumb.alt = 'صورة ' + (index+1);
+      thumb.alt = 'صورة '+(index+1);
 
       button.append(thumb);
 
@@ -1536,8 +2615,10 @@ function renderProductDetail(){
 
       $('productGallery').append(button);
     });
+
   }else{
     const fallback = document.createElement('div');
+
     fallback.className = 'product-fallback';
     fallback.textContent = '✦';
 
@@ -1548,16 +2629,21 @@ function renderProductDetail(){
     Math.max(detailQuantity,1),
     Math.max(
       1,
-      Math.min(20,p.stock-(cart[p.id] || 0))
+      Math.min(
+        20,
+        p.stock-(cart[p.id] || 0)
+      )
     )
   );
 
   const remaining = Math.max(
     0,
-    Math.min(20,p.stock) - (cart[p.id] || 0)
+    Math.min(20,p.stock)-
+    (cart[p.id] || 0)
   );
 
-  $('detailQty').textContent = detailQuantity;
+  $('detailQty').textContent =
+    detailQuantity;
 
   $('detailMinus').disabled =
     detailQuantity <= 1;
@@ -1566,11 +2652,12 @@ function renderProductDetail(){
     remaining <= 0 ||
     detailQuantity >= remaining;
 
-  $('detailAdd').disabled = remaining <= 0;
+  $('detailAdd').disabled =
+    remaining <= 0;
 
   $('detailAdd').textContent =
     remaining > 0
-      ? 'أضف ' + detailQuantity + ' للسلة'
+      ? 'أضف '+detailQuantity+' للسلة'
       : 'الكمية غير متاحة';
 
   $('relatedProducts').replaceChildren();
@@ -1588,6 +2675,7 @@ function renderProductDetail(){
 
   for(const item of related){
     const b = document.createElement('button');
+
     b.type = 'button';
     b.className = 'related-item';
 
@@ -1595,8 +2683,10 @@ function renderProductDetail(){
 
     if(imgs.length){
       const im = document.createElement('img');
+
       im.src = imgs[0];
       im.alt = item.name;
+
       b.append(im);
     }
 
@@ -1605,7 +2695,10 @@ function renderProductDetail(){
     b.append(title);
 
     const price = document.createElement('span');
-    price.textContent = money(item.price)+' ر.س';
+
+    price.textContent =
+      money(item.price)+' ر.س';
+
     b.append(price);
 
     b.onclick = () => openProduct(item.id);
@@ -1616,6 +2709,7 @@ function renderProductDetail(){
 
 function openProduct(id,updateHash=true){
   const p = products.find(x => x.id === id);
+
   if(!p) return;
 
   activeProduct = p;
@@ -1629,12 +2723,19 @@ function openProduct(id,updateHash=true){
   $('productOverlay').classList.remove('hidden');
 
   if(updateHash){
-    history.replaceState(null,'',productLink(id));
+    history.replaceState(
+      null,
+      '',
+      productLink(id)
+    );
   }
+
+  updateModalScroll();
 }
 
 function closeProduct(){
   $('productOverlay').classList.add('hidden');
+
   activeProduct = null;
 
   if(location.hash.startsWith('#product=')){
@@ -1644,6 +2745,8 @@ function closeProduct(){
       location.pathname+location.search
     );
   }
+
+  updateModalScroll();
 }
 
 function openLinkedProduct(){
@@ -1664,9 +2767,9 @@ function openLinkedProduct(){
   openProduct(id,false);
 }
 
-/* ==========================
-   تحميل المنتجات
-========================== */
+/* ========================================
+   LOAD PRODUCTS
+======================================== */
 
 async function loadProducts(){
   const container = $('items');
@@ -1734,6 +2837,7 @@ async function loadProducts(){
 
     for(const section of sections){
       const block = document.createElement('section');
+
       block.className = 'category-block';
       block.id = section.id;
 
@@ -1755,14 +2859,20 @@ async function loadProducts(){
 
     for(const p of products){
       const card = document.createElement('article');
+
       card.className = 'card';
-      card.setAttribute('aria-label',p.name);
+
+      card.setAttribute(
+        'aria-label',
+        p.name
+      );
 
       if(
         p.image_url &&
         /^https:\/\//i.test(p.image_url)
       ){
         const img = document.createElement('img');
+
         img.className = 'product-image';
         img.src = p.image_url;
         img.alt = p.name;
@@ -1774,8 +2884,10 @@ async function loadProducts(){
         );
 
         card.append(img);
+
       }else{
         const bottle = document.createElement('div');
+
         bottle.className = 'bottle';
         bottle.textContent = '♜';
 
@@ -1796,7 +2908,8 @@ async function loadProducts(){
 
       const price = document.createElement('p');
       price.className = 'price';
-      price.textContent = `${money(p.price)} ر.س`;
+      price.textContent =
+        `${money(p.price)} ر.س`;
 
       const button = document.createElement('button');
 
@@ -1813,6 +2926,7 @@ async function loadProducts(){
       );
 
       const details = document.createElement('button');
+
       details.className = 'secondary';
       details.textContent = 'عرض التفاصيل';
 
@@ -1822,7 +2936,9 @@ async function loadProducts(){
       );
 
       const bottom = document.createElement('div');
+
       bottom.className = 'card-bottom';
+
       bottom.append(details,button);
 
       name.style.cursor = 'pointer';
@@ -1832,10 +2948,17 @@ async function loadProducts(){
         () => openProduct(p.id)
       );
 
-      card.append(name,desc,price,bottom);
+      card.append(
+        name,
+        desc,
+        price,
+        bottom
+      );
 
       grids[productCategory(p)].append(card);
     }
+
+    animateProducts();
 
   }catch(error){
     console.error(
@@ -1848,12 +2971,13 @@ async function loadProducts(){
   }
 }
 
-/* ==========================
-   إضافة وتعديل السلة
-========================== */
+/* ========================================
+   CART ACTIONS
+======================================== */
 
 function add(id){
   const p = products.find(p => p.id === id);
+
   if(!p) return;
 
   if(
@@ -1863,15 +2987,17 @@ function add(id){
     return;
   }
 
-  cart[id] = (cart[id] || 0) + 1;
+  cart[id] = (cart[id] || 0)+1;
+
   saveCart();
 }
 
 function changeQty(id,delta){
   const p = products.find(p => p.id === id);
+
   if(!p) return;
 
-  const next = (cart[id] || 0) + delta;
+  const next = (cart[id] || 0)+delta;
 
   if(next <= 0){
     delete cart[id];
@@ -1888,18 +3014,23 @@ function changeQty(id,delta){
 
 function renderCart(){
   const rows = $('cartRows');
+
   rows.replaceChildren();
 
   const lines = getLines();
 
   if(!lines.length){
     const p = document.createElement('p');
-    p.textContent = 'السلة فارغة. أضف منتجًا أولًا.';
+
+    p.textContent =
+      'السلة فارغة. أضف منتجًا أولًا.';
+
     rows.append(p);
   }
 
   for(const {p,qty} of lines){
     const row = document.createElement('div');
+
     row.className = 'cart-row';
 
     const label = document.createElement('div');
@@ -1915,9 +3046,11 @@ function renderCart(){
     label.append(strong,detail);
 
     const actions = document.createElement('div');
+
     actions.className = 'cart-actions';
 
     const minus = document.createElement('button');
+
     minus.textContent = '−';
     minus.onclick = () => changeQty(p.id,-1);
 
@@ -1925,11 +3058,15 @@ function renderCart(){
     number.textContent = qty;
 
     const plus = document.createElement('button');
+
     plus.textContent = '+';
-    plus.disabled = qty >= Math.min(p.stock,20);
+    plus.disabled =
+      qty >= Math.min(p.stock,20);
+
     plus.onclick = () => changeQty(p.id,1);
 
     const remove = document.createElement('button');
+
     remove.className = 'secondary';
     remove.textContent = 'حذف';
 
@@ -1939,19 +3076,46 @@ function renderCart(){
       renderCart();
     };
 
-    actions.append(minus,number,plus,remove);
+    actions.append(
+      minus,
+      number,
+      plus,
+      remove
+    );
+
     row.append(label,actions);
     rows.append(row);
   }
 
-  $('checkoutBtn').disabled = !lines.length;
+  $('checkoutBtn').disabled =
+    !lines.length;
+
   renderTotals();
+}
+
+function updateModalScroll(){
+  const anyOpen = [
+    'cartOverlay',
+    'checkoutOverlay',
+    'productOverlay'
+  ].some(
+    id => !$(id).classList.contains('hidden')
+  );
+
+  document.body.classList.toggle(
+    'modal-open',
+    anyOpen
+  );
 }
 
 function showCart(){
   $('checkoutOverlay').classList.add('hidden');
+
   renderCart();
+
   $('cartOverlay').classList.remove('hidden');
+
+  updateModalScroll();
 }
 
 function showCheckout(){
@@ -1959,7 +3123,6 @@ function showCheckout(){
     return;
   }
 
-  // أخذ الكوبون المكتوب حتى لو لم يضغط المستخدم تطبيق
   const typedCoupon = normalizeCoupon(
     $('couponInput').value
   );
@@ -1980,13 +3143,17 @@ function showCheckout(){
   }
 
   $('cartOverlay').classList.add('hidden');
+
   updateCheckoutSummary();
+
   $('checkoutOverlay').classList.remove('hidden');
+
+  updateModalScroll();
 }
 
-/* ==========================
-   منع تكرار الطلبات
-========================== */
+/* ========================================
+   REQUEST IDEMPOTENCY
+======================================== */
 
 function requestFingerprint(order){
   return JSON.stringify({
@@ -2034,9 +3201,9 @@ function getRequestId(order){
   return id;
 }
 
-/* ==========================
-   إرسال الطلب إلى Supabase
-========================== */
+/* ========================================
+   SUBMIT TEST ORDER
+======================================== */
 
 $('checkoutForm').onsubmit = async e => {
   e.preventDefault();
@@ -2204,7 +3371,9 @@ $('checkoutForm').onsubmit = async e => {
 
     for(const text of linesText.filter(Boolean)){
       const p = document.createElement('p');
+
       p.textContent = text;
+
       $('orderSuccess').append(p);
     }
 
@@ -2230,10 +3399,13 @@ $('checkoutForm').onsubmit = async e => {
     button.disabled = true;
 
   }catch(error){
-    console.error('Order error:',error);
+    console.error(
+      'Order error:',
+      error
+    );
 
     $('checkoutStatus').textContent =
-      'خطأ الطلب: ' + error.message;
+      'خطأ الطلب: '+error.message;
 
     button.disabled = false;
     button.textContent = 'إعادة المحاولة';
@@ -2243,15 +3415,420 @@ $('checkoutForm').onsubmit = async e => {
   }
 };
 
-/* ==========================
-   تشغيل المتجر
-========================== */
+/* ========================================
+   ANIMATED GARDEN
+======================================== */
+
+const reducedMotion = window.matchMedia(
+  '(prefers-reduced-motion: reduce)'
+);
+
+function createGarden(){
+  const garden = $('alreefGarden');
+
+  if(!garden || reducedMotion.matches){
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
+
+  for(let i=0;i<22;i++){
+    const petal = document.createElement('span');
+
+    petal.className = 'alreef-petal';
+
+    petal.style.setProperty(
+      '--x',
+      Math.random()*100+'%'
+    );
+
+    petal.style.setProperty(
+      '--size',
+      (9+Math.random()*13)+'px'
+    );
+
+    petal.style.setProperty(
+      '--duration',
+      (8+Math.random()*9)+'s'
+    );
+
+    petal.style.setProperty(
+      '--delay',
+      (-Math.random()*16)+'s'
+    );
+
+    fragment.append(petal);
+  }
+
+  garden.append(fragment);
+}
+
+/* ========================================
+   PRODUCT ANIMATIONS
+======================================== */
+
+let productObserver = null;
+
+if(
+  'IntersectionObserver' in window &&
+  !reducedMotion.matches
+){
+  productObserver = new IntersectionObserver(
+    entries => {
+      for(const entry of entries){
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          productObserver.unobserve(entry.target);
+        }
+      }
+    },
+    {
+      threshold:0.08
+    }
+  );
+}
+
+function animateProducts(){
+  const cards = document.querySelectorAll(
+    '#items .card'
+  );
+
+  for(const card of cards){
+    if(card.dataset.alreefAnimated){
+      continue;
+    }
+
+    card.dataset.alreefAnimated = '1';
+
+    if(productObserver){
+      card.classList.add('alreef-reveal');
+      productObserver.observe(card);
+    }
+  }
+}
+
+/* ========================================
+   ASSISTANT
+======================================== */
+
+const assistant = $('alreefAssistant');
+const launcher = $('alreefAssistantLauncher');
+const assistantMessages = $('alreefAssistantMessages');
+const assistantForm = $('alreefAssistantForm');
+const assistantInput = $('alreefAssistantInput');
+
+function getStoreProducts(){
+  return products.filter(
+    p => p && p.stock > 0
+  );
+}
+
+function normalizeAssistantText(text){
+  return String(text || '')
+    .normalize('NFKC')
+    .replace(/[أإآ]/g,'ا')
+    .replace(/ة/g,'ه')
+    .replace(/ى/g,'ي')
+    .toLowerCase()
+    .trim();
+}
+
+function addAssistantMessage(text,who='bot'){
+  const bubble = document.createElement('div');
+
+  bubble.className =
+    'alreef-chat-message '+who;
+
+  bubble.textContent = text;
+
+  assistantMessages.append(bubble);
+
+  assistantMessages.scrollTop =
+    assistantMessages.scrollHeight;
+}
+
+function addAssistantProductLinks(list){
+  if(!list.length){
+    return;
+  }
+
+  const box = document.createElement('div');
+
+  box.className = 'alreef-chat-message bot';
+
+  const heading = document.createElement('strong');
+
+  heading.textContent = '🛍️ منتجات متوفرة:';
+
+  box.append(heading);
+
+  for(const p of list.slice(0,3)){
+    const row = document.createElement('div');
+
+    row.style.marginTop = '12px';
+
+    const link = document.createElement('a');
+
+    link.href =
+      '#product='+encodeURIComponent(p.id);
+
+    link.textContent =
+      p.name+' — '+
+      money(p.price)+' ر.س';
+
+    link.addEventListener('click',e=>{
+      e.preventDefault();
+
+      closeAssistant();
+
+      openProduct(p.id);
+    });
+
+    row.append(link);
+    box.append(row);
+  }
+
+  assistantMessages.append(box);
+
+  assistantMessages.scrollTop =
+    assistantMessages.scrollHeight;
+}
+
+function findAssistantProducts(query){
+  const available = getStoreProducts();
+
+  const q = normalizeAssistantText(query);
+
+  const ignoredWords = [
+    'ابغى',
+    'ابي',
+    'اريد',
+    'عطر',
+    'عطور',
+    'عندكم',
+    'عندك',
+    'رشح',
+    'لي',
+    'كم',
+    'سعر'
+  ];
+
+  const words = q
+    .split(/\s+/)
+    .filter(word => word.length >= 3)
+    .filter(word => !ignoredWords.includes(word));
+
+  return available.filter(p=>{
+    const text = normalizeAssistantText(
+      [
+        p.name,
+        p.description,
+        p.category
+      ].join(' ')
+    );
+
+    return words.some(
+      word => text.includes(word)
+    );
+  });
+}
+
+function respondAssistant(question){
+  const q = normalizeAssistantText(question);
+
+  if(!q){
+    addAssistantMessage(
+      'اكتب سؤالك وسأساعدك 🌹'
+    );
+    return;
+  }
+
+  /* التحية */
+
+  if(
+    /^(هلا|السلام|مرحبا|اهلا|هاي|hello)/.test(q)
+  ){
+    addAssistantMessage(
+      'يا هلا ومرحبا بك في عطور الريف 🌹\n\n'+
+      'أقدر أساعدك في اختيار العطور، '+
+      'ومعرفة الأسعار والشحن والاسترجاع.'
+    );
+    return;
+  }
+
+  /* الشحن */
+
+  if(
+    /شحن|توصيل|مندوب|كم يوم|متى يوصل/.test(q)
+  ){
+    addAssistantMessage(
+      '🚚 الشحن في عطور الريف:\n\n'+
+      '• نجران ومحافظاتها: 25 ريال.\n'+
+      '• باقي مناطق المملكة: 30 ريال.\n'+
+      '• الشحن مجاني من 300 ريال.\n\n'+
+      'التوصيل المتوقع داخل نجران خلال 24 ساعة، '+
+      'وباقي المناطق من 4 إلى 6 أيام.\n\n'+
+      'المتجر حاليًا في المرحلة التجريبية، '+
+      'ولا تُنفذ طلبات شحن فعلية.'
+    );
+    return;
+  }
+
+  /* الاسترجاع */
+
+  if(
+    /استرجاع|استبدال|ارجاع|ترجيع|مرتجع/.test(q)
+  ){
+    addAssistantMessage(
+      '↩️ سياسة الاسترجاع:\n\n'+
+      'يمكن طلب الاستبدال أو الاسترجاع '+
+      'خلال 7 أيام من الاستلام وفق الشروط المعلنة.\n\n'+
+      'العطور والعود المفتوحة أو المستخدمة '+
+      'لا تُسترجع لمجرد تغيير الرأي، '+
+      'مع الحفاظ على الحقوق النظامية للمستهلك.\n\n'+
+      'يمكنك قراءة التفاصيل في قسم سياسات المتجر.'
+    );
+    return;
+  }
+
+  /* خدمة العملاء */
+
+  if(
+    /واتساب|تواصل|موظف|خدمه العملاء|رقمكم/.test(q)
+  ){
+    addAssistantMessage(
+      '📱 يسعدنا تواصلك مع خدمة عملاء عطور الريف.\n\n'+
+      'رقم واتساب:\n'+
+      '+966535317713\n\n'+
+      'اضغط رابط التواصل الموجود في قسم '+
+      '«تواصل معنا» أسفل المتجر.'
+    );
+    return;
+  }
+
+  /* الكوبونات */
+
+  if(
+    /كوبون|خصم|كود|عرض/.test(q)
+  ){
+    addAssistantMessage(
+      '🎟️ إذا كان لديك كوبون خصم، '+
+      'أدخله في سلة المشتريات.\n\n'+
+      'يتم التحقق من صلاحيته عند إرسال '+
+      'الطلب التجريبي.\n\n'+
+      'لا أستطيع تأكيد وجود عروض نشطة حاليًا.'
+    );
+    return;
+  }
+
+  /* الطلبات */
+
+  if(
+    /طلبي|طلباتي|تتبع|رقم الطلب/.test(q)
+  ){
+    addAssistantMessage(
+      '📦 المتجر حاليًا في المرحلة التجريبية.\n\n'+
+      'لا أستطيع الاطلاع على بيانات الطلبات '+
+      'أو تتبعها من خلال المحادثة.\n\n'+
+      'للاستفسارات يمكنك التواصل مع خدمة العملاء.'
+    );
+    return;
+  }
+
+  /* المنتجات */
+
+  const available = getStoreProducts();
+
+  if(
+    /عود|عطر|عطور|رجالي|نسائي|هديه|هدية|مسك|ورد|سعر|منتج|رشح|ابغى|ابي/.test(q)
+  ){
+    if(!available.length){
+      addAssistantMessage(
+        '🌹 المنتجات قيد التحميل أو لا توجد '+
+        'منتجات متوفرة حاليًا.\n'+
+        'جرّب مرة أخرى بعد قليل.'
+      );
+      return;
+    }
+
+    let matched = findAssistantProducts(question);
+
+    if(/عود/.test(q)){
+      matched = available.filter(p=>
+        /عود|كمبودي|تايقر/i.test(
+          [
+            p.name,
+            p.category,
+            p.description
+          ].join(' ')
+        )
+      );
+    }
+
+    if(!matched.length){
+      matched = available.slice(0,3);
+    }
+
+    addAssistantMessage(
+      '🌹 يسعدني أساعدك في الاختيار.\n\n'+
+      'هذه بعض المنتجات المتوفرة في متجرنا. '+
+      'تقدر تضغط على أي منتج لمشاهدة تفاصيله.\n\n'+
+      'الترشيحات مبنية على أسماء المنتجات '+
+      'وأوصافها المتاحة.'
+    );
+
+    addAssistantProductLinks(matched);
+    return;
+  }
+
+  /* رد افتراضي */
+
+  addAssistantMessage(
+    '🌿 أهلًا بك في عطور الريف.\n\n'+
+    'أقدر أساعدك في:\n'+
+    '🌹 اختيار العطور\n'+
+    '🪵 منتجات العود\n'+
+    '🚚 الشحن والتوصيل\n'+
+    '↩️ الاستبدال والاسترجاع\n'+
+    '📱 التواصل مع خدمة العملاء\n\n'+
+    'جرّب تسألني عن أحد هذه المواضيع.'
+  );
+}
+
+function openAssistant(){
+  assistant.classList.remove('hidden');
+
+  launcher.setAttribute(
+    'aria-expanded',
+    'true'
+  );
+
+  assistantInput.focus();
+}
+
+function closeAssistant(){
+  assistant.classList.add('hidden');
+
+  launcher.setAttribute(
+    'aria-expanded',
+    'false'
+  );
+
+  launcher.focus();
+}
+
+/* ========================================
+   EVENTS
+======================================== */
 
 readCart();
 renderTotals();
+
+createGarden();
 loadProducts();
 
 /* تفاصيل المنتج */
+
 $('closeProduct').onclick = closeProduct;
 
 $('detailMinus').onclick = () => {
@@ -2259,6 +3836,7 @@ $('detailMinus').onclick = () => {
     1,
     detailQuantity-1
   );
+
   renderProductDetail();
 };
 
@@ -2268,13 +3846,16 @@ $('detailPlus').onclick = () => {
 };
 
 $('detailAdd').onclick = () => {
-  if(!activeProduct) return;
+  if(!activeProduct){
+    return;
+  }
 
   const p = activeProduct;
 
   const remaining = Math.max(
     0,
-    Math.min(p.stock,20)-(cart[p.id] || 0)
+    Math.min(p.stock,20)-
+    (cart[p.id] || 0)
   );
 
   if(remaining < detailQuantity){
@@ -2292,26 +3873,32 @@ $('detailAdd').onclick = () => {
     'تمت إضافة المنتج للسلة ✓';
 
   detailQuantity = 1;
+
   renderProductDetail();
 };
 
 $('shareWhatsApp').onclick = () => {
-  if(!activeProduct) return;
+  if(!activeProduct){
+    return;
+  }
 
   const msg =
-    activeProduct.name +
-    ' - ' +
+    activeProduct.name+
+    ' - '+
     productLink(activeProduct.id);
 
   window.open(
-    'https://wa.me/?text=' + encodeURIComponent(msg),
+    'https://wa.me/?text='+
+    encodeURIComponent(msg),
     '_blank',
     'noopener'
   );
 };
 
 $('copyProductLink').onclick = async () => {
-  if(!activeProduct) return;
+  if(!activeProduct){
+    return;
+  }
 
   try{
     await navigator.clipboard.writeText(
@@ -2320,13 +3907,14 @@ $('copyProductLink').onclick = async () => {
 
     $('detailMessage').textContent =
       'تم نسخ رابط المنتج ✓';
+
   }catch(e){
     $('detailMessage').textContent =
       'تعذر النسخ، يمكنك مشاركة الرابط عبر واتساب.';
   }
 };
 
-window.addEventListener('hashchange',() => {
+window.addEventListener('hashchange',()=>{
   if(location.hash.startsWith('#product=')){
     openLinkedProduct();
   }else if(activeProduct){
@@ -2334,16 +3922,19 @@ window.addEventListener('hashchange',() => {
   }
 });
 
-/* أزرار السلة */
+/* السلة */
+
 $('headerCart').onclick = showCart;
 $('floatingCart').onclick = showCart;
 
 $('closeCart').onclick = () => {
   $('cartOverlay').classList.add('hidden');
+  updateModalScroll();
 };
 
 $('closeCheckout').onclick = () => {
   $('checkoutOverlay').classList.add('hidden');
+  updateModalScroll();
 };
 
 $('checkoutBtn').onclick = showCheckout;
@@ -2360,7 +3951,8 @@ $('clearCart').onclick = () => {
   renderCart();
 };
 
-/* أزرار الكوبون */
+/* الكوبونات */
+
 $('applyCouponBtn').onclick = applyCoupon;
 $('removeCouponBtn').onclick = removeCoupon;
 
@@ -2392,30 +3984,96 @@ $('couponInput').addEventListener(
 );
 
 /* إغلاق النوافذ */
+
 for(const overlay of [
   $('cartOverlay'),
   $('checkoutOverlay'),
   $('productOverlay')
 ]){
-  overlay.addEventListener('click',e => {
+  overlay.addEventListener('click',e=>{
     if(e.target === overlay){
       if(overlay === $('productOverlay')){
         closeProduct();
       }else{
         overlay.classList.add('hidden');
+        updateModalScroll();
       }
     }
   });
 }
 
-document.addEventListener('keydown',e => {
-  if(e.key === 'Escape'){
-    $('cartOverlay').classList.add('hidden');
-    $('checkoutOverlay').classList.add('hidden');
-    closeProduct();
+/* المساعد */
+
+launcher.addEventListener('click',()=>{
+  if(assistant.classList.contains('hidden')){
+    openAssistant();
+  }else{
+    closeAssistant();
   }
 });
 
+$('alreefAssistantClose').addEventListener(
+  'click',
+  closeAssistant
+);
+
+assistantForm.addEventListener('submit',e=>{
+  e.preventDefault();
+
+  const question = assistantInput.value.trim();
+
+  if(!question){
+    return;
+  }
+
+  addAssistantMessage(question,'user');
+
+  assistantInput.value = '';
+
+  respondAssistant(question);
+});
+
+assistant.querySelectorAll(
+  '[data-question]'
+).forEach(button=>{
+  button.addEventListener('click',()=>{
+    const question = button.dataset.question;
+
+    addAssistantMessage(question,'user');
+
+    respondAssistant(question);
+  });
+});
+
+/* زر Escape */
+
+document.addEventListener('keydown',e=>{
+  if(e.key !== 'Escape'){
+    return;
+  }
+
+  if(!assistant.classList.contains('hidden')){
+    closeAssistant();
+    return;
+  }
+
+  $('cartOverlay').classList.add('hidden');
+  $('checkoutOverlay').classList.add('hidden');
+
+  closeProduct();
+  updateModalScroll();
+});
+
+/* رسالة الترحيب */
+
+addAssistantMessage(
+  'أهلًا وسهلًا بك في عطور الريف 🌹\n\n'+
+  'أنا مساعد المتجر، ويسعدني أساعدك '+
+  'في اختيار عطرك المناسب.\n\n'+
+  'وش تحب أساعدك فيه اليوم؟'
+);
+
 </script>
+
 </body>
 </html>
